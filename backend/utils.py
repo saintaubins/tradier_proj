@@ -1,4 +1,4 @@
-import config, requests
+import config, requests, json
 import pandas as pd
 
 
@@ -21,7 +21,7 @@ def get_quotes(symbols = 'TSLA') -> dict:
 
 # print(get_quotes())
 
-def get_options_chain(symbol= 'TSLA', exp_dt= '2023-07-21') -> dict:
+def get_options_chain(symbol= 'TSLA', exp_dt= '2023-07-28') -> dict:
     options_url = '{}markets/options/chains'.format(config.API_BASE_URL)
 
     response = requests.get(options_url,
@@ -33,14 +33,14 @@ def get_options_chain(symbol= 'TSLA', exp_dt= '2023-07-21') -> dict:
     if response.status_code == 200:
         data_dict = response.json()
 
-        return data_dict
+        return json.dumps(data_dict, indent=4)
     else:
         print('Failed to retrieve data. Status code:', response.status_code)
         return None
 
 print(get_options_chain())
 
-def get_option_strike_price(symbol = 'TSLA', exp_dt= '2023-07-21') -> dict:
+def get_option_strike_price(symbol = 'TSLA', exp_dt= '2023-07-28') -> dict:
     response = requests.get('https://api.tradier.com/v1/markets/options/strikes',
     params={'symbol': symbol, 'expiration': exp_dt},
     headers=headers

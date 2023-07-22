@@ -38,3 +38,9 @@ body {
     margin-bottom: 10px;
   }
   
+  #myChartContainer {
+    width: 80%; /* Adjust the width to your desired size */
+    height: 50vh; /* Adjust the height to your desired size */
+    margin: 0 auto; /* This will horizontally center the container */
+    text-align: center; /* This will center the canvas inside the container */
+  }

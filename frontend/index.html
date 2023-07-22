@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
+<head>   
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>My Website</title>
@@ -17,8 +17,8 @@
 <body>
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Active Trading</a>
+      <div class="navbar-header">  
+        <a class="navbar-brand" href="index.html">Active Trading</a>
       </div>
       <ul class="nav navbar-nav">
         <li><a href="index.html">Home</a></li>
@@ -31,19 +31,30 @@
     </div>
   </nav>
   
-
   <div class="container">
     <h1>Welcome to My Website</h1>
     <p>This is the home page.</p>
   </div>
-  <div>
-    <canvas id="stockChart"></canvas>
+  <form class="col-xs-2">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Ex: AAPL">
+      <div class="input-group-btn">
+        <button class="btn btn-default" type="submit">
+          <i class="glyphicon glyphicon-search"></i>
+        </button>
+      </div>
+    </div>
+  </form>
+    
+  <div id="myChartContainer">
+    <canvas id="homeChart"></canvas>
   </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="chartcontroller.js"></script>
+  <script src="indexchartcontroller.js"></script>
   
 </body>
 

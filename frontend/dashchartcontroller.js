@@ -21,7 +21,7 @@ const dataY = {
     label: 'Current price',
     data: [65, 59, 80, 81, 56, 55, 40, 11, 80, 34, 34, 76],
     fill: false,
-    borderColor: 'rgb(75, 192, 192)',
+    borderColor: 'rgb(123,104,238)',
     borderJoinStyle: 'round',
     pointRadius: 0,
     tension: 0.25
@@ -29,7 +29,7 @@ const dataY = {
     label: 'EMA Short',
     data: [15, 40, 78, 30, 67, 95, 54, 45, 87, 21, 34, 56],
     fill: false,
-    borderColor: 'rgb(75, 111, 50)',
+    borderColor: 'rgb(255, 255, 0)',
     borderJoinStyle: 'round',
     pointRadius: 0,
     tension: 0.25

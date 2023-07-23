@@ -21,7 +21,7 @@ const dataY = {
     label: 'Current price',
     data: [65, 59, 80, 81, 56, 55, 40, 11, 80, 34, 34, 76],
     fill: false,
-    borderColor: 'rgb(255, 87, 51)',
+    borderColor: 'rgb(255, 141, 0)',
     borderJoinStyle: 'round',
     pointRadius: 0,
     tension: 0.25

@@ -49,6 +49,47 @@
     
     <input type="submit" class="btn btn-info" value="Submit Trade">
   </div>
+  <div class="container">
+    <h1>See available Options chain</h1>
+    <p>You can place a trade here, and track the progress.</p>
+    <div class="form-group row">
+      <div class="col-xs-3">
+        <label for="ex2">Symbol:</label>
+        <input class="form-control" id="symbolInput" type="text" placeholder="Ex: AAPL">
+      </div>
+      <div class="col-xs-3">
+        <label for="ex3">Contract Exp Date:</label>
+        <input class="form-control" id="expDateInput" type="text" placeholder="Ex: 2023-07-28">
+      </div>
+      <div class="col-xs-3">
+        <label for="optionTypeSelect">Option Type:</label>
+        <select class="form-control" id="optionTypeSelect">
+          <option value="call">Call</option>
+          <option value="put">Put</option>
+        </select>
+      </div>
+    </div>
+    <input type="button" class="btn btn-info" value="View" id="viewButton">
+    <div class="container mt-4">
+      <h1>Options Data</h1>
+      <table class="table table-bordered table-hover" id="data-table">
+        <thead>
+          <tr>
+            <th>Ask</th>
+            <th>Bid</th>
+            <th>Strike</th>
+            <th>Description</th>
+            <th>Symbol</th>
+            <!-- Add more table headers as needed for other properties -->
+          </tr>
+        </thead>
+        <tbody id="optionsData">
+          <!-- Table rows will be populated dynamically using JavaScript -->
+        </tbody>
+      </table>
+    </div>
+  </div>
+
   <div id="myChartContainer">
     <canvas id="emaChart"></canvas>
   </div>

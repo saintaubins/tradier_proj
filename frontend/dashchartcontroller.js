@@ -1,4 +1,7 @@
+
+
 const ema = document.getElementById('emaChart');
+//const viewButton = document.getElementById('viewButton');
 
 const labelsX = [
   'January',
@@ -55,3 +58,107 @@ new Chart(ema, {
     }
   }
 });
+
+// Function to get the date of the next Friday from today
+function getNextFriday() {
+  let today = new Date();
+  let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+  let daysUntilFriday = 5 - dayOfWeek; // Number of days until Friday (Friday is the 6th day of the week)
+
+  let nextFriday = new Date(today);
+  nextFriday.setDate(today.getDate() + daysUntilFriday);
+
+  return nextFriday;
+}
+
+// Function to format the date as 'YYYY-MM-DD'
+function formatDate(date) {
+  return date.toISOString().slice(0, 10);
+}
+
+// Get the next Friday date
+let nextFriday = getNextFriday();
+
+// Format the date as 'YYYY-MM-DD'
+let formattedDate = formatDate(nextFriday);
+
+
+// Add an event listener to the button when the DOM is loaded
+document.addEventListener('DOMContentLoaded', function() {
+  
+  const viewButton = document.getElementById("viewButton");
+
+  viewButton.addEventListener("click", function() {
+  
+  let selectedOption = document.getElementById('optionTypeSelect').value;
+
+  let symbol = document.getElementById('symbolInput').value;
+  if (symbol === '') {
+    symbol = 'TSLA';
+  }
+  let expDate = document.getElementById('expDateInput').value;
+  if (expDate === '') {
+    expDate = formattedDate;
+  }
+
+  const url = `http://127.0.0.1:5000/optionschain?symbol=${symbol}&exp_dt=${expDate}&optionType=${selectedOption}`;
+
+  console.log("url -> ",url)
+    // Making the GET request using fetch
+    fetch(url)
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        // Work with the data here
+        console.log(data);
+        populateTable(data.message.options.option);
+      })
+      .catch((error) => {
+        console.error("Error occurred while making the request:", error);
+      });
+  });
+});
+
+// Function to clear the table data
+function clearTableData() {
+  const optionsDataContainer = document.getElementById("optionsData");
+
+  // Remove existing rows from the table
+  while (optionsDataContainer.firstChild) {
+    optionsDataContainer.removeChild(optionsDataContainer.firstChild);
+  }
+}
+
+// Function to populate the table with options data
+function populateTable(data) {
+  const optionsDataContainer = document.getElementById("optionsData");
+
+  // Call the function to clear the table before populating it with new data
+  clearTableData();
+
+  // Loop through the option objects and create table rows
+  data.forEach((option) => {
+    const row = document.createElement("tr");
+    row.innerHTML = `
+      <td>${option.ask}</td>
+      <td>${option.bid}</td>
+      <td>${option.strike}</td>
+      <td>${option.description}</td>
+      <td>${option.symbol}</td>
+    `;
+
+    optionsDataContainer.appendChild(row);
+  });
+
+}
+
+
+
+
+
+
+

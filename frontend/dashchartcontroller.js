@@ -1,7 +1,6 @@
 
 
 const ema = document.getElementById('emaChart');
-//const viewButton = document.getElementById('viewButton');
 
 const labelsX = [
   'January',
@@ -85,7 +84,7 @@ let formattedDate = formatDate(nextFriday);
 
 // Add an event listener to the button when the DOM is loaded
 document.addEventListener('DOMContentLoaded', function() {
-  
+
   const viewButton = document.getElementById("viewButton");
 
   viewButton.addEventListener("click", function() {

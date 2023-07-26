@@ -24,6 +24,7 @@
     <ul class="nav navbar-nav">
       <li><a href="index.html">Home</a></li>
       <li><a href="Dashboard.html">Dashboard</a></li>
+      <li><a href="Opentrades.html">Opentrades</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
       <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
@@ -44,14 +45,13 @@
         <label for="ex3">Contract Exp Date:</label>
         <input class="form-control" id="ex3" type="text" placeholder="Ex: 2023-07-28">
       </div>
-     
     </div>
     
-    <input type="submit" class="btn btn-info" value="Submit Trade">
+    <input type="submit" class="btn btn-warning" value="Submit Trade">
   </div>
-  <div class="container">
-    <h1>See available Options chain</h1>
-    <p>You can place a trade here, and track the progress.</p>
+  <div class="container mt-4">
+    <h1>See the Options chain</h1>
+    <p>You can see the availble option types here.</p>
     <div class="form-group row">
       <div class="col-xs-3">
         <label for="ex2">Symbol:</label>
@@ -69,7 +69,7 @@
         </select>
       </div>
     </div>
-    <input type="button" class="btn btn-info" value="View" id="viewButton">
+    <input type="button" class="btn btn-success" value="View" id="viewButton">
     <div class="container mt-4">
       <h1>Options Data</h1>
       <table class="table table-bordered table-hover" id="data-table">
@@ -91,7 +91,7 @@
   </div>
 
   <div id="myChartContainer">
-    <canvas id="emaChart"></canvas>
+    <canvas id="emaChart" class="container"></canvas>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>

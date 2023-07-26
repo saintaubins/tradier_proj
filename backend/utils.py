@@ -24,27 +24,9 @@ def get_quotes(symbols = 'TSLA') -> dict:
         return data_dict
     else:
         print('Failed to retrieve data. Status code:', response.status_code)
-        return None
+        return {'message: ': f'Failed to retrieve data. Status code:'+ response.status_code}
 
 # print(get_quotes())
-
-def get_options_chain(symbol= 'TSLA', exp_dt= '2023-07-28') -> dict:
-    options_url = '{}markets/options/chains'.format(config.API_BASE_URL)
-
-    response = requests.get(options_url,
-        params={'symbol': symbol, 'expiration': exp_dt},
-        headers=headers
-    )
-
-    # Check if the response was successful before converting to DataFrame
-    if response.status_code == 200:
-        data_dict = response.json()
-        #print(data_dict)
-        return data_dict
-    else:
-        print('Failed to retrieve data. Status code:', response.status_code)
-        print(response)
-        return None
 
 def get_options_chain(symbol='TSLA', exp_dt='2023-07-28', option_type= None):
     options_url = '{}markets/options/chains'.format(config.API_BASE_URL)
@@ -67,7 +49,7 @@ def get_options_chain(symbol='TSLA', exp_dt='2023-07-28', option_type= None):
         print('Failed to retrieve data. Status code:', response.status_code)
         return {'message':'Failed to retrieve data', 'status code: ' : response.status_code}
 
-print(get_options_chain())
+# print(get_options_chain())
 
 def get_option_strike_price(symbol= 'TSLA', exp_dt= '2023-07-28') -> dict:
     strikes_url = '{}markets/options/strikes'.format(config.API_BASE_URL)
@@ -84,13 +66,12 @@ def get_option_strike_price(symbol= 'TSLA', exp_dt= '2023-07-28') -> dict:
         return data_dict
     else:
         print('Failed to retrieve data. Status code:', response.status_code)
-        return None
+        return {'message: ': f'Failed to retrieve data. Status code:'+ response.status_code}
 
 # print(get_option_strike_price())
 
 
-def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty= '1') -> dict:
-    
+def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty= '5') -> dict:
     try:
         response = requests.post(
             order_url,
@@ -104,10 +85,10 @@ def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty
                 'duration': 'day'},
             headers=headers
         )
-
         return response.json()
     except Exception as e:
         print('could not place order', e)
+        return {'message: ': f'could not place order' + e}
 
 # print(place_option_order())
 
@@ -120,6 +101,6 @@ def get_orders() -> dict:
         return data_dict
     else:
         print('Failed to retrieve data. Status code:', response.status_code)
-        return None
+        return {'message: ': f'Failed to retrieve data. Status code:'+ response.status_code}
 
 # print(get_orders())

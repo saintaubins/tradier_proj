@@ -37,6 +37,7 @@ def get_quotes():
 @app.route('/getorders')
 def get_orders():
     res = utils.get_orders()
+    print('res ->', res)
     return jsonify({'message': res}) 
 
 @app.route('/getoptionsstrikeprice')
@@ -48,6 +49,12 @@ def get_options_strike_price():
 def place_option_order():
     res = utils.place_option_order()
     return jsonify({'message': res})   
+
+@app.route('/cancelorder')
+def cancel_option_order():
+    order_id = request.args.get('order_id') 
+    res = utils.cancel_order(order_id=order_id)
+    return jsonify({'message': res})  
 
 if __name__ == '__main__':
     app.run(debug=True)

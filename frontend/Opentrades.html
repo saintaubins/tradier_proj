@@ -56,6 +56,10 @@
     <h1>You can see your open trades here.</h1>
     <p>Click the button to see them.</p>
     <input type="button" class="btn btn-success" value="Open trades" id="openTradesButton">
+    <div id="successMessage" class="alert alert-info alert-dismissible" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>There are no open trades</strong>
+    </div>
     <div class="container mt-4">
         <h1>Open trades data.</h1>
         <table class="table table-bordered table-hover" id="data-table">
@@ -64,6 +68,7 @@
             <th>Symbol</th>
             <th>Option Symbol</th>
             <th>Transaction Date</th>
+            <th>Id</th>
             <th>Side</th>
             <th>Status</th>
             </tr>

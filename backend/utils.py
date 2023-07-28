@@ -71,7 +71,7 @@ def get_option_strike_price(symbol= 'TSLA', exp_dt= '2023-07-28') -> dict:
 # print(get_option_strike_price())
 
 
-def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty= '5') -> dict:
+def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty= '1') -> dict:
     try:
         response = requests.post(
             order_url,
@@ -81,8 +81,10 @@ def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty
                 'option_symbol': option_symbol, 
                 'side': 'buy_to_open', 
                 'quantity': qty, 
-                'type': 'market', 
-                'duration': 'gtc'},
+                'type': 'limit', 
+                'duration': 'gtc',
+                'price': '1.00'
+                },
             headers=headers
         )
         return response.json()
@@ -137,7 +139,7 @@ def cancel_order(order_id: str) -> dict:
         print('error -> ', e)
         return {'message': f'Failed to retrieve data. Error: {e}'}
 
-# cancel_order('7177432')
+# cancel_order('7200241')
 
 def modify_order(order_id: str) -> dict:
     response = requests.put(

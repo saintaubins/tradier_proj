@@ -45,3 +45,15 @@ body {
     height: 50vh; /* Adjust the height to your desired size */
     margin: 0 auto; /* This will horizontally center the container */ 
   }
+
+  .closeOrderButton {
+    /* Add your custom CSS styles for the close button */
+    /* max-width: 80%; */
+    background-color: red;
+    color: white;
+    /* font-weight: bold; */
+    /* border: none; */
+    /* padding: 10px 20px; */
+    border-radius: 5px;
+    /* cursor: pointer; */
+  }

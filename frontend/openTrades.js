@@ -1,10 +1,82 @@
 
-// Handle button click event
+const backEndUrl = 'http://127.0.0.1:5000/'
+
+// Handle button click events
 document.getElementById("openTradesButton").addEventListener("click", function() {
     fetchDataAndPopulateTable();
   });
 
+document.getElementById("placeOrderButton").addEventListener("click", function() {
+  placeOrder();
+  });
 
+document.getElementById("modalYesButton").addEventListener("click", function() {
+  console.log(' yes button clicked');
+  });
+
+document.getElementById("modalNoButton").addEventListener("click", function() {
+  console.log(' no button clicked');
+  });
+
+// // Add an event listener to the button to trigger the modal with data
+// const openModalButton = document.querySelector('.btn-primary');
+// openModalButton.addEventListener('click', openModalWithData);
+
+document.addEventListener('DOMContentLoaded', function () {
+  // Function to open the modal with data
+  function openModalWithData() {
+    const symbol = document.getElementById("symbol").value;
+    const expDate = document.getElementById("expDate").value;
+    const optionSymbol = document.getElementById("optionSymbol").value;
+    const qty = document.getElementById("qty").value;
+    const sideSelect = document.getElementById("sideSelect").value;
+    const typeSelect = document.getElementById("typeSelect").value;
+    const durationSelect = document.getElementById("durationSelect").value;
+    const price = document.getElementById("price").value;
+    const stop = document.getElementById("stop").value;
+
+    // Set the values in the modal
+    document.getElementById("modalSymbol").textContent = symbol;
+    document.getElementById("modalExpDate").textContent = expDate;
+    document.getElementById("modalOptionSymbol").textContent = optionSymbol;
+    document.getElementById("modalQty").textContent = qty;
+    document.getElementById("modalSide").textContent = sideSelect;
+    document.getElementById("modalType").textContent = typeSelect;
+    document.getElementById("modalDuration").textContent = durationSelect;
+    document.getElementById("modalPrice").textContent = price;
+    document.getElementById("modalStop").textContent = stop;
+
+    // Open the modal
+    $('#myModal').modal('show');
+  }
+
+  // Add an event listener to the button to trigger the modal with data
+  const openModalButton = document.querySelector('.btn-primary');
+  openModalButton.addEventListener('click', openModalWithData);
+});
+
+
+
+
+
+function placeOrder() {
+  const symbol = document.getElementById("symbol").value;
+  const expDate = document.getElementById("expDate").value;
+  const optionSymbol = document.getElementById("optionSymbol").value;
+  const qty = document.getElementById("qty").value;
+  const sideSelect = document.getElementById("sideSelect").value;
+  const typeSelect = document.getElementById("typeSelect").value;
+  const durationSelect = document.getElementById("durationSelect").value;
+  const price = document.getElementById("price").value;
+  const stop = document.getElementById("stop").value;
+
+  const placeOrderUrl = `${backEndUrl}placeoptionorder?symbol=${symbol}&
+                        expDate=${expDate}&optionSymbol=${optionSymbol}&
+                        qty=${qty}&sideSelect=${sideSelect}&typeSelect=${typeSelect}&
+                        durationSelect=${durationSelect}&price=${price}&stop=${stop}`;
+
+  console.log(placeOrderUrl)
+}
 
 // Function to clear the table data
 function clearTableData() {
@@ -25,7 +97,7 @@ function clearTableData() {
   
     // const orders = Object.values(data);
     // Loop through the order objects and create table rows
-    //console.log('data -> ', data)
+    console.log('data -> ', data)
     if (Array.isArray(data)) {
       data.forEach((order) => {
         const row = document.createElement("tr");
@@ -39,18 +111,19 @@ function clearTableData() {
       `;
 
       // Create a button to close the order
-      if (order.status === "filled") {
+      if (order.status === "filled" || order.status === "pending") {
         const closeButtonCell = document.createElement("td");
         const closeButton = document.createElement("button");
-        closeButton.textContent = "Close Order";
+        closeButton.textContent = "X";
+        closeButton.classList.add("closeOrderButton"); // Add a class to the button
         closeButton.addEventListener("click", () => {
           closeOrder(order.id); // Call the closeOrder function with the order ID when the button is clicked
         });
         closeButtonCell.appendChild(closeButton);
         row.appendChild(closeButtonCell);
       }
-    
-        ordersDataContainer.appendChild(row);
+
+      ordersDataContainer.appendChild(row);
       });
     } else if (typeof data === "object") {
 
@@ -108,15 +181,14 @@ function clearTableData() {
       });
   }
 
-  
   // Function to fetch data from the '/getorders' endpoint and populate the table
   function fetchDataAndPopulateTable() {
     // Make a fetch API call to the '/getorders' endpoint
     fetch('http://127.0.0.1:5000/getorders') // Replace with your actual server endpoint
       .then(response => response.json())
       .then(data => {
-        //console.log('data-> ', data)
-        if (data == undefined) {
+        //console.log('data.message.orders -> ', data.message.orders)
+        if (data.message.orders == 'null') {
           showSuccessMessage();
           setTimeout(hideSuccessMessage, 5000);
         } else {

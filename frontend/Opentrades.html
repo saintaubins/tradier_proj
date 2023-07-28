@@ -7,6 +7,7 @@
   <title>Active Algo Tradeing</title>
   <link rel="stylesheet" href="styles.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
@@ -36,25 +37,99 @@
     <h1>You can place your trades here.</h1>
     <p>Provide the information and place your trade.</p>
     <div class="form-group row">
-        <div class="col-xs-3">
-          <label for="ex2">Symbol:</label>
-          <input class="form-control" id="ex2" type="text" placeholder="Ex: AAPL">
+        <div class="col-xs-2">
+          <label for="symbol">Symbol:</label>
+          <input class="form-control" id="symbol" type="text" placeholder="AAPL">
         </div>
-        <div class="col-xs-3">
-          <label for="ex3">Contract Exp Date:</label>
-          <input class="form-control" id="ex3" type="text" placeholder="Ex: 2023-07-28">
+        <div class="col-xs-2">
+          <label for="expDate">Exp Date:</label>
+          <input class="form-control" id="expDate" type="text" placeholder="2023-07-28">
         </div>
-        <div class="col-xs-3">
-        <label for="ex3">Quantity, of contracts:</label>
-        <input class="form-control" id="ex4" type="text" placeholder="Ex: 1 or more">
+        <div class="col-xs-2">
+            <label for="optionSymbol">Option Symbl:</label>
+            <input class="form-control" id="optionSymbol" type="text" placeholder="TSLA230728P00020000">
+        </div>
+        <div class="col-xs-1">
+        <label for="qty">Qty:</label>
+        <input class="form-control" id="qty" type="text" placeholder="1">
+        </div>
+        <div class="col-xs-2">
+            <label for="sideSelect">Side:</label>
+            <select class="form-control" id="sideSelect">
+              <option value="buy_to_open">Buy to open</option>
+              <option value="buy_to_close">Buy to close</option>
+              <option value="sell_to_open">Sell to open</option>
+              <option value="sell_to_close">Sell to close</option>
+            </select>
+        </div>
+        <div class="col-xs-2">
+            <label for="typeSelect">Type:</label>
+            <select class="form-control" id="typeSelect">
+              <option value="limit">Limit</option>
+              <option value="market">Market</option>
+              <option value="stop">Stop</option>
+              <option value="stop_limit">Stop limit</option>
+            </select>
+        </div>
+        <div class="col-xs-2">
+            <label for="durationSelect">Duration:</label>
+            <select class="form-control" id="durationSelect">
+              <option value="gtc">GTC</option>
+              <option value="day">Day</option>
+              <option value="pre">Pre</option>
+              <option value="post">Post</option>
+            </select>
+        </div>
+        <div class="col-xs-2">
+            <label for="price">Price:</label>
+            <input class="form-control" id="price" type="text" placeholder="1.00">
+        </div>
+        <div class="col-xs-2">
+            <label for="stop">Stop:</label>
+            <input class="form-control" id="stop" type="text" placeholder="1.00">
         </div>
       </div>
     <input type="button" class="btn btn-danger" value="Place Order" id="placeOrderButton">
+    <!-- Add a button to trigger the modal -->
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Open Modal
+    </button>
+  
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Order Details Place the order?</h4>
+        </div>
+            <div class="modal-body">
+            <!-- Add input fields in the modal to display the data -->
+            <p>Symbol: <span id="modalSymbol"></span></p>
+            <p>Expiration Date: <span id="modalExpDate"></span></p>
+            <p>Option Symbol: <span id="modalOptionSymbol"></span></p>
+            <p>Quantity: <span id="modalQty"></span></p>
+            <p>Side: <span id="modalSide"></span></p>
+            <p>Type: <span id="modalType"></span></p>
+            <p>Duration: <span id="modalDuration"></span></p>
+            <p>Price: <span id="modalPrice"></span></p>
+            <p>Stop: <span id="modalStop"></span></p>
+            </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalYesButton">Yes</button>
+          <button type="button" class="btn btn-default" data-dismiss="modal" id="modalNoButton">No</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
 </div>
 
 <div class="container">
     <h1>You can see your open trades here.</h1>
-    <p>Click the button to see them.</p>
+    <p>Click the Open trades button to see them.</p>
+    <p>If there are any open trades, that you would like to cancel, click on the red X, in that row, to cancel.</p>
     <input type="button" class="btn btn-success" value="Open trades" id="openTradesButton">
     <div id="successMessage" class="alert alert-info alert-dismissible" style="display: none;">
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -85,7 +160,13 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="openTrades.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   
+
 </body>
 
 </html>

@@ -47,7 +47,31 @@ def get_options_strike_price():
 
 @app.route('/placeoptionorder')
 def place_option_order():
-    res = utils.place_option_order()
+    # Retrieve query parameters from the URL
+    symbol = request.args.get('symbol','').strip()
+    exp_dt = request.args.get('expDate','').strip()
+    option_symbol = request.args.get('optionSymbol','').strip()
+    qty = request.args.get('qty','1').strip()
+    side_select = request.args.get('sideSelect','').strip()
+    type_select = request.args.get('typeSelect','').strip()
+    duration_select = request.args.get('durationSelect','').strip()
+    price = request.args.get('price','').strip()
+    stop = request.args.get('stop','').strip()
+
+    # print('symbol -> ', qty)
+
+    res = utils.place_option_order(
+        symbol=symbol, 
+        exp_dt=exp_dt,
+        option_symbol=option_symbol, 
+        qty=qty,
+        side_select=side_select,
+        type_select=type_select,
+        duration_select=duration_select,
+        price=price,
+        stop=stop
+        )
+    print('res -> ', res)
     return jsonify({'message': res})   
 
 @app.route('/cancelorder')
@@ -55,6 +79,12 @@ def cancel_option_order():
     order_id = request.args.get('order_id') 
     res = utils.cancel_order(order_id=order_id)
     return jsonify({'message': res})  
+
+@app.route('/timesales')
+def time_sales():
+    symbol = request.args.get('symbol') 
+    res = utils.get_time_sales(symbol,'b','c','d','e')
+    return jsonify({'message': res})
 
 if __name__ == '__main__':
     app.run(debug=True)

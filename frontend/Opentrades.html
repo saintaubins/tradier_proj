@@ -46,11 +46,11 @@
           <input class="form-control" id="expDate" type="text" placeholder="2023-07-28">
         </div>
         <div class="col-xs-2">
-            <label for="optionSymbol">Option Symbl:</label>
+            <label for="optionSymbol">Option Symbl: (required)</label>
             <input class="form-control" id="optionSymbol" type="text" placeholder="TSLA230728P00020000">
         </div>
-        <div class="col-xs-1">
-        <label for="qty">Qty:</label>
+        <div class="col-xs-2">
+        <label for="qty">Qty: (required)</label>
         <input class="form-control" id="qty" type="text" placeholder="1">
         </div>
         <div class="col-xs-2">
@@ -80,20 +80,28 @@
               <option value="post">Post</option>
             </select>
         </div>
-        <div class="col-xs-2">
-            <label for="price">Price:</label>
+        <div class="col-xs-3">
+            <label for="price">Price: (required if limit, or stop limit.)</label>
             <input class="form-control" id="price" type="text" placeholder="1.00">
         </div>
-        <div class="col-xs-2">
-            <label for="stop">Stop:</label>
+        <div class="col-xs-3">
+            <label for="stop">Stop: (required if stop, or stop limit.)</label>
             <input class="form-control" id="stop" type="text" placeholder="1.00">
         </div>
       </div>
     <input type="button" class="btn btn-danger" value="Place Order" id="placeOrderButton">
     <!-- Add a button to trigger the modal -->
-    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+    <!-- <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" id="placeOrderButton">
         Open Modal
-    </button>
+    </button> -->
+    <div id="errorMessage" class="alert alert-danger alert-dismissible" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong id="errorText"></strong>
+    </div>
+    <div id="orderMessage" class="alert alert-success alert-dismissible" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong id="orderText"></strong>
+    </div>
   
   <!-- The Modal -->
   <div class="modal fade" id="myModal" role="dialog">
@@ -136,16 +144,21 @@
         <strong>There are no open trades</strong>
     </div>
     <div class="container mt-4">
-        <h1>Open trades data.</h1>
+        <h1>Open, and active trades data.</h1>
         <table class="table table-bordered table-hover" id="data-table">
           <thead>
             <tr>
-            <th>Symbol</th>
+            <!-- <th>Symbol</th> -->
             <th>Option Symbol</th>
-            <th>Transaction Date</th>
-            <th>Id</th>
+            <th>Date Time</th>
+            <th>Qty</th>
+            <th>Type</th>
+            <th>$Buy</th>
+            <th>$ Fill</th>
+            <th>order Id</th>
             <th>Side</th>
             <th>Status</th>
+            <th>Reason</th>
             </tr>
           </thead>
           <tbody id="ordersData">

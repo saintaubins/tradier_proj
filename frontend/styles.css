@@ -41,9 +41,9 @@ body {
   }
   
   #myChartContainer {
-    width: 80%; /* Adjust the width to your desired size */
-    height: 50vh; /* Adjust the height to your desired size */
-    margin: 0 auto; /* This will horizontally center the container */ 
+    /* width: 80%;  */
+    /* height: 50vh;  */
+    /* margin: 0 auto;   */
   }
 
   .closeOrderButton {
@@ -54,6 +54,6 @@ body {
     /* font-weight: bold; */
     /* border: none; */
     /* padding: 10px 20px; */
-    border-radius: 5px;
+    border-radius: 3.5px;
     /* cursor: pointer; */
   }

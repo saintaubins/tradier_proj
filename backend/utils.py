@@ -71,7 +71,17 @@ def get_option_strike_price(symbol= 'TSLA', exp_dt= '2023-07-28') -> dict:
 # print(get_option_strike_price())
 
 
-def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty= '1') -> dict:
+def place_option_order(
+        symbol: str, 
+        exp_dt: str, 
+        option_symbol: str, 
+        qty: str, 
+        side_select: str,
+        type_select: str,
+        duration_select: str,
+        price: str,
+        stop: str
+        ) -> dict:
     try:
         response = requests.post(
             order_url,
@@ -79,19 +89,38 @@ def place_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty
                 'class': 'option', 
                 'symbol': symbol, 
                 'option_symbol': option_symbol, 
-                'side': 'buy_to_open', 
+                'side': side_select, 
                 'quantity': qty, 
-                'type': 'limit', 
-                'duration': 'gtc',
-                'price': '1.00'
+                'type': type_select, 
+                'duration': duration_select,
+                'price': price,
+                'stop': stop
                 },
             headers=headers
         )
-        return response.json()
+        if not response.ok:
+            error_dict = {
+                'exception' : [
+                    str(response.text),
+                    str(response.reason),
+                    'Error code: '+str(response.status_code)]}
+            return error_dict
+        else:
+            print('response.text -> ', response.text)
+            success_dict = {
+                'success' : [
+                    str(response.text)
+                ]
+            }
+            return success_dict
+            
     except Exception as e:
         print('could not place order', e)
-        return {'message: ': f'could not place order',
-                'raw_error:': f'{e}'}
+        return {'exception': 
+                [
+                'There is invalid data',
+                f'could not place order', 
+                f'{e}']}
 
 # print(place_option_order())
 
@@ -118,7 +147,7 @@ def sell_option_order(symbol= 'TSLA', option_symbol= 'TSLA230728P00020000', qty=
 def cancel_order(order_id: str) -> dict:
     try:
         response = requests.delete(
-            f'https://sandbox.tradier.com/v1/accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
+            f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
             headers=headers
         )
         print('response.status_code', response.status_code)
@@ -143,7 +172,7 @@ def cancel_order(order_id: str) -> dict:
 
 def modify_order(order_id: str) -> dict:
     response = requests.put(
-        f'https://sandbox.tradier.com/v1/accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
+        f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
     data={'type': 'market', 
           'duration': 'gtc',
           'price': '1.00', 
@@ -167,10 +196,33 @@ def get_orders() -> dict:
     # Check if the response was successful before converting to DataFrame
     if response.status_code == 200:
         data_dict = response.json()
-        print('data_dict -> ', data_dict)
+        # print('data_dict -> ', data_dict)
         return data_dict
     else:
         print('Failed to retrieve data. Status code:', response.status_code)
         return {'message: ': f'Failed to retrieve data. Status code:'+ response.status_code}
 
 # print(get_orders())
+def get_time_sales(symbol: str, intrval: str, start: str, end: str, session_filter: str) -> dict:
+    try:
+        response = requests.get(f'{config.API_BASE_URL}markets/timesales',
+            params={'symbol': symbol, 'interval': '15min', 
+                    'start': '2023-07-28 09:30', 'end': '2023-07-28 16:00', 
+                    'session_filter': 'all'},
+            headers=headers
+        )
+        if response.ok:
+            json_response = response.json()
+            return json_response
+        print(response.status_code, response.text)
+        print(json_response)
+    except Exception as e:
+        print('could not place order', e)
+        return {'exception': 
+                [
+                'There are invalid params',
+                f'could not get', 
+                f'{e}']}
+
+
+# print(get_time_sales('a','b','c','d','e'))

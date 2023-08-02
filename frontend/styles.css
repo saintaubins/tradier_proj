@@ -40,20 +40,52 @@ body {
     margin-bottom: 10px;
   }
   
-  #myChartContainer {
-    /* width: 80%;  */
-    /* height: 50vh;  */
-    /* margin: 0 auto;   */
-  }
-
   .closeOrderButton {
-    /* Add your custom CSS styles for the close button */
-    /* max-width: 80%; */
     background-color: red;
     color: white;
-    /* font-weight: bold; */
-    /* border: none; */
-    /* padding: 10px 20px; */
     border-radius: 3.5px;
-    /* cursor: pointer; */
   }
+
+  /* Override default Bootstrap styles for input-group and input-group-btn */
+
+/* Adjust margin between elements */
+#tickerSymbol {
+  float:left;
+  width:50%;
+}
+
+#intervalSelect {
+  float:left;
+  width:50%;
+}
+
+#searchLoad {
+  float:right;
+  width:100%;
+}
+
+#successMessage {
+  margin: auto;
+  width: 50%;
+}
+
+#errorMessage {
+  margin: auto;
+  width: 50%;
+}
+
+.accountLeft {
+  float:left;
+  width:50%;
+  border: 1px solid green;
+  padding: 10px;
+  border-radius: 3px 0px 0px 3px;
+}
+
+.accountRight {
+  float:right;
+  width:50%;
+  border: 1px solid green;
+  padding: 10px;
+  border-radius: 0px 3px 3px 0px;
+}

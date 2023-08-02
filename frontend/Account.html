@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Algo Tradeing</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@1.2.1/dist/chartjs-chart-financial.min.js"></script> -->
+  <script src="app.js"></script>
+</head>
+<body>
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">Active Algo Trading</a>
+            </div> 
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Dashboard.html">Dashboard</a></li>
+                <li><a href="Opentrades.html">Opentrades</a></li>
+                <li><a href="Stats.html">Stats</a></li>
+                <li><a href="Account.html">Account</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+        </div>
+    </nav>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <h1 class="container">Account details</h1>
+    <div class="container">
+        <h3>Profile</h3>
+        <p class="accountLeft">name:</p><p class="accountRight" id="name">.</p>
+        <p class="accountLeft">id:</p><p class="accountRight" id="id">.</p>
+        <p class="accountLeft">account number:</p><p class="accountRight" id="accountNumber">.</p>
+        <p class="accountLeft">classification:</p><p class="accountRight" id="classification">.</p>
+        <p class="accountLeft">date created:</p><p class="accountRight" id="dateCreated">.</p>
+        <p class="accountLeft">day trader:</p><p class="accountRight" id="dayTrader">.</p>
+        <p class="accountLeft">option level:</p><p class="accountRight" id="optionLevel">.</p>
+        <p class="accountLeft">status:</p><p class="accountRight" id="status">.</p>
+        <p class="accountLeft">type:</p><p class="accountRight" id="type">.</p>
+        <p class="accountLeft">last update date:</p><p class="accountRight" id="lastUpdateDate">.</p>
+        <input type="button" class="btn btn-success" value="View" id="profileButton">
+    </div>
+    <div class="container">
+        <h3>Balances</h3>
+        <p class="accountLeft">option short value:</p><p class="accountRight" id="optionShortValue">.</p>
+        <p class="accountLeft">total equity:</p><p class="accountRight" id="totalEquity">.</p>
+        <p class="accountLeft">account number:</p><p class="accountRight" id="accountNumber1">.</p>
+        <p class="accountLeft">account type:</p><p class="accountRight" id="accountType">.</p>
+        <p class="accountLeft">close pl:</p><p class="accountRight" id="closePl">.</p>
+        <p class="accountLeft">current requirement:</p><p class="accountRight" id="currentRequirement">.</p>
+        <p class="accountLeft">equity:</p><p class="accountRight" id="equity">.</p>
+        <p class="accountLeft">long market value:</p><p class="accountRight" id="longMarketValue">.</p>
+        <p class="accountLeft">market value:</p><p class="accountRight" id="marketValue">.</p>
+        <p class="accountLeft">open pl:</p><p class="accountRight" id="openPl">.</p>
+        <p class="accountLeft">option long value:</p><p class="accountRight" id="optionLongValue">.</p>
+        <p class="accountLeft">option requirement:</p><p class="accountRight" id="optionRequirement">.</p>
+        <p class="accountLeft">pending orders count:</p><p class="accountRight" id="pendingOrdersCount">.</p>
+        <p class="accountLeft">short market value:</p><p class="accountRight" id="shortMarketValue">.</p>
+        <p class="accountLeft">stock long value:</p><p class="accountRight" id="stockLongValue">.</p>
+        <p class="accountLeft">total cash:</p><p class="accountRight" id="totalCash">.</p>
+        <p class="accountLeft">uncleared funds:</p><p class="accountRight" id="unclearedFunds">.</p>
+        <p class="accountLeft">pending cash:</p><p class="accountRight" id="pendingCash">.</p>
+        <p class="accountLeft">day trade buying power:</p><p class="accountRight" id="dayTradeBuyingPower">.</p>
+        <p class="accountLeft">fed call:</p><p class="accountRight" id="fedCall">.</p>
+        <p class="accountLeft">maintenance call:</p><p class="accountRight" id="maintenanceCall">.</p>
+        <p class="accountLeft">option buying power:</p><p class="accountRight" id="optionBuyingPower">.</p>
+        <p class="accountLeft">stock buying power:</p><p class="accountRight" id="stockBuyingPower">.</p>
+        <p class="accountLeft">stock short value:</p><p class="accountRight" id="stockShortValue">.</p>
+        <input type="button" class="btn btn-success" value="View" id="balanceButton">
+    </div>
+    <script src="account.js"></script>
+</body> 
+
+</html>

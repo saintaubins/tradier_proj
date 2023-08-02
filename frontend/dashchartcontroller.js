@@ -100,7 +100,7 @@ document.addEventListener('DOMContentLoaded', function() {
     expDate = formattedDate;
   }
 
-  const url = `http://127.0.0.1:5000/optionschain?symbol=${symbol}&exp_dt=${expDate}&optionType=${selectedOption}`;
+  const url = `http://127.0.0.1:5001/optionschain?symbol=${symbol}&exp_dt=${expDate}&optionType=${selectedOption}`;
 
   console.log("url -> ",url)
     // Making the GET request using fetch
@@ -115,6 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
         // Work with the data here
         console.log(data);
         populateTable(data.message.options.option);
+        showSuccessMessage([data.message.options.option[0].expiration_date, "Underlying:", data.message.options.option[0].underlying])
       })
       .catch((error) => {
         console.error("Error occurred while making the request:", error);
@@ -153,6 +154,21 @@ function populateTable(data) {
     optionsDataContainer.appendChild(row);
   });
 
+}
+
+// Function to display the success message box
+function showSuccessMessage(successMessages) {
+  const successMessageDiv = document.getElementById('successMessage');
+  const successText = document.getElementById('successText');
+  successText.innerHTML = ''; // Clear any previous success messages
+
+  successMessages.forEach((successMessage) => {
+    const successItem = document.createElement('div');
+    successItem.textContent = successMessage;
+    successText.appendChild(successItem);
+  });
+
+  successMessageDiv.style.display = 'block';
 }
 
 

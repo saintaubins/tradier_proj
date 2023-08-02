@@ -1,5 +1,5 @@
 
-const backEndUrl = 'http://127.0.0.1:5000/';
+const backEndUrl = 'http://127.0.0.1:5001/';
 
 // Handle button click events
 document.getElementById("openTradesButton").addEventListener("click", function() {

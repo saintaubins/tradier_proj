@@ -1,11 +1,23 @@
-//import { backEndUrl } from 'openTrades';
+const backEndUrl = 'http://127.0.0.1:5001/';
 
 const ema = document.getElementById('homeChart').getContext('2d');
 
-function getTimeSales(symbol) {
+function getTodayDate() {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0'); // January is 0, so we add 1 and pad with 0 if needed
+  const day = String(today.getDate()).padStart(2, '0');
+  
+  return `${year}-${month}-${day}`;
+}
+
+const todayDate = getTodayDate();
+//console.log(todayDate); // Output: "2023-07-28"
+
+function getTimeSales(symbol, intervalSelect,startDate, endDate) {
   let newDataArray = []
   // Send the POST request
-  fetch(`http://127.0.0.1:5000/timesales?symbol=${symbol}`)
+  fetch(`${backEndUrl}timesales?symbol=${symbol}&intervalSelect=${intervalSelect}&startDate=${startDate}&endDate=${endDate}`)
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -69,11 +81,12 @@ function getTimeSales(symbol) {
 
 document.getElementById("searchLoad").addEventListener("click", function() {
   const tickerSymbol = document.getElementById("tickerSymbol").value;
+  const intervalSelect = document.getElementById("intervalSelect").value;
   if(tickerSymbol == '') {
-    showErrorMessage(['Needs a ticker symbol'])
+    showErrorMessage(['This needs a ticker symbol please.'])
     setTimeout(hideErrorMessage, 15000);
   } else {
-    getTimeSales(tickerSymbol);
+    getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
   }
 });
 //console.log('myChart ->', myChart)

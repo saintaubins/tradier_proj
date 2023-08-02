@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>   
+<head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Active Algo Tradeing</title>
@@ -11,14 +11,15 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@1.2.1/dist/chartjs-chart-financial.min.js"></script> -->
   <script src="app.js"></script>
-  <!-- <script src="indexchartcontroller.js"></script> -->
-</head>
+  
 
+</head> 
 <body>
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
-      <div class="navbar-header">  
+      <div class="navbar-header">
         <a class="navbar-brand" href="index.html">Active Algo Trading</a>
       </div>
       <ul class="nav navbar-nav">
@@ -34,46 +35,13 @@
       </ul>
     </div>
   </nav>
-  
-  <div class="container">
-    <h1>Welcome to Active Algo Trading</h1>
-    <p>Type in a ticker symbol, select a time interval, and click search.</p>
-    <div id="errorMessage" class="alert alert-danger alert-dismissible" style="display: none;">
-      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-      <strong id="errorText"></strong>
-    </div>
-    <div id="successMessage" class="alert alert-success alert-dismissible" style="display: none;">
-        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-        <strong id="successText"></strong>
-    </div>
-    <div class="row">
-      <form class="col-xs-4">
-        <div class="input-group">
-          <input type="text" class="form-control" id="tickerSymbol" placeholder="Ex: AAPL">
-            <select class="form-control" id="intervalSelect">
-              <option value="15min">15min</option>
-              <option value="5min">5min</option>
-              <option value="1min">1min</option>
-            </select>
-            <div class="input-group-btn">
-              <button class="btn btn-default" type="button" id="searchLoad">
-                <i class="glyphicon glyphicon-search"></i>
-              </button>
-            </div>
-        </div>
-      </form>
-    </div>
-  </div>
-  <div id="myChartContainer">
-    <canvas id="homeChart" class="container"></canvas>
-  </div>
-  
+
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="indexchartcontroller.js"></script>
-  
+  <script src="stats.js"></script>
+
 </body>
 
 </html>

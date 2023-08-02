@@ -15,23 +15,26 @@
   <script src="app.js"></script>
   
 
-</head>
-<nav class="navbar navbar-inverse">
-  <div class="container-fluid">
-    <div class="navbar-header">
-      <a class="navbar-brand" href="index.html">Active Algo Trading</a>
+</head> 
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="index.html">Active Algo Trading</a>
+      </div>
+      <ul class="nav navbar-nav">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="Dashboard.html">Dashboard</a></li>
+        <li><a href="Opentrades.html">Opentrades</a></li>
+        <li><a href="Stats.html">Stats</a></li>
+        <li><a href="Account.html">Account</a></li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>
     </div>
-    <ul class="nav navbar-nav">
-      <li><a href="index.html">Home</a></li>
-      <li><a href="Dashboard.html">Dashboard</a></li>
-      <li><a href="Opentrades.html">Opentrades</a></li>
-    </ul>
-    <ul class="nav navbar-nav navbar-right">
-      <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-      <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-    </ul>
-  </div>
-</nav>
+  </nav>
 
   <div class="container">
     <h1>Dashboard</h1>
@@ -58,7 +61,7 @@
         <input class="form-control" id="symbolInput" type="text" placeholder="Ex: AAPL">
       </div>
       <div class="col-xs-3">
-        <label for="ex3">Contract Exp Date:</label>
+        <label for="ex3">Options Exp Date:</label>
         <input class="form-control" id="expDateInput" type="text" placeholder="Ex: 2023-07-28">
       </div>
       <div class="col-xs-3">
@@ -70,6 +73,11 @@
       </div>
     </div>
     <input type="button" class="btn btn-success" value="View" id="viewButton">
+    <div id="successMessage" class="alert alert-success alert-dismissible" style="display: none;">
+      <label for="successText">List of Options Chain for Exp Date:</label>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong id="successText"></strong>
+    </div>
     <div class="container mt-4">
       <h1>Options Data</h1>
       <table class="table table-bordered table-hover" id="data-table">

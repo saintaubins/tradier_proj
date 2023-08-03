@@ -87,6 +87,9 @@ document.getElementById("searchLoad").addEventListener("click", function() {
     setTimeout(hideErrorMessage, 15000);
   } else {
     getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
+    setInterval(() => {
+      getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
+    }, 10000); // 60000 milliseconds = 60 seconds
   }
 });
 //console.log('myChart ->', myChart)

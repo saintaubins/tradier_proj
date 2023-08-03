@@ -71,7 +71,16 @@ function placeOrder() {
   console.log(placeOrderUrl)
   return placeOrderUrl
 }
-
+function setCurrentTrade(optionSymbol, qty) {
+  let currentTrade = {
+    'optionSymbol': optionSymbol,
+    'qyt': qty,
+    'side': 'sellToClose',
+    'type':'market',
+    'duration': 'gtc'
+  };
+  return currentTrade;
+}
 function sendOrder(Url) {
   // Send the POST request
   fetch(Url)

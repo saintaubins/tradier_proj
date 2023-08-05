@@ -64,9 +64,6 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         const ema1 = calculateEMA(closePrices, 1);
         const ema7 = calculateEMA(closePrices, 7);
 
-        //console.log('newDataArray:', newDataArray);
-        //console.log('EMA 1:', ema1);
-        //console.log('EMA 7:', ema7);
 
         updateChartWithData(newDataArray, ema1, ema7);
         newData = newDataArray
@@ -79,17 +76,21 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
     
 };
 
-document.getElementById("searchLoad").addEventListener("click", function() {
+document.getElementById("searchLoad").addEventListener("click", function(event) {
+
+  //event.preventDefault();
+
   const tickerSymbol = document.getElementById("tickerSymbol").value;
   const intervalSelect = document.getElementById("intervalSelect").value;
   if(tickerSymbol == '') {
     showErrorMessage(['This needs a ticker symbol please.'])
     setTimeout(hideErrorMessage, 15000);
   } else {
+    //event.preventDefault();
     getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
     setInterval(() => {
       getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
-    }, 10000); // 60000 milliseconds = 60 seconds
+    }, 10000); // 10000 milliseconds = 10 seconds
   }
 });
 //console.log('myChart ->', myChart)
@@ -163,8 +164,29 @@ function updateChartWithData(newDataArray, ema1, ema7) {
   // Update 'EMA Short' dataset data
   myChart.data.datasets[1].data = ema1;
 
+  const ema1Dataset = myChart.data.datasets[1];
+  let mostRecentEma1 = 0
+  let mostRecentEma7 = 0
+  if (ema1Dataset.data.length > 0) {
+    mostRecentEma1 = ema1Dataset.data[ema1Dataset.data.length - 1];
+    //console.log('Most recent EMA1 value:', mostRecentEma1);
+  } else {
+    console.log('EMA1 dataset is empty.');
+  }
+
   // Update 'EMA Long' dataset data
   myChart.data.datasets[2].data = ema7;
+  
+  const ema7Dataset = myChart.data.datasets[2];
+
+  if (ema7Dataset.data.length > 0) {
+    mostRecentEma7 = ema7Dataset.data[ema7Dataset.data.length - 1];
+    //console.log('Most recent EMA7 value:', mostRecentEma7);
+  } else {
+    console.log('EMA7 dataset is empty.');
+  }
+
+  checkEMAValues(mostRecentEma1, mostRecentEma7);
 
   myChart.update();
 }
@@ -184,11 +206,37 @@ function showErrorMessage(errorMessages) {
   errorMessageDiv.style.display = 'block';
 }
 
+function showSuccessMessage(message) {
+  const successMessageDiv = document.getElementById('successMessage');
+  const successText = document.getElementById('successText');
+  successText.textContent = message;
+  successMessageDiv.style.display = 'block';
+}
+
 // Function to hide the error message box
 function hideErrorMessage() {
   const successMessage = document.getElementById("errorMessage");
   successMessage.style.display = "none";
 }
 
+// Function to clear the alert divs
+function clearAlerts() {
+  const successMessageDiv = document.getElementById('successMessage');
+  const errorMessageDiv = document.getElementById('errorMessage');
+  successMessageDiv.style.display = 'none';
+  errorMessageDiv.style.display = 'none';
+}
+
+function checkEMAValues(ema1, ema7) {
+  clearAlerts();
+
+  if (ema1 > ema7) {
+    // Go long
+    showSuccessMessage('Go long');
+  } else {
+    // Go short
+    showErrorMessage(['Go short']);
+  }
+}
 
 

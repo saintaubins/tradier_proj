@@ -1,59 +1,55 @@
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+}
   
-  .navbar {
-    background-color: #333;
-    color: #fff;
-  }
+.navbar {
+  background-color: #333;
+  color: #fff;
+}
   
-  .navbar-list {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-item {
-    display: inline-block;
-    margin-right: 20px;
-  }
-  
-  .navbar-item a {
-    text-decoration: none;
-    color: #fff;
-  }
-  
-  .container {
-    max-width: 80%;
-    margin: 40px auto;
-    padding: 20px;
-    background-color: rgba(144, 238, 144, 0.25);
-    border: 1px solid red;
-    border-radius: 4px;
-    box-shadow: 5px 5px #888888;
-  }
-  
-  .container h1 {
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  
-  .closeOrderButton {
-    background-color: red;
-    color: white;
-    border-radius: 3.5px;
-  }
-
-  /* Override default Bootstrap styles for input-group and input-group-btn */
-
-/* Adjust margin between elements */
-#tickerSymbol {
-  float:left;
-  width:50%;
+.navbar-list {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
+.navbar-item {
+  display: inline-block;
+  margin-right: 20px;
+}
+
+.navbar-item a {
+  text-decoration: none;
+  color: #fff;
+}
+  
+.container {
+  max-width: 80%;
+  margin: 5% auto;
+  padding: 10px;
+  background-color: rgba(144, 238, 144, 0.25);
+  border: 1px solid red;
+  border-radius: 7px;
+  box-shadow: 5px 5px #D3D3D3;
+}
+
+#bordered-modal {
+  border: 1px solid red;
+  border-radius: 10px
+}
+  
+.container h1 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.closeOrderButton {
+  background-color: red;
+  color: white;
+  border-radius: 3.5px;
+}
+
+#tickerSymbol,
 #intervalSelect {
   float:left;
   width:50%;
@@ -64,28 +60,35 @@ body {
   width:100%;
 }
 
-#successMessage {
-  margin: auto;
-  width: 50%;
+#successMessage,
+#modifyOrderMessage,
+#orderMessage {
+  border: 1px solid green;
+  margin: 10px auto;
+  width: 90%;
 }
 
-#errorMessage {
-  margin: auto;
-  width: 50%;
+#errorMessage,
+#modifyErrorMessage {
+  border: 1px solid red;
+  margin: 10px auto;
+  width: 90%;
 }
 
 .accountLeft {
   float:left;
-  width:50%;
+  /* width:30%; */
   border: 1px solid green;
-  padding: 10px;
-  border-radius: 3px 0px 0px 3px;
+  padding: 7px;
+  border-radius: 5px;
+  margin: 7px auto;
 }
 
 .accountRight {
   float:right;
-  width:50%;
+  /* width:30%; */
   border: 1px solid green;
-  padding: 10px;
-  border-radius: 0px 3px 3px 0px;
+  padding: 7px;
+  border-radius: 5px;
+  margin: 7px auto;
 }

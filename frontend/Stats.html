@@ -11,7 +11,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@1.2.1/dist/chartjs-chart-financial.min.js"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
   
 
@@ -20,19 +20,27 @@
   <nav class="navbar navbar-inverse">
     <div class="container-fluid">
       <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <a class="navbar-brand" href="index.html">Active Algo Trading</a>
       </div>
-      <ul class="nav navbar-nav">
-        <li><a href="index.html">Home</a></li>
-        <li><a href="Dashboard.html">Dashboard</a></li>
-        <li><a href="Opentrades.html">Opentrades</a></li>
-        <li><a href="Stats.html">Stats</a></li>
-        <li><a href="Account.html">Account</a></li>
-      </ul>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="Dashboard.html">Dashboard</a></li>
+          <li><a href="Opentrades.html">Opentrades</a></li>
+          <li><a href="Stats.html">Stats</a></li>
+          <li><a href="Automate.html">Automate</a></li>
+          <li><a href="Account.html">Account</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
     </div>
   </nav>
 
@@ -40,19 +48,19 @@
     <h1>Gain Loss</h1>
     <p>Find out how you were doing over your trades.</p>
     <div class="form-group row">
-      <div class="col-xs-1">
+      <div class="col-xs-12 col-sm-6 col-md-4">
         <label for="symbolInput">Symbol:</label>
         <input class="form-control" id="symbolInput" type="text" placeholder="SPY">
       </div>
-      <div class="col-xs-2">
+      <div class="col-xs-12 col-sm-6 col-md-4">
         <label for="startDate">Start Date:</label>
         <input class="form-control" id="startDate" type="text" placeholder="Ex: 2023-07-28">
       </div>
-      <div class="col-xs-2">
+      <div class="col-xs-12 col-sm-6 col-md-4">
         <label for="endDate">End Date:</label>
         <input class="form-control" id="endDate" type="text" placeholder="Ex: 2023-07-28">
       </div>
-      <div class="col-xs-2">
+      <div class="col-xs-12 col-sm-6 col-md-4">
         <label for="limitSelect">Limit:</label>
         <select class="form-control" id="limitSelect">
           <option value=" ">' '</option>
@@ -62,7 +70,7 @@
           <option value="10">10</option>
         </select>
       </div>
-      <div class="col-xs-2">
+      <div class="col-xs-12 col-sm-6 col-md-4">
         <label for="sortSelect">Sort By:</label>
         <select class="form-control" id="sortSelect">
             <option value="closeDate">Close Date</option>
@@ -70,7 +78,11 @@
         </select>
       </div>
     </div>
-    <input type="button" class="btn btn-success" value="View" id="viewButton">
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <input type="button" class="btn btn-success btn-block" value="View" id="viewButton">
+      </div>
+    </div>
     <div id="successMessage" class="alert alert-success alert-dismissible" style="display: none;">
       <label for="successText">Profit and Loss:</label>
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -78,24 +90,26 @@
     </div>
     <div class="container mt-4">
       <h1>Statistics</h1>
-      <table class="table table-bordered table-hover" id="data-table">
-        <thead>
-          <tr>
-            <th>Close Date</th>
-            <th>Cost</th>
-            <th>Gain Loss</th>
-            <th>Gain Loss Percent</th>
-            <th>Open Date</th>
-            <th>Proceeds</th>
-            <th>Quantity</th>
-            <th>Symbol</th>
-            <th>Term</th>
-          </tr>
-        </thead>
-        <tbody id="statsData">
-          <!-- Table rows will be populated dynamically using JavaScript -->
-        </tbody>
-      </table>
+      <div class="table-responsive table-responsive-sm">
+        <table class="table table-bordered table-hover" id="data-table">
+          <thead>
+            <tr>
+              <th>Close Date</th>
+              <th>Cost</th>
+              <th>Gain Loss</th>
+              <th>Gain Loss Percent</th>
+              <th>Open Date</th>
+              <th>Proceeds</th>
+              <th>Quantity</th>
+              <th>Symbol</th>
+              <th>Term</th>
+            </tr>
+          </thead>
+          <tbody id="statsData">
+            <!-- Table rows will be populated dynamically using JavaScript -->
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 

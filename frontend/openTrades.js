@@ -10,13 +10,26 @@ document.getElementById("placeOrderButton").addEventListener("click", function()
   placeOrder();
   });
 
+document.getElementById("modifyOrderButton").addEventListener("click", function() {
+    //console.log('button clicked');
+    modifyOrder();
+  });
+
 document.getElementById("modalYesButton").addEventListener("click", function() {
-  console.log(' yes button clicked');
   const getUrl = placeOrder();
   sendOrder(getUrl);
   });
 
 document.getElementById("modalNoButton").addEventListener("click", function() {
+  console.log(' no button clicked');
+  });
+
+document.getElementById("modalModifyYesButton").addEventListener("click", function() {
+  const getUrl = modifyOrder();
+  sendModifyOrder(getUrl);
+  });
+
+document.getElementById("modalModifyNoButton").addEventListener("click", function() {
   console.log(' no button clicked');
   });
 
@@ -48,12 +61,36 @@ document.addEventListener('DOMContentLoaded', function () {
     // Open the modal
     $('#myModal').modal('show');
   }
-
-  // Add an event listener to the button to trigger the modal with data
-  const openModalButton = document.getElementById('placeOrderButton');
-  openModalButton.addEventListener('click', openModalWithData);
+  
+    // Add an event listener to the button to trigger the modal with data
+    const openModalButton = document.getElementById('placeOrderButton');
+    openModalButton.addEventListener('click', openModalWithData);  
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+  // Function to open the modal with data
+  function modifyModalWithData() {
+    const orderId = document.getElementById("orderId").value;
+    const type = document.getElementById("type").value;
+    const duration = document.getElementById("duration").value;
+    const modifyPrice = document.getElementById("modifyPrice").value;
+    const modifyStop = document.getElementById("modifyStop").value;
+
+    // Set the values in the modal
+    document.getElementById("modalOrderId").textContent = orderId;
+    document.getElementById("modalModifyType").textContent = type;
+    document.getElementById("modalModifyDuration").textContent = duration;
+    document.getElementById("modalModifyPrice").textContent = modifyPrice;
+    document.getElementById("modalModifyStop").textContent = modifyStop;
+
+    // Open the modal
+    $('#modifyModal').modal('show');
+  }
+  
+    // Add an event listener to the button to trigger the modal with data
+    const modifyModalButton = document.getElementById('modifyOrderButton');
+    modifyModalButton.addEventListener('click', modifyModalWithData);  
+});
 
 function placeOrder() {
   const symbol = document.getElementById("symbol").value.trim();
@@ -71,6 +108,20 @@ function placeOrder() {
   console.log(placeOrderUrl)
   return placeOrderUrl
 }
+
+function modifyOrder() {
+  const orderId = document.getElementById("orderId").value.trim();
+  const type = document.getElementById("type").value.trim();
+  const duration = document.getElementById("duration").value.trim();
+  const modifyPrice = document.getElementById("modifyPrice").value.trim();
+  const modifyStop = document.getElementById("modifyStop").value.trim();
+
+  const modifyOrderUrl = `${backEndUrl}modifyorder?orderId=${orderId}&type=${type}&duration=${duration}&modifyPrice=${modifyPrice}&modifyStop=${modifyStop}`;
+
+  console.log(modifyOrderUrl)
+  return modifyOrderUrl
+}
+
 function setCurrentTrade(optionSymbol, qty) {
   let currentTrade = {
     'optionSymbol': optionSymbol,
@@ -103,6 +154,40 @@ function sendOrder(Url) {
       } else if (data.message.success) {
         showOrderMessage(data.message.success);
         setTimeout(hideOrderMessage, 15000);
+      }
+    })
+    .catch((error) => {
+      console.error("Error occurred while making the request:", error);
+    });
+}
+
+function sendModifyOrder(Url) {
+  // Send the POST request
+  fetch(Url)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json(); // Parse the response as JSON
+    })
+    .then((data) => {
+      console.log('data -> ', data.message)
+      // Process the data returned by the server, if needed
+      if (data.message == null) {
+        showModifyErrorMessage(['response from server is null']);
+        setTimeout(hideModifyErrorMessage, 15000);
+
+      } else if (data.message.errors) {
+        showModifyErrorMessage(data.message.errors.error);
+        setTimeout(hideModifyErrorMessage, 15000);
+
+      } else if (data.message.exception) {
+        showModifyErrorMessage(data.message.exception);
+        setTimeout(hideModifyErrorMessage, 15000);
+
+      } else if (data.message.success) {
+        showModifyOrderMessage(data.message.success);
+        setTimeout(hideModifyOrderMessage, 15000);
       }
     })
     .catch((error) => {
@@ -261,6 +346,21 @@ function clearTableData() {
     orderMessageDiv.style.display = 'block';
   }
 
+  // Function to display the success message box
+  function showModifyOrderMessage(orderMessages) {
+    const orderMessageDiv = document.getElementById('orderMessage');
+    const orderText = document.getElementById('orderText');
+    orderText.innerHTML = ''; // Clear any previous error messages
+  
+    orderMessages.forEach((orderMessage) => {
+      const orderItem = document.createElement('div');
+      orderItem.textContent = orderMessage;
+      orderText.appendChild(orderItem);
+    });
+  
+    orderMessageDiv.style.display = 'block';
+  }
+
   // Function to display the error message box
   function showErrorMessage(errorMessages) {
     const errorMessageDiv = document.getElementById('errorMessage');
@@ -282,6 +382,27 @@ function clearTableData() {
     successMessage.style.display = "none";
   }
 
+  // Function to display the error message box
+  function showModifyErrorMessage(errorMessages) {
+    const errorMessageDiv = document.getElementById('modifyErrorMessage');
+    const errorText = document.getElementById('modifyErrorText');
+    errorText.innerHTML = ''; // Clear any previous error messages
+  
+    errorMessages.forEach((errorMessage) => {
+      const errorItem = document.createElement('div');
+      errorItem.textContent = errorMessage;
+      errorText.appendChild(errorItem);
+    });
+  
+    errorMessageDiv.style.display = 'block';
+  }
+
+  // Function to hide the error message box
+  function hideModifyErrorMessage() {
+    const successMessage = document.getElementById("modifyErrorMessage");
+    successMessage.style.display = "none";
+  }
+
   // Function to hide the success message box
   function hideSuccessMessage() {
     const successMessage = document.getElementById("successMessage");
@@ -291,6 +412,12 @@ function clearTableData() {
   // Function to hide the order message box
   function hideOrderMessage() {
     const orderMessage = document.getElementById("orderMessage");
+    orderMessage.style.display = "none";
+  }
+
+  // Function to hide the order message box
+  function hideModifyOrderMessage() {
+    const orderMessage = document.getElementById("modifyOrderMessage");
     orderMessage.style.display = "none";
   }
   

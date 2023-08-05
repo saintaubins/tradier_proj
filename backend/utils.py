@@ -8,6 +8,10 @@ headers = {
     'Authorization': 'Bearer {}'.format(config.SANDBOX_ACCESS_TOKEN),
     'Accept': 'application/json'
 }
+live_headers = {
+    'Authorization': 'Bearer {}'.format(config.ACCESS_TOKEN),
+    'Accept': 'application/json'
+}
 
 order_url = '{}accounts/{}/orders'.format(
     config.API_BASE_URL, config.SANDBOX_ACCOUNT_NUMBER)
@@ -178,25 +182,36 @@ def cancel_order(order_id: str) -> dict:
 # cancel_order('7200241')
 
 
-def modify_order(order_id: str) -> dict:
-    response = requests.put(
-        f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
-        data={'type': 'market',
-              'duration': 'gtc',
-              'price': '1.00',
-              'stop': '1.00'
-              },
-        headers=headers
-    )
-    print('response.text -> ', response.text)
-    print('response.status_code -> ', response.status_code)
-    print('message', f'Failed to retrieve data.')
-    print('response_status_code', f'{response.status_code}')
-    print('response_text', f'{response.text}')
-    print('response_content', f'{response.content}')
-    print('response_is_permanent_redirect',
-          f'{response.is_permanent_redirect}')
-    print('response_ok', f'{response.ok}')
+def modify_order(order_id: str, type: str, duration: str, price: str, stop: str) -> dict:
+    try:
+        response = requests.put(
+            f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
+            data={'type': type,
+                  'duration': duration,
+                  'price': price,
+                  'stop': stop
+                  },
+            headers=headers
+        )
+        if response.ok:
+            json_response = response.json()
+            # print('response.text -> ', response.text)
+            # print('response.status_code -> ', response.status_code)
+            # print('message', f'Failed to retrieve data.')
+            # print('response_status_code', f'{response.status_code}')
+            # print('response_text', f'{response.text}')
+            # print('response_content', f'{response.content}')
+            # print('response_is_permanent_redirect',
+            #     f'{response.is_permanent_redirect}')
+            # print('response_ok', f'{response.ok}')
+            return json_response
+    except Exception as e:
+        print('could not modify order', e)
+        return {'exception':
+                [
+                    'Something went wrong',
+                    f'could not modify order',
+                    f'{e}']}
 
 # modify_order('7169581')
 
@@ -217,11 +232,11 @@ def get_orders() -> dict:
 
 def get_time_sales(symbol: str, interval: str, start: str, end: str, session_filter: str) -> dict:
     try:
-        response = requests.get(f'{config.API_BASE_URL}markets/timesales',
+        response = requests.get(f'{config.LIVE_API_BASE_URL}markets/timesales',
                                 params={'symbol': symbol, 'interval': interval,
                                         'start': f'{start} 09:30', 'end': f'{end} 16:00',
                                         'session_filter': 'all'},
-                                headers=headers
+                                headers=live_headers
                                 )
         if response.ok:
             json_response = response.json()

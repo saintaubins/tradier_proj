@@ -2,6 +2,7 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 import utils
+import automate
 
 
 app = Flask(__name__)
@@ -89,6 +90,37 @@ def place_option_order():
     return jsonify({'message': res})
 
 
+@app.route('/placealgoorder')
+def place_algo_order():
+    # Retrieve query parameters from the URL
+    symbol = request.args.get('symbol', '').strip()
+    exp_dt = request.args.get('expDate', '').strip()
+    option_symbol = request.args.get('optionSymbol', '').strip()
+    qty = request.args.get('qty', '1').strip()
+    side_select = request.args.get('sideSelect', '').strip()
+    type_select = request.args.get('typeSelect', '').strip()
+    duration_select = request.args.get('durationSelect', '').strip()
+    price = request.args.get('price', '').strip()
+    stop = request.args.get('stop', '').strip()
+
+    # print('symbol -> ', qty)
+
+    res = automate.place_algo_order(
+        symbol=symbol,
+        exp_dt=exp_dt,
+        option_symbol=option_symbol,
+        qty=qty,
+        side_select=side_select,
+        type_select=type_select,
+        duration_select=duration_select,
+        price=price,
+        stop=stop
+    )
+    print('res -> ', res)
+    # print('some_func -> ', some_func)
+    return jsonify({'message': res})
+
+
 @app.route('/cancelorder')
 def cancel_option_order():
     order_id = request.args.get('order_id')
@@ -103,6 +135,17 @@ def time_sales():
     endDate = request.args.get('startDate')
     interval = request.args.get('intervalSelect')
     res = utils.get_time_sales(symbol, interval, startDate, endDate, 'e')
+    return jsonify({'message': res})
+
+
+@app.route('/modifyorder')
+def modify_order():
+    order_id = request.args.get('orderId')
+    type = request.args.get('type')
+    duration = request.args.get('duration')
+    price = request.args.get('modifyPrice')
+    stop = request.args.get('modifyStop')
+    res = utils.modify_order(order_id, type, duration, price, stop)
     return jsonify({'message': res})
 
 

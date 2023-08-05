@@ -11,28 +11,38 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
-  <!-- <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial@1.2.1/dist/chartjs-chart-financial.min.js"></script> -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="app.js"></script>
 </head>
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">Active Algo Trading</a>
-            </div> 
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="index.html">Active Algo Trading</a>
+          </div>
+          <div class="collapse navbar-collapse" id="myNavbar">
             <ul class="nav navbar-nav">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="Dashboard.html">Dashboard</a></li>
-                <li><a href="Opentrades.html">Opentrades</a></li>
-                <li><a href="Stats.html">Stats</a></li>
-                <li><a href="Account.html">Account</a></li>
+              <li><a href="index.html">Home</a></li>
+              <li><a href="Dashboard.html">Dashboard</a></li>
+              <li><a href="Opentrades.html">Opentrades</a></li>
+              <li><a href="Stats.html">Stats</a></li>
+              <li><a href="Automate.html">Automate</a></li>
+              <li><a href="Account.html">Account</a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-                <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
             </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
+      
+      
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
@@ -40,45 +50,53 @@
     <h1 class="container">Account details</h1>
     <div class="container">
         <h3>Profile</h3>
-        <p class="accountLeft">name:</p><p class="accountRight" id="name">.</p>
-        <p class="accountLeft">id:</p><p class="accountRight" id="id">.</p>
-        <p class="accountLeft">account number:</p><p class="accountRight" id="accountNumber">.</p>
-        <p class="accountLeft">classification:</p><p class="accountRight" id="classification">.</p>
-        <p class="accountLeft">date created:</p><p class="accountRight" id="dateCreated">.</p>
-        <p class="accountLeft">day trader:</p><p class="accountRight" id="dayTrader">.</p>
-        <p class="accountLeft">option level:</p><p class="accountRight" id="optionLevel">.</p>
-        <p class="accountLeft">status:</p><p class="accountRight" id="status">.</p>
-        <p class="accountLeft">type:</p><p class="accountRight" id="type">.</p>
-        <p class="accountLeft">last update date:</p><p class="accountRight" id="lastUpdateDate">.</p>
-        <input type="button" class="btn btn-success" value="View" id="profileButton">
+        <p class="accountLeft col-xs-6 col-sm-6">name:</p><p class="accountRight col-xs-6 col-sm-6" id="name">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">id:</p><p class="accountRight col-xs-6 col-sm-6" id="id">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">account number:</p><p class="accountRight col-xs-6 col-sm-6" id="accountNumber">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">classification:</p><p class="accountRight col-xs-6 col-sm-6" id="classification">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">date created:</p><p class="accountRight col-xs-6 col-sm-6" id="dateCreated">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">day trader:</p><p class="accountRight col-xs-6 col-sm-6" id="dayTrader">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">option level:</p><p class="accountRight col-xs-6 col-sm-6" id="optionLevel">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">status:</p><p class="accountRight col-xs-6 col-sm-6" id="status">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">type:</p><p class="accountRight col-xs-6 col-sm-6" id="type">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">last update date:</p><p class="accountRight col-xs-6 col-sm-6" id="lastUpdateDate">.</p>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <input type="button" class="btn btn-success btn-block" value="View" id="profileButton">
+          </div>
+        </div>
     </div>
     <div class="container">
         <h3>Balances</h3>
-        <p class="accountLeft">option short value:</p><p class="accountRight" id="optionShortValue">.</p>
-        <p class="accountLeft">total equity:</p><p class="accountRight" id="totalEquity">.</p>
-        <p class="accountLeft">account number:</p><p class="accountRight" id="accountNumber1">.</p>
-        <p class="accountLeft">account type:</p><p class="accountRight" id="accountType">.</p>
-        <p class="accountLeft">close pl:</p><p class="accountRight" id="closePl">.</p>
-        <p class="accountLeft">current requirement:</p><p class="accountRight" id="currentRequirement">.</p>
-        <p class="accountLeft">equity:</p><p class="accountRight" id="equity">.</p>
-        <p class="accountLeft">long market value:</p><p class="accountRight" id="longMarketValue">.</p>
-        <p class="accountLeft">market value:</p><p class="accountRight" id="marketValue">.</p>
-        <p class="accountLeft">open pl:</p><p class="accountRight" id="openPl">.</p>
-        <p class="accountLeft">option long value:</p><p class="accountRight" id="optionLongValue">.</p>
-        <p class="accountLeft">option requirement:</p><p class="accountRight" id="optionRequirement">.</p>
-        <p class="accountLeft">pending orders count:</p><p class="accountRight" id="pendingOrdersCount">.</p>
-        <p class="accountLeft">short market value:</p><p class="accountRight" id="shortMarketValue">.</p>
-        <p class="accountLeft">stock long value:</p><p class="accountRight" id="stockLongValue">.</p>
-        <p class="accountLeft">total cash:</p><p class="accountRight" id="totalCash">.</p>
-        <p class="accountLeft">uncleared funds:</p><p class="accountRight" id="unclearedFunds">.</p>
-        <p class="accountLeft">pending cash:</p><p class="accountRight" id="pendingCash">.</p>
-        <p class="accountLeft">day trade buying power:</p><p class="accountRight" id="dayTradeBuyingPower">.</p>
-        <p class="accountLeft">fed call:</p><p class="accountRight" id="fedCall">.</p>
-        <p class="accountLeft">maintenance call:</p><p class="accountRight" id="maintenanceCall">.</p>
-        <p class="accountLeft">option buying power:</p><p class="accountRight" id="optionBuyingPower">.</p>
-        <p class="accountLeft">stock buying power:</p><p class="accountRight" id="stockBuyingPower">.</p>
-        <p class="accountLeft">stock short value:</p><p class="accountRight" id="stockShortValue">.</p>
-        <input type="button" class="btn btn-success" value="View" id="balanceButton">
+        <p class="accountLeft col-xs-6 col-sm-6">option short value:</p><p class="accountRight col-xs-6 col-sm-6" id="optionShortValue">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">total equity:</p><p class="accountRight col-xs-6 col-sm-6" id="totalEquity">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">account number:</p><p class="accountRight col-xs-6 col-sm-6" id="accountNumber1">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">account type:</p><p class="accountRight col-xs-6 col-sm-6" id="accountType">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">close pl:</p><p class="accountRight col-xs-6 col-sm-6" id="closePl">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">current requirement:</p><p class="accountRight col-xs-6 col-sm-6" id="currentRequirement">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">equity:</p><p class="accountRight col-xs-6 col-sm-6" id="equity">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">long market value:</p><p class="accountRight col-xs-6 col-sm-6" id="longMarketValue">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">market value:</p><p class="accountRight col-xs-6 col-sm-6" id="marketValue">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">open pl:</p><p class="accountRight col-xs-6 col-sm-6" id="openPl">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">option long value:</p><p class="accountRight col-xs-6 col-sm-6" id="optionLongValue">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">option requirement:</p><p class="accountRight col-xs-6 col-sm-6" id="optionRequirement">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">pending orders count:</p><p class="accountRight col-xs-6 col-sm-6" id="pendingOrdersCount">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">short market value:</p><p class="accountRight col-xs-6 col-sm-6" id="shortMarketValue">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">stock long value:</p><p class="accountRight col-xs-6 col-sm-6" id="stockLongValue">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">total cash:</p><p class="accountRight col-xs-6 col-sm-6" id="totalCash">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">uncleared funds:</p><p class="accountRight col-xs-6 col-sm-6" id="unclearedFunds">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">pending cash:</p><p class="accountRight col-xs-6 col-sm-6" id="pendingCash">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">day trade buying pwr:</p><p class="accountRight col-xs-6 col-sm-6" id="dayTradeBuyingPower">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">fed call:</p><p class="accountRight col-xs-6 col-sm-6" id="fedCall">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">maintenance call:</p><p class="accountRight col-xs-6 col-sm-6" id="maintenanceCall">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">option buying power:</p><p class="accountRight col-xs-6 col-sm-6" id="optionBuyingPower">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">stock buying power:</p><p class="accountRight col-xs-6 col-sm-6" id="stockBuyingPower">.</p>
+        <p class="accountLeft col-xs-6 col-sm-6">stock short value:</p><p class="accountRight col-xs-6 col-sm-6" id="stockShortValue">.</p>
+        <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+            <input type="button" class="btn btn-info btn-block" value="View" id="balanceButton">
+          </div>  
+        </div>
     </div>
     <script src="account.js"></script>
 </body> 

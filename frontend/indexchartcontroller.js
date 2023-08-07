@@ -25,14 +25,20 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
       return response.json(); // Parse the response as JSON
     })
     .then((data) => {
-      //console.log('data -> ',data.message.series.data)
-      newDataArray = data.message.series.data;
+      //console.log('data.message -> ',data.message)
+      //showErrorMessage(data.message.exception);
+      //newDataArray = data.message.series.data;
       // Process the data returned by the server, if needed
-      if (data.message.errors) {
-        showErrorMessage(data.message.errors.error);
+      if (data.message === null) {
+        showErrorMessage([` 😔 Sorry, that must be an invalid ticker symbol.`, 'Refresh the screen and try your ticker, symbol again.']);
+        setTimeout(hideErrorMessage, 9000);
+
+      }else if (data.message.errors) {
+        showErrorMessage(data.message.errors);
         setTimeout(hideErrorMessage, 15000);
 
       } else if (data.message.exception) {
+        //console.log(data.message.exception, 'was called')
         showErrorMessage(data.message.exception);
         setTimeout(hideErrorMessage, 15000);
 
@@ -40,6 +46,8 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         showOrderMessage(data.message.success);
         setTimeout(hideOrderMessage, 15000);
       } else {
+        newDataArray = data.message.series.data;
+
         // Extracting close prices from the data
         const closePrices = data.message.series.data.map(item => item.close);
 
@@ -71,6 +79,8 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
       }
     })
     .catch((error) => {
+      // showErrorMessage([data.message.exception])
+      // setTimeout(hideErrorMessage, 15000);
       console.error("Error occurred while making the request:", error);
     });
     

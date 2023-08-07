@@ -259,11 +259,13 @@ def get_time_sales(symbol: str, interval: str, start: str, end: str, session_fil
                                         'session_filter': 'all'},
                                 headers=live_headers
                                 )
-        if response.ok:
+        if response.ok and response.status_code != 400:
             json_response = response.json()
+            print(json_response)
             return json_response
-        print(response.status_code, response.text)
-        print(json_response)
+        print('response.status_code -> ', response.status_code,
+              'response.txt -> ', response.text)
+
     except Exception as e:
         print('could not place order', e)
         return {'exception':

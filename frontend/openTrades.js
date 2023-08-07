@@ -250,33 +250,48 @@ function clearTableData() {
       ordersDataContainer.appendChild(row);
       });
     } else if (typeof data === "object") {
-
       const row = document.createElement("tr");
 
-      const symbolCell = document.createElement("td");
-      symbolCell.textContent = data.symbol;
-      row.appendChild(symbolCell);
+      // Format the transaction_date
+      const date = new Date(data.transaction_date);
+      const formattedDate = date.toLocaleString('en-US', { timeZone: 'America/New_York' });
+      
+      row.innerHTML = `
+        <td>${data.option_symbol}</td>
+        <td>${formattedDate}</td>
+        <td>${data.quantity}</td>
+        <td>${data.type}</td>
+        <td>${data.price}</td>
+        <td>${data.last_fill_price}</td>
+        <td>${data.id}</td>
+        <td>${data.side}</td>
+        <td>${data.status}</td>
+        <td>${data.reason_description}</td>
+      `;
+      // const symbolCell = document.createElement("td");
+      // symbolCell.textContent = data.symbol;
+      // row.appendChild(symbolCell);
 
-      const optionSymbolCell = document.createElement("td");
-      optionSymbolCell.textContent = data.option_symbol;
-      row.appendChild(optionSymbolCell);
+      // const optionSymbolCell = document.createElement("td");
+      // optionSymbolCell.textContent = data.option_symbol;
+      // row.appendChild(optionSymbolCell);
 
-      const transactionDateCell = document.createElement("td");
-      transactionDateCell.textContent = data.transaction_date;
-      row.appendChild(transactionDateCell);
+      // const transactionDateCell = document.createElement("td");
+      // transactionDateCell.textContent = data.transaction_date;
+      // row.appendChild(transactionDateCell);
 
-      const idCell = document.createElement("td");
-      idCell.textContent = data.id;
-      row.appendChild(idCell);
+      // const idCell = document.createElement("td");
+      // idCell.textContent = data.id;
+      // row.appendChild(idCell);
 
-      const sideCell = document.createElement("td");
-      sideCell.textContent = data.side;
-      row.appendChild(sideCell);
+      // const sideCell = document.createElement("td");
+      // sideCell.textContent = data.side;
+      // row.appendChild(sideCell);
 
-      const statusCell = document.createElement("td");
-      statusCell.textContent = data.status;
-      row.appendChild(statusCell);
-
+      // const statusCell = document.createElement("td");
+      // statusCell.textContent = data.status;
+      // row.appendChild(statusCell);
+      ordersDataContainer.appendChild(row);
     }
   }
 

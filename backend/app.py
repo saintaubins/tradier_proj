@@ -54,6 +54,13 @@ def get_orders():
     return jsonify({'message': res})
 
 
+@app.route('/getpositions')
+def get_positions():
+    res = utils.get_positions()
+    print('res ->', res)
+    return jsonify({'message': res})
+
+
 @app.route('/getoptionsstrikeprice')
 def get_options_strike_price():
     res = utils.get_option_strike_price()

@@ -45,26 +45,41 @@
   </nav>
 
   <div class="container">
-    <h1>Dashboard</h1>
-    <p>You can place a trade here, and track the progress.</p>
-    <div class="form-group row">
-      <div class="col-xs-12 col-sm-6">
-        <label for="ex2">Symbol:</label>
-        <input class="form-control" id="ex2" type="text" placeholder="Ex: AAPL">
-      </div>
-      <div class="col-xs-12 col-sm-6">
-        <label for="ex3">Contract Exp Date:</label>
-        <input class="form-control" id="ex3" type="text" placeholder="Ex: 2023-07-28">
-      </div>
-    </div>
+    <h1>Open Positions</h1>
+    <p>You can see your open positions here, click to see open positions.</p>
     <div class="row">
       <div class="col-xs-6 col-sm-6 col-md-6">
-        <input type="button" class="btn btn-warning btn-block" value="Submit Trade">
+        <input type="button" class="btn btn-warning btn-block" value="View Positions" id="viewPositionsButton">
+      </div>
+    </div>
+    <div id="positionsSuccessMessage" class="alert alert-success alert-dismissible" style="display: none;">
+      <label for="positionsSuccessText">List of Current Positions:</label>
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong id="positionsSuccessText"></strong>
+    </div>
+    <div class="container mt-4">
+      <h1>Current Positions</h1>
+      <div class="table-responsive">
+        <table class="table table-bordered table-hover" id="positions-data-table">
+          <thead>
+            <tr>
+              <th>Cost Basis</th>
+              <th>Date Aquired</th>
+              <th>ID</th>
+              <th>Quantity</th>
+              <th>Symbol</th>
+              <!-- Add more table headers as needed for other properties -->
+            </tr>
+          </thead>
+          <tbody id="positionsData">
+            <!-- Table rows will be populated dynamically using JavaScript -->
+          </tbody>
+        </table>
       </div>
     </div>
   </div>
   <div class="container mt-4">
-    <h1>See the Options chain</h1>
+    <h1>See the Available Options chain</h1>
     <p>You can see the availble option types here.</p>
     <div class="form-group row">
       <div class="col-xs-12 col-sm-6 col-md-4">
@@ -85,7 +100,7 @@
     </div>
     <div class="row">
       <div class="col-xs-6 col-sm-6 col-md-6">
-        <input type="button" class="btn btn-success btn-block" value="View" id="viewButton">
+        <input type="button" class="btn btn-success btn-block" value="View Chain" id="viewButton">
       </div>
     </div>
     <div id="successMessage" class="alert alert-success alert-dismissible" style="display: none;">

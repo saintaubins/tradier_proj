@@ -8,17 +8,25 @@ const profileButton = document.getElementById('profileButton');
 
             const profile = data.message.profile;
 
+            const dateCreated = new Date(profile.account.date_created);
+            const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric' };
+            const formattedDateCreated = dateCreated.toLocaleDateString(undefined, options);
+
+            const lastUpdate = new Date(profile.account.last_update_date);
+            const dtOptions = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric' };
+            const formattedLastUpdate = lastUpdate.toLocaleDateString(undefined, dtOptions);
+
             // Populate the HTML elements with the data
             document.getElementById('name').innerText = profile.name;
             document.getElementById('id').innerText = profile.id;
             document.getElementById('accountNumber').innerText = profile.account.account_number;
             document.getElementById('classification').innerText = profile.account.classification;
-            document.getElementById('dateCreated').innerText = profile.account.date_created;
+            document.getElementById('dateCreated').innerText = formattedDateCreated;
             document.getElementById('dayTrader').innerText = profile.account.day_trader;
             document.getElementById('optionLevel').innerText = profile.account.option_level;
             document.getElementById('status').innerText = profile.account.status;
             document.getElementById('type').innerText = profile.account.type;
-            document.getElementById('lastUpdateDate').innerText = profile.account.last_update_date;
+            document.getElementById('lastUpdateDate').innerText = formattedLastUpdate;
         } catch (error) {
             console.error('Error occurred while fetching profile data:', error);
         }

@@ -5,6 +5,8 @@ import config
 import utils
 from datetime import date
 import time
+import threading
+import queue
 
 # 1. place trade.
 # 2. if success capture the trade info from the trade.
@@ -69,6 +71,7 @@ def place_algo_order(
     price: str,
     stop: str
 ) -> dict:
+    loop_the_trend = False
     try:
         # print('algo order symbol -> ', symbol)
         response = requests.post(
@@ -104,14 +107,17 @@ def place_algo_order(
                     # ('current trade', curr_trade.values())
                 ]
             }
-            figure_it_out(curr_trade)
+            # thread, result_queue = figure_it_out(curr_trade, result_queue)
+            figure_it_out(curr_trade, loop_the_trend)
+            # res = result_queue.get()
+            # print('thread res -> ', res)
             return success_dict
 
     except Exception as e:
         print('could not place algo order', e)
         return {'exception':
                 [
-                    'There is invalid data',
+                    'Something went wrong',
                     f'could not place algo order',
                     f'{e}']}
 
@@ -167,17 +173,23 @@ def calculate_EMA(data, period):
     return ema_array
 
 
-def figure_it_out(d: dict):
+def figure_it_out(d: dict, loop_the_trend: bool):
+    # creating a queue
+    # result_queue = queue.Queue()
+
+    # thread = threading.Thread(target=figure_it_out, args=(d, result_queue))
+    # thread.start()
+
     exit_the_trade = False
     suggested_direction = ''
     option_symbol = d.get('option_symbol')
     direction = d.get('option_type', 'no direction')
     qty = d.get('qty')
     side = d.get('side')
-    type = d.get('type')
+    t_type = d.get('type')
     duration = d.get('duration')
-    # while loop_the_trend:
-    for _ in range(2):
+    while loop_the_trend:
+        # for _ in range(2):
         ema1, ema7 = monitor_the_trade(d)
         if ema1[-1] > ema7[-1]:
             suggested_direction = 'long'
@@ -188,15 +200,23 @@ def figure_it_out(d: dict):
         if direction == 'Put' and suggested_direction == 'long':
             exit_the_trade = True
         if exit_the_trade:
+            loop_the_trend = False
             print('time to exit, we should have a profit')
             # place code to exit the trade
-            utils.place_option_order(
-                '', '', option_symbol, qty, side, type, duration, '', '')
-        if not exit_the_trade:
+            res = utils.place_option_order(
+                '', '', option_symbol, qty, side, t_type, duration, '', '')
+        else:
+            loop_the_trend = True
             print('good time to be in a trade')
         print('suggested_direction', suggested_direction)
         print('direction -> ', direction)
         print('exit_the_trade', exit_the_trade)
+        print('loop_the_trend', loop_the_trend)
         print('ema1 ->', ema1[-1])
         print('ema7 ->', ema7[-1])
         time.sleep(15)
+
+    # put the thread in the queue before returning
+    # result_queue.put(res)
+
+    return res

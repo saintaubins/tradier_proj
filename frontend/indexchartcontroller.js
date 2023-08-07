@@ -76,11 +76,12 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
     
 };
 
+let tickerSymbol = ''
 document.getElementById("searchLoad").addEventListener("click", function(event) {
 
   //event.preventDefault();
 
-  const tickerSymbol = document.getElementById("tickerSymbol").value;
+  tickerSymbol = document.getElementById("tickerSymbol").value;
   const intervalSelect = document.getElementById("intervalSelect").value;
   if(tickerSymbol == '') {
     showErrorMessage(['This needs a ticker symbol please.'])
@@ -165,6 +166,7 @@ function updateChartWithData(newDataArray, ema1, ema7) {
   myChart.data.datasets[1].data = ema1;
 
   const ema1Dataset = myChart.data.datasets[1];
+  let mostRecentPrice = 0
   let mostRecentEma1 = 0
   let mostRecentEma7 = 0
   if (ema1Dataset.data.length > 0) {
@@ -172,6 +174,8 @@ function updateChartWithData(newDataArray, ema1, ema7) {
     //console.log('Most recent EMA1 value:', mostRecentEma1);
   } else {
     console.log('EMA1 dataset is empty.');
+    showErrorMessage(['EMA1 dataset is empty.'])
+    setTimeout(hideErrorMessage, 15000);
   }
 
   // Update 'EMA Long' dataset data
@@ -184,9 +188,23 @@ function updateChartWithData(newDataArray, ema1, ema7) {
     //console.log('Most recent EMA7 value:', mostRecentEma7);
   } else {
     console.log('EMA7 dataset is empty.');
+    showErrorMessage(['EMA7 dataset is empty.'])
+    setTimeout(hideErrorMessage, 15000);
   }
 
-  checkEMAValues(mostRecentEma1, mostRecentEma7);
+  // Update 'Price' dataset data
+  const priceDataset = myChart.data.datasets[0];
+
+  if (priceDataset.data.length > 0) {
+    mostRecentPrice = priceDataset.data[priceDataset.data.length - 1];
+    //console.log('Most recent Price value:', mostRecentPrice);
+  } else {
+    console.log('Price dataset is empty.');
+    showErrorMessage(['Price dataset is empty.'])
+    setTimeout(hideErrorMessage, 15000);
+  }
+
+  checkEMAValues(mostRecentEma1, mostRecentEma7, mostRecentPrice);
 
   myChart.update();
 }
@@ -227,15 +245,22 @@ function clearAlerts() {
   errorMessageDiv.style.display = 'none';
 }
 
-function checkEMAValues(ema1, ema7) {
+function checkEMAValues(ema1, ema7, currPrice) {
   clearAlerts();
+
+  const rawNumber = currPrice;
+  const roundedNumber = rawNumber.toFixed(2); // Round to 2 decimal places
+  const formattedNumber = parseFloat(roundedNumber).toLocaleString("en-US", {
+    style: "currency",
+    currency: "USD"
+  });
 
   if (ema1 > ema7) {
     // Go long
-    showSuccessMessage('Go long');
+    showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } else {
     // Go short
-    showErrorMessage(['Go short']);
+    showErrorMessage([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }
 }
 

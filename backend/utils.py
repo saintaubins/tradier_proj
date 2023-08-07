@@ -230,6 +230,27 @@ def get_orders() -> dict:
 # print(get_orders())
 
 
+def get_positions() -> dict:
+    try:
+        response = requests.get(f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/positions',
+                                params={},
+                                headers=headers
+                                )
+        if response.ok:
+            json_response = response.json()
+            # print(response.status_code)
+            # print(json_response)
+            return json_response
+
+    except Exception as e:
+        print('could not get positions', e)
+        return {'exception':
+                [
+                    'Something went wrong',
+                    f'could not get positions',
+                    f'{e}']}
+
+
 def get_time_sales(symbol: str, interval: str, start: str, end: str, session_filter: str) -> dict:
     try:
         response = requests.get(f'{config.LIVE_API_BASE_URL}markets/timesales',

@@ -27,12 +27,21 @@ const tableBody = document.getElementById('statsData');
       // Populate the table with the received data
       gainLossData.forEach((entry) => {
         const row = document.createElement('tr');
+
+        const openDate = new Date(entry.open_date);
+        //const options = { year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric' };
+        const formattedOpenDate = openDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
+        
+        const closeDate = new Date(entry.close_date);
+        const formattedCloseDate = closeDate.toLocaleString('en-US', { timeZone: 'America/New_York' });
+  
+
         row.innerHTML = `
-          <td>${entry.close_date}</td>
+          <td>${formattedCloseDate}</td>
           <td>${entry.cost}</td>
           <td>${entry.gain_loss}</td>
           <td>${entry.gain_loss_percent}</td>
-          <td>${entry.open_date}</td>
+          <td>${formattedOpenDate}</td>
           <td>${entry.proceeds}</td>
           <td>${entry.quantity}</td>
           <td>${entry.symbol}</td>

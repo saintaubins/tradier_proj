@@ -1,27 +1,40 @@
 
 import requests
 import re
-import config
 import utils
 from datetime import date
 import time
 import threading
 import queue
+import os
 
-# 1. place trade.
-# 2. if success capture the trade info from the trade.
-# option_symbol, type, side, qty, duration.
-# 3. create a constant loop to see market behavior, i.e. ema signal.
-# 4. when signal says sell, call function to sell.
-# 5 view trade on a graph.
+environment = os.environ.get('ENVIRONMENT', 'production')
+
+if environment == 'development':
+    import config
+    access_token = config.ACCESS_TOKEN
+    account_id = config.ACCOUNT_ID
+    api_base_url = config.API_BASE_URL
+    live_api_base_url = config.LIVE_API_BASE_URL
+    sandbox_access_token = config.SANDBOX_ACCESS_TOKEN
+    sandbox_account_number = config.SANDBOX_ACCOUNT_NUMBER
+
+else:
+    access_token = os.environ.get('ACCESS_TOKEN')
+    account_id = os.environ.get('ACCOUNT_ID')
+    api_base_url = os.environ.get('API_BASE_URL')
+    live_api_base_url = os.environ.get('LIVE_API_BASE_URL')
+    sandbox_access_token = os.environ.get('SANDBOX_ACCESS_TOKEN')
+    sandbox_account_number = os.environ.get('SANDBOX_ACCOUNT_NUMBER')
+
 
 headers = {
-    'Authorization': 'Bearer {}'.format(config.SANDBOX_ACCESS_TOKEN),
+    'Authorization': 'Bearer {}'.format(sandbox_access_token),
     'Accept': 'application/json'
 }
 
 order_url = '{}accounts/{}/orders'.format(
-    config.API_BASE_URL, config.SANDBOX_ACCOUNT_NUMBER)
+    api_base_url, sandbox_account_number)
 
 loop_the_trend = False
 curr_trade = {}

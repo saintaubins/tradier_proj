@@ -1,24 +1,43 @@
-import config
+
 import requests
 import json
-# import pandas as pd
+import os
+
+environment = os.environ.get('ENVIRONMENT', 'production')
+
+if environment == 'development':
+    import config
+    access_token = config.ACCESS_TOKEN
+    account_id = config.ACCOUNT_ID
+    api_base_url = config.API_BASE_URL
+    live_api_base_url = config.LIVE_API_BASE_URL
+    sandbox_access_token = config.SANDBOX_ACCESS_TOKEN
+    sandbox_account_number = config.SANDBOX_ACCOUNT_NUMBER
+
+else:
+    access_token = os.environ.get('ACCESS_TOKEN')
+    account_id = os.environ.get('ACCOUNT_ID')
+    api_base_url = os.environ.get('API_BASE_URL')
+    live_api_base_url = os.environ.get('LIVE_API_BASE_URL')
+    sandbox_access_token = os.environ.get('SANDBOX_ACCESS_TOKEN')
+    sandbox_account_number = os.environ.get('SANDBOX_ACCOUNT_NUMBER')
 
 
 headers = {
-    'Authorization': 'Bearer {}'.format(config.SANDBOX_ACCESS_TOKEN),
+    'Authorization': 'Bearer {}'.format(sandbox_access_token),
     'Accept': 'application/json'
 }
 live_headers = {
-    'Authorization': 'Bearer {}'.format(config.ACCESS_TOKEN),
+    'Authorization': 'Bearer {}'.format(access_token),
     'Accept': 'application/json'
 }
 
 order_url = '{}accounts/{}/orders'.format(
-    config.API_BASE_URL, config.SANDBOX_ACCOUNT_NUMBER)
+    api_base_url, sandbox_account_number)
 
 
 def get_quotes(symbols='TSLA') -> dict:
-    url = "{}markets/quotes".format(config.API_BASE_URL)
+    url = "{}markets/quotes".format(api_base_url)
 
     response = requests.get(url,
                             params={'symbols': symbols},
@@ -37,7 +56,7 @@ def get_quotes(symbols='TSLA') -> dict:
 
 
 def get_options_chain(symbol='TSLA', exp_dt='2023-07-28', option_type=None):
-    options_url = '{}markets/options/chains'.format(config.API_BASE_URL)
+    options_url = '{}markets/options/chains'.format(api_base_url)
 
     response = requests.get(options_url,
                             params={'symbol': symbol, 'expiration': exp_dt},
@@ -62,7 +81,7 @@ def get_options_chain(symbol='TSLA', exp_dt='2023-07-28', option_type=None):
 
 
 def get_option_strike_price(symbol='TSLA', exp_dt='2023-07-28') -> dict:
-    strikes_url = '{}markets/options/strikes'.format(config.API_BASE_URL)
+    strikes_url = '{}markets/options/strikes'.format(api_base_url)
 
     response = requests.get(strikes_url,
                             params={'symbol': symbol, 'expiration': exp_dt},
@@ -158,7 +177,7 @@ def sell_option_order(symbol='TSLA', option_symbol='TSLA230728P00020000', qty='5
 def cancel_order(order_id: str) -> dict:
     try:
         response = requests.delete(
-            f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
+            f'{api_base_url}accounts/{sandbox_account_number}/orders/{order_id}',
             headers=headers
         )
         print('response.status_code', response.status_code)
@@ -185,7 +204,7 @@ def cancel_order(order_id: str) -> dict:
 def modify_order(order_id: str, type: str, duration: str, price: str, stop: str) -> dict:
     try:
         response = requests.put(
-            f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/orders/{order_id}',
+            f'{api_base_url}accounts/{sandbox_account_number}/orders/{order_id}',
             data={'type': type,
                   'duration': duration,
                   'price': price,
@@ -232,7 +251,7 @@ def get_orders() -> dict:
 
 def get_positions() -> dict:
     try:
-        response = requests.get(f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/positions',
+        response = requests.get(f'{api_base_url}accounts/{sandbox_account_number}/positions',
                                 params={},
                                 headers=headers
                                 )
@@ -253,7 +272,7 @@ def get_positions() -> dict:
 
 def get_time_sales(symbol: str, interval: str, start: str, end: str, session_filter: str) -> dict:
     try:
-        response = requests.get(f'{config.LIVE_API_BASE_URL}markets/timesales',
+        response = requests.get(f'{live_api_base_url}markets/timesales',
                                 params={'symbol': symbol, 'interval': interval,
                                         'start': f'{start} 09:30', 'end': f'{end} 16:00',
                                         'session_filter': 'all'},
@@ -279,7 +298,7 @@ def get_time_sales(symbol: str, interval: str, start: str, end: str, session_fil
 
 def get_user_profile() -> dict:
     try:
-        response = requests.get(f'{config.API_BASE_URL}user/profile',
+        response = requests.get(f'{api_base_url}user/profile',
                                 params={},
                                 headers=headers
                                 )
@@ -299,7 +318,7 @@ def get_user_profile() -> dict:
 
 def get_balances() -> dict:
     try:
-        response = requests.get(f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/balances',
+        response = requests.get(f'{api_base_url}accounts/{sandbox_account_number}/balances',
                                 params={},
                                 headers=headers
                                 )
@@ -320,7 +339,7 @@ def get_balances() -> dict:
 
 def get_gain_loss() -> dict:
     try:
-        response = requests.get(f'{config.API_BASE_URL}accounts/{config.SANDBOX_ACCOUNT_NUMBER}/gainloss',
+        response = requests.get(f'{api_base_url}accounts/{sandbox_account_number}/gainloss',
                                 params={'page': '', 'limit': '', 'sortBy': 'closeDate', 'sort': 'desc',
                                         'start': '', 'end': '', 'symbol': ''},
                                 headers=headers

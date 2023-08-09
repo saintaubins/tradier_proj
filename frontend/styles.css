@@ -34,8 +34,10 @@ body {
 }
 
 #bordered-modal {
+  /* background-color: rgb(144, 238, 144); */
   border: 1px solid red;
-  border-radius: 10px
+  border-radius: 10px;
+  /* box-shadow: 5px 5px darkolivegreen; */
 }
   
 .container h1 {

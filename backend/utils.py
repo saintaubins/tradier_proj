@@ -1,7 +1,7 @@
 import config
 import requests
 import json
-import pandas as pd
+# import pandas as pd
 
 
 headers = {

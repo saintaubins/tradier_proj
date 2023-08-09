@@ -42,7 +42,7 @@
     </div>
   </nav>
   
-<div class="container">
+<div class="container" id="placeTradeContainer">
     <h1>You can place your trades here.</h1>
     <p>Provide the information and place your trade.</p>
     <div class="form-group row">
@@ -239,12 +239,12 @@
 </div>
 
 <div class="container">
-    <h1>You can see the status of your trades here.</h1>
-    <p>Click the Open trades button to see them.</p>
-    <p>If there are any open trades, that you would like to cancel, click on the red X, in that row, to cancel it.</p>
+    <h1>You can see the status of your recent trades here.</h1>
+    <p>Click the recent trades button to see them.</p>
+    <p>If there are any recent trades, that you would like to cancel, click on the red X, in that row, to cancel it.</p>
     <div class="row">
       <div class="col-xs-6 col-sm-6 col-md-6">
-        <input type="button" class="btn btn-success btn-block" value="View Open trades" id="openTradesButton">
+        <input type="button" class="btn btn-success btn-block" value="View Recent trades" id="openTradesButton">
       </div>
     </div>
     <div id="successMessage" class="alert alert-info alert-dismissible" style="display: none;">
@@ -252,7 +252,7 @@
         <strong>There are no open trades</strong>
     </div>
     <div class="container mt-4">
-        <h1>Open, and active trades data.</h1>
+        <h1>Recent, and active trades data.</h1>
         <div class="table-responsive">
           <table class="table table-bordered table-hover" id="data-table">
             <thead>
@@ -263,11 +263,12 @@
               <th>Qty</th>
               <th>Type</th>
               <th>$Buy</th>
-              <th>$ Fill</th>
+              <th>$Fill</th>
               <th>order Id</th>
               <th>Side</th>
               <th>Status</th>
               <th>Reason</th>
+              <th>Cancel?</th>
               </tr>
             </thead>
             <tbody id="ordersData">

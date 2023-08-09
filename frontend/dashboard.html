@@ -78,7 +78,42 @@
       </div>
     </div>
   </div>
+  
   <div class="container mt-4">
+
+    <!-- Button to trigger the modal -->
+    <!-- <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="tradeModal" role="dialog">
+      <div class="modal-dialog">
+      
+        <!-- Modal content -->
+        <div class="modal-content" id="bordered-modal">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Choose an Option</h4>
+          </div>
+          <div class="modal-body">
+            <p>Do you want to go to the manual trade page or the algo trade page?</p>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+              <!-- <div class="col-xs-6 col-sm-6">
+                <button type="button" class="btn btn-default btn-block" data-dismiss="modal">Cancel</button>
+              </div> -->
+              <div class="col-xs-6 col-sm-6">
+                <button type="button" class="btn btn-primary btn-block" id="manualTradeButton">Manual Trade</button>
+              </div>
+              <div class="col-xs-6 col-sm-6">
+                <button type="button" class="btn btn-success btn-block" id="algoTradeButton">Algo Trade</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+      </div>
+    </div>
     <h1>See the Available Options chain</h1>
     <p>You can see the availble option types here.</p>
     <div class="form-group row">

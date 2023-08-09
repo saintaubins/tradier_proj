@@ -67,6 +67,17 @@ def get_options_strike_price():
     return jsonify({'message': res})
 
 
+@app.route('/get_algotrade_data')
+def get_algotrade_data():
+    # Replace with your logic to generate the data
+    data = {
+        'suggested_direction': 'long',
+        'direction': 'Call',
+        'exit_the_trade': False
+    }
+    return jsonify(data)
+
+
 @app.route('/placeoptionorder')
 def place_option_order():
     # Retrieve query parameters from the URL

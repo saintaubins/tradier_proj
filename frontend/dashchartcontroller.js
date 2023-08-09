@@ -285,6 +285,111 @@ function hidePositionsMessage() {
   orderMessage.style.display = "none";
 }
 
+// document.addEventListener('DOMContentLoaded', function () {
+//   const table = document.getElementById('data-table');
+
+//   table.addEventListener('click', function (event) {
+//     const clickedRow = event.target.closest('tr');
+//     if (clickedRow) {
+//       const cells = clickedRow.getElementsByTagName('td');
+      
+//       // Create an object to store captured data
+//       const rowData = {
+//         ask: cells[0].textContent,
+//         bid: cells[1].textContent,
+//         strike: cells[2].textContent,
+//         description: cells[3].textContent,
+//         symbol: cells[4].textContent,
+//         mark: (((parseFloat(cells[0].textContent) + parseFloat(cells[1].textContent)) / 2).toFixed(2)).toString()
+//       };
+//       console.log('rowData -> ', rowData)
+//       // Convert the object to a JSON string for passing as a query parameter
+//       const rowDataJson = encodeURIComponent(JSON.stringify(rowData));
+
+//       // Redirect to another page with the captured data as a query parameter
+//       window.location.href = `Opentrades.html?data=${rowDataJson}`;
+//     }
+//   });
+// });
+
+// document.addEventListener('DOMContentLoaded', function () {
+//   const table = document.getElementById('data-table');
+//   let lastClickTime = 0;
+
+//   table.addEventListener('click', function (event) {
+//     const currentTime = new Date().getTime();
+//     if (currentTime - lastClickTime < 400) {
+//       // Double click detected
+//       const clickedRow = event.target.closest('tr');
+//       if (clickedRow) {
+//         const cells = clickedRow.getElementsByTagName('td');
+        
+//         // Create an object to store captured data
+//         const rowData = {
+//           ask: cells[0].textContent,
+//           bid: cells[1].textContent,
+//           strike: cells[2].textContent,
+//           description: cells[3].textContent,
+//           symbol: cells[4].textContent,
+//           mark: (((parseFloat(cells[0].textContent) + parseFloat(cells[1].textContent)) / 2).toFixed(2)).toString()
+//         };
+
+//         // Convert the object to a JSON string for passing as a query parameter
+//         const rowDataJson = encodeURIComponent(JSON.stringify(rowData));
+
+//         // Redirect to manual trade page with the captured data as a query parameter
+//         window.location.href = `Opentrades.html?data=${rowDataJson}`;
+
+//         // Redirect to algo trade page with the captured data as a query parameter
+//         window.location.href = `Automate.html?data=${rowDataJson}`;
+//       }
+//     }
+//     lastClickTime = currentTime;
+//   });
+// });
+
+document.addEventListener('DOMContentLoaded', function () {
+  const table = document.getElementById('data-table');
+  let lastClickTime = 0;
+  let rowDataJson = '';
+
+  table.addEventListener('click', function (event) {
+    const currentTime = new Date().getTime();
+    if (currentTime - lastClickTime < 400) {
+      // Double click detected
+      const clickedRow = event.target.closest('tr');
+      if (clickedRow) {
+        const cells = clickedRow.getElementsByTagName('td');
+        
+        // Create an object to store captured data
+        const rowData = {
+          ask: cells[0].textContent,
+          bid: cells[1].textContent,
+          strike: cells[2].textContent,
+          description: cells[3].textContent,
+          symbol: cells[4].textContent,
+          mark: (((parseFloat(cells[0].textContent) + parseFloat(cells[1].textContent)) / 2).toFixed(2)).toString()
+        };
+
+        // Convert the object to a JSON string for passing as a query parameter
+        rowDataJson = encodeURIComponent(JSON.stringify(rowData));
+
+        // Show the modal
+        $('#tradeModal').modal('show');
+      }
+    }
+    lastClickTime = currentTime;
+  });
+  // Handle button clicks in the modal
+  document.getElementById('manualTradeButton').addEventListener('click', function () {
+    window.location.href = `Opentrades.html?data=${rowDataJson}`;
+  });
+
+  document.getElementById('algoTradeButton').addEventListener('click', function () {
+    window.location.href = `Automate.html?data=${rowDataJson}`;
+  });
+});
+
 
 
 

@@ -139,3 +139,21 @@ function hideOrderMessage() {
     const orderMessage = document.getElementById("orderMessage");
     orderMessage.style.display = "none";
   }
+
+document.addEventListener('DOMContentLoaded', function () {
+  const form = document.getElementById('algoTradeContainer');
+
+  // Retrieve query parameter from the URL
+  const urlParams = new URLSearchParams(window.location.search);
+  const rowDataJson = urlParams.get('data');
+
+  if (rowDataJson) {
+    // Parse the JSON and populate the form fields
+    const rowData = JSON.parse(decodeURIComponent(rowDataJson));
+    console.log('rowData -> ', rowData)
+    // Populate form fields using the rowData object
+    document.getElementById('optionSymbol').value = rowData.symbol;
+    document.getElementById('price').value = rowData.mark;
+    // ... populate other form fields
+  }
+});

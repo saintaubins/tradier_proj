@@ -205,18 +205,26 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             # place code to exit the trade
             res = utils.place_option_order(
                 '', '', option_symbol, qty, side, t_type, duration, '', '')
+            message = {
+                ['time to exit, we should have a profit']
+            }
+            return message
         else:
             loop_the_trend = True
             print('good time to be in a trade')
-        print('suggested_direction', suggested_direction)
-        print('direction -> ', direction)
-        print('exit_the_trade', exit_the_trade)
-        print('loop_the_trend', loop_the_trend)
-        print('ema1 ->', ema1[-1])
-        print('ema7 ->', ema7[-1])
+            print('suggested_direction', suggested_direction)
+            print('direction -> ', direction)
+            print('exit_the_trade', exit_the_trade)
+            print('loop_the_trend', loop_the_trend)
+            print('ema1 ->', ema1[-1])
+            print('ema7 ->', ema7[-1])
+
+            message = {
+                ['good time to be in a trade']
+            }
         time.sleep(15)
 
     # put the thread in the queue before returning
     # result_queue.put(res)
 
-    return res
+    return message

@@ -1,6 +1,6 @@
 
-const backEndUrl = 'http://127.0.0.1:5001/';
-//const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+//const backEndUrl = 'http://127.0.0.1:5001/';
+const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 // Handle button click events
 document.getElementById("openTradesButton").addEventListener("click", function() {

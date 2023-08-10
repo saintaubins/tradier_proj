@@ -1,5 +1,5 @@
-const backEndUrl = "http://127.0.0.1:5001/"
-//const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+//const backEndUrl = "http://127.0.0.1:5001/"
+const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 const viewButton = document.getElementById('viewButton');
 const tableBody = document.getElementById('statsData');

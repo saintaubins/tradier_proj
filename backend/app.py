@@ -5,12 +5,11 @@ import utils
 import automate
 
 
-app = Flask(__name__, static_folder="frontend/static",
-            template_folder="frontend")
+app = Flask(__name__)
 
 
 # Replace 'http://example.com' and 'http://yourdomain.com' with the domains you want to allow
-allowed_origins = ['http://127.0.0.1',
+allowed_origins = ['http://127.0.0.1/', 'https://main--shimmering-jelly-900e3e.netlify.app/',
                    '*', 'https://tradier-app-b7ceb132d0e1.herokuapp.com/']
 
 # Initialize CORS with the allowed origins

@@ -4,7 +4,7 @@ import json
 import os
 
 environment = os.environ.get('ENVIRONMENT', 'production')
-
+print('environment -> ', environment)
 if environment == 'development':
     import config
     access_token = config.ACCESS_TOKEN
@@ -13,6 +13,7 @@ if environment == 'development':
     live_api_base_url = config.LIVE_API_BASE_URL
     sandbox_access_token = config.SANDBOX_ACCESS_TOKEN
     sandbox_account_number = config.SANDBOX_ACCOUNT_NUMBER
+    # print('environment -> ', environment)
 
 else:
     access_token = os.environ.get('ACCESS_TOKEN')

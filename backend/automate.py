@@ -219,7 +219,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             res = utils.place_option_order(
                 '', '', option_symbol, qty, side, t_type, duration, '', '')
             message = {
-                ['time to exit, we should have a profit']
+                'm': 'time to exit, we should have a profit'
             }
             return message
         else:
@@ -233,7 +233,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             print('ema7 ->', ema7[-1])
 
             message = {
-                ['good time to be in a trade']
+                'm': 'good time to be in a trade'
             }
         time.sleep(15)
 

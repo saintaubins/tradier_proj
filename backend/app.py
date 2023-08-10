@@ -1,5 +1,5 @@
 # app.py
-from flask import Flask, jsonify, request, render_template, send_from_directory
+from flask import Flask, jsonify, request
 from flask_cors import CORS
 import utils
 import automate
@@ -19,23 +19,6 @@ CORS(app, resources={r"/*": {"origins": allowed_origins}})
 @app.route('/')
 def index():
     return jsonify({'message': 'Hello, Flask!'})
-
-
-# @app.route('/index.html')
-# def index():
-#     return send_from_directory('../frontend', 'index.html')
-
-# @app.route('/')
-# def index():
-#     return render_template('index.html')
-
-# @app.route('/static/<path:path>')
-# def send_static(path):
-#     return send_from_directory('../frontend', path)
-
-# @app.route('/static/<path:path>')
-# def send_static(path):
-#     return send_from_directory('../frontend', path)
 
 
 @app.route('/optionschain')

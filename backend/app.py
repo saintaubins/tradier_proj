@@ -1,15 +1,17 @@
 # app.py
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template, send_from_directory
 from flask_cors import CORS
 import utils
 import automate
 
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder="frontend/static",
+            template_folder="frontend")
 
 
 # Replace 'http://example.com' and 'http://yourdomain.com' with the domains you want to allow
-allowed_origins = ['http://127.0.0.1', 'http://yourdomain.com', '*']
+allowed_origins = ['http://127.0.0.1',
+                   '*', 'https://tradier-app-b7ceb132d0e1.herokuapp.com/']
 
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
@@ -18,6 +20,23 @@ CORS(app, resources={r"/*": {"origins": allowed_origins}})
 @app.route('/')
 def index():
     return jsonify({'message': 'Hello, Flask!'})
+
+
+# @app.route('/index.html')
+# def index():
+#     return send_from_directory('../frontend', 'index.html')
+
+# @app.route('/')
+# def index():
+#     return render_template('index.html')
+
+# @app.route('/static/<path:path>')
+# def send_static(path):
+#     return send_from_directory('../frontend', path)
+
+# @app.route('/static/<path:path>')
+# def send_static(path):
+#     return send_from_directory('../frontend', path)
 
 
 @app.route('/optionschain')

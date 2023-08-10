@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>   
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Active Algo Tradeing</title>
+  <!-- <link rel="stylesheet" href="styles.css"> -->
+  <link rel="stylesheet" href="static/styles/styles.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <!-- <script src="app.js"></script> -->
+  <!-- <script src="{{ url_for('static', filename='scripts/app.js') }}"></script> -->
+</head>
+
+<body>
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="index.html">Active Algo Trading</a>
+      </div>
+      <div class="collapse navbar-collapse" id="myNavbar">
+        <ul class="nav navbar-nav">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="Dashboard.html">Dashboard</a></li>
+          <li><a href="Opentrades.html">Opentrades</a></li>
+          <li><a href="Stats.html">Stats</a></li>
+          <li><a href="Automate.html">Automate</a></li>
+          <li><a href="Account.html">Account</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  
+<div class="container" id="placeTradeContainer">
+    <h1>You can place your trades here.</h1>
+    <p>Provide the information and place your trade.</p>
+    <div class="form-group row">
+        
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <label for="optionSymbol">Option Symbol:(required)</label>
+            <input class="form-control" id="optionSymbol" type="text" placeholder="TSLA230728P00020000">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+        <label for="qty">Qty:(required)</label>
+        <input class="form-control" id="qty" type="text" placeholder="1">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <label for="sideSelect">Side:(required)</label>
+            <select class="form-control" id="sideSelect">
+              <option value="buy_to_open">Buy to open</option>
+              <option value="buy_to_close">Buy to close</option>
+              <option value="sell_to_open">Sell to open</option>
+              <option value="sell_to_close">Sell to close</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <label for="typeSelect">Type:(required)</label>
+            <select class="form-control" id="typeSelect">
+              <option value="limit">Limit</option>
+              <option value="market">Market</option>
+              <option value="stop">Stop</option>
+              <option value="stop_limit">Stop limit</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <label for="durationSelect">Duration:(required)</label>
+            <select class="form-control" id="durationSelect">
+              <option value="gtc">GTC</option>
+              <option value="day">Day</option>
+              <option value="pre">Pre</option>
+              <option value="post">Post</option>
+            </select>
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <label for="price">Price:(required if limit, or stop limit.)</label>
+            <input class="form-control" id="price" type="text" placeholder="1.00">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+            <label for="stop">Stop:(required if stop, or stop limit.)</label>
+            <input class="form-control" id="stop" type="text" placeholder="1.00">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="symbol">Symbol:</label>
+          <input class="form-control" id="symbol" type="text" placeholder="AAPL">
+        </div>
+        <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="expDate">Exp Date:</label>
+          <input class="form-control" id="expDate" type="text" placeholder="2023-07-28">
+        </div>
+      </div>
+    <!-- <input type="button" class="btn btn-info" value="Place Order" id="placeOrderButton">
+    <input type="button" class="btn btn-danger" value="Algo Order" id="algoOrderButton"> -->
+    
+      <div class="row">
+          <div class="col-xs-6 col-sm-6 col-md-6">
+              <input type="button" class="btn btn-info btn-block" value="Place Order" id="placeOrderButton">
+          </div>
+          <!-- <div class="col-xs-6 col-sm-6 col-md-6">
+              <input type="button" class="btn btn-danger btn-block" value="Algo Order" id="algoOrderButton">
+          </div> -->
+      </div>
+
+    <div id="errorMessage" class="alert alert-danger alert-dismissible" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong id="errorText"></strong>
+    </div>
+    <div id="orderMessage" class="alert alert-success alert-dismissible" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong id="orderText"></strong>
+    </div>
+  
+  <!-- The Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+      <div class="modal-content" id="bordered-modal">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Order Details, Place the order?</h4>
+        </div>
+          <div class="modal-body">
+          <!-- Add input fields in the modal to display the data -->
+            <p>Symbol: <span id="modalSymbol"></span></p>
+            <p>Expiration Date: <span id="modalExpDate"></span></p>
+            <p>Option Symbol: <span id="modalOptionSymbol"></span></p>
+            <p>Quantity: <span id="modalQty"></span></p>
+            <p>Side: <span id="modalSide"></span></p>
+            <p>Type: <span id="modalType"></span></p>
+            <p>Duration: <span id="modalDuration"></span></p>
+            <p>Price: <span id="modalPrice"></span></p>
+            <p>Stop: <span id="modalStop"></span></p>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="button" class="btn btn-info btn-block" data-dismiss="modal" id="modalYesButton">Yes</button>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" id="modalNoButton">No</button>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <h1>You can modify your trade orders here.</h1>
+  <p>Provide the information and modify your trade.</p>
+  <div class="form-group row">
+      
+      <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="orderId">Order Id:(required)</label>
+          <input class="form-control" id="orderId" type="text" placeholder="7169581">
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="type">Type:</label>
+          <select class="form-control" id="type">
+            <option value="limit">Limit</option>
+            <option value="market">Market</option>
+            <option value="stop">Stop</option>
+            <option value="stop_limit">Stop limit</option>
+          </select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="duration">Duration:</label>
+          <select class="form-control" id="duration">
+            <option value="gtc">GTC</option>
+            <option value="day">Day</option>
+            <option value="pre">Pre</option>
+            <option value="post">Post</option>
+          </select>
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="modifyPrice">Price:(required if limit, or stop limit.)</label>
+          <input class="form-control" id="modifyPrice" type="text" placeholder="1.00">
+      </div>
+      <div class="col-xs-12 col-sm-6 col-md-4">
+          <label for="modifyStop">Stop:(required if stop, or stop limit.)</label>
+          <input class="form-control" id="modifyStop" type="text" placeholder="1.00">
+      </div>
+    </div>
+  
+    <div class="row">
+        <div class="col-xs-6 col-sm-6 col-md-6">
+            <input type="button" class="btn btn-warning btn-block" value="Modify Order" id="modifyOrderButton">
+        </div>
+    </div>
+
+  <div id="modifyErrorMessage" class="alert alert-danger alert-dismissible" style="display: none;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong id="modifyErrorText"></strong>
+  </div>
+  <div id="modifyOrderMessage" class="alert alert-success alert-dismissible" style="display: none;">
+      <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+      <strong id="modifyOrderText"></strong>
+  </div>
+
+<!-- The Modal -->
+<div class="modal fade" id="modifyModal" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content" id="bordered-modal">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Modify Order?</h4>
+        </div>
+          <div class="modal-body">
+          <!-- Add input fields in the modal to display the data -->
+            <p>Order Id: <span id="modalOrderId"></span></p>
+            <p>Type: <span id="modalModifyType"></span></p>
+            <p>Duration: <span id="modalModifyDuration"></span></p>
+            <p>Price: <span id="modalModifyPrice"></span></p>
+            <p>Stop: <span id="modalModifyStop"></span></p>
+          </div>
+          <div class="modal-footer">
+            <div class="row">
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="button" class="btn btn-info btn-block" data-dismiss="modal" id="modalModifyYesButton">Yes</button>
+                </div>
+                <div class="col-xs-6 col-sm-6 col-md-6">
+                    <button type="button" class="btn btn-danger btn-block" data-dismiss="modal" id="modalModifyNoButton">No</button>
+                </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+    <h1>You can see the status of your recent trades here.</h1>
+    <p>Click the recent trades button to see them.</p>
+    <p>If there are any recent trades, that you would like to cancel, click on the red X, in that row, to cancel it.</p>
+    <div class="row">
+      <div class="col-xs-6 col-sm-6 col-md-6">
+        <input type="button" class="btn btn-success btn-block" value="View Recent trades" id="openTradesButton">
+      </div>
+    </div>
+    <div id="successMessage" class="alert alert-info alert-dismissible" style="display: none;">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>There are no open trades</strong>
+    </div>
+    <div class="container mt-4">
+        <h1>Recent, and active trades data.</h1>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover" id="data-table">
+            <thead>
+              <tr>
+              <!-- <th>Symbol</th> -->
+              <th>Option Symbol</th>
+              <th>Date Time</th>
+              <th>Qty</th>
+              <th>Type</th>
+              <th>$Buy</th>
+              <th>$Fill</th>
+              <th>order Id</th>
+              <th>Side</th>
+              <th>Status</th>
+              <th>Reason</th>
+              <th>Cancel?</th>
+              </tr>
+            </thead>
+            <tbody id="ordersData">
+              <!-- Table rows will be populated dynamically using JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+</div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="openTrades.js"></script>
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  
+
+</body>
+
+</html>

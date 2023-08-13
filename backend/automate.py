@@ -165,7 +165,7 @@ def monitor_the_trade(d: dict) -> bool:
 
     data = get_market_trend(d)
 
-    # print('monitor_the_trend -> ', data)
+    print('monitor_the_trend -> ', data)
 
     # Get the data array from the dataset
     data_array = data['series']['data']

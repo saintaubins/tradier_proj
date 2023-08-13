@@ -34,16 +34,16 @@ logging.basicConfig(filename='app.log', level=logging.DEBUG)
 #     return jsonify({'message': 'Hello, Flask!'})
 
 
-@app.route('/')
-def index():
-    return render_template('Automate.html')  # Your frontend HTML file
+# @app.route('/')
+# def index():
+#     return render_template('Automate.html')  # Your frontend HTML file
 
 
-@socket_io.on('connect')
-def handle_connect():
-    app.logger.info('Client connected')
-    print('Client connected')
-    socket_io.emit('message', {'data': 'Hello from backend'})
+# @socket_io.on('connect')
+# def handle_connect():
+#     app.logger.info('Client connected')
+#     print('Client connected')
+#     socket_io.emit('message', {'data': 'Hello from backend'})
 
 
 @app.route('/optionschain')
@@ -207,13 +207,13 @@ def get_gain_loss():
     return jsonify({'message': res})
 
 
-if __name__ == '__main__':
-    # app.run(debug=True, port=5001)
-    from eventlet import wsgi
-    # app.run(host='0.0.0.0', port=5001)
-    wsgi.server(eventlet.listen(('0.0.0.0', 5001)), app)
-
 # if __name__ == '__main__':
+    # app.run(debug=True, port=5001)
+    # from eventlet import wsgi
+    # app.run(host='0.0.0.0', port=5001)
+    # wsgi.server(eventlet.listen(('0.0.0.0', 5001)), app)
+
+if __name__ == '__main__':
     # Change port number if needed
     # socket_io.run(app, host='0.0.0.0', port=5001)
-    # app.run(debug=True, port=5001)
+    app.run(debug=True, port=5001)

@@ -10,7 +10,7 @@ import os
 import logging
 
 logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(levelname)s - %(message)s')
+                    format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
 
 
 environment = os.environ.get('LOGNAME', 'production')
@@ -139,7 +139,7 @@ def place_algo_order(
                 [
                     'Something went wrong',
                     f'could not place algo order',
-                    f'{e}']}
+                    f'{e}', 'This will also happen off market hours, a holiday, or a weekend.']}
 
 
 def get_today_date():
@@ -231,6 +231,8 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             }
             return message
         else:
+            logging.info(
+                f"option_symbol:{option_symbol}, direction:{direction}got this far")
             loop_the_trend = True
             print('good time to be in a trade')
             print('suggested_direction', suggested_direction)

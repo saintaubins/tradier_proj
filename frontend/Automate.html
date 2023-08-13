@@ -16,6 +16,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
   <!-- <script src="app.js"></script> -->
+  <!-- <script src="automate.js"></script> -->
   
 </head>
 <body>
@@ -153,32 +154,37 @@
       </div>
     </div>
 
+    
     <div id="myChartContainer" class="container">
+      <div id="message"></div>
       <div class="row">
         <div class="col-xs-12 col-sm-12 col-md-12">
+          
           <canvas id="algoChart"></canvas>
         </div>
       </div>
     </div>
 
-    <!-- <h1>Server-Sent Events Example</h1>
-    <div id="message-container"></div> -->
+ 
 
-    <!-- <script>
-      const eventSource = new EventSource('/frontend/Automate.html');
-
-      eventSource.addEventListener('message', event => {
-          const container = document.getElementById('message-container');
-          container.innerHTML = `Received message: ${event.data}`;
-      });
-    </script> -->
-  
   <script>
-    //const socket = io('http://127.0.0.1:5001');  // Adjust the URL as needed
-  
-    socket.on('message', (data) => {
-      console.log('Received message:', data.data);
-    });
+    //const backEndUrl1 = 'http://127.0.0.1:5001/';
+    const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/'; 
+
+    const eventSource = new EventSource(`${backEndUrl1}automation_events`);
+
+    eventSource.onopen = function(event) {
+        console.log('Connection opened');
+    };
+
+    eventSource.onmessage = function(event) {
+        console.log('Received data:', event.data);
+        document.getElementById('message').innerHTML = event.data;
+    };
+
+    eventSource.onerror = function(event) {
+        console.error('Error occurred:', event);
+    };
   </script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>

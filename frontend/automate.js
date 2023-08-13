@@ -219,3 +219,20 @@ new Chart(algo, {
   }
 });
 
+///////////////////socket connection code //////////////////////////////
+
+// const eventSource = new EventSource(`${backEndUrl}events`);
+
+// eventSource.onopen = function(event) {
+//     console.log('Connection opened');
+// };
+
+// eventSource.onmessage = function(event) {
+//     console.log('Received data:', event.data);
+//     document.getElementById('message').innerHTML = event.data;
+// };
+
+// eventSource.onerror = function(event) {
+//     console.error('Error occurred:', event);
+// };
+

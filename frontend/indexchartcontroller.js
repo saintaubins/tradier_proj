@@ -14,7 +14,7 @@ function getTodayDate() {
 
 const todayDate = getTodayDate();
 //console.log(todayDate); // Output: "2023-07-28"
-
+//let isValidTimeSalesRes = '';
 function getTimeSales(symbol, intervalSelect,startDate, endDate) {
   let newDataArray = []
   // Send the POST request
@@ -51,7 +51,8 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         setTimeout(hideOrderMessage, 15000);
       } else {
         //console.log('series-> ', data.message)
-        
+        //isValidTimeSalesRes = true;
+        //console.log('isValidTimeSalesRes-> ', isValidTimeSalesRes)
         newDataArray = data.message.series.data;
 
         // Extracting close prices from the data
@@ -105,9 +106,12 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
   } else {
     //event.preventDefault();
     getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
-    setInterval(() => {
-      getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
-    }, 10000); // 10000 milliseconds = 10 seconds
+    //console.log('isValidTimeSalesRes-> ', isValidTimeSalesRes)
+    if(tickerSymbol && intervalSelect && startDate){
+      setInterval(() => {
+        getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
+      }, 10000); // 10000 milliseconds = 10 seconds
+    }
   }
 });
 //console.log('myChart ->', myChart)

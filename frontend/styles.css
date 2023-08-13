@@ -27,17 +27,17 @@ body {
   max-width: 90%;
   margin: 5% auto;
   padding: 5px;
-  background-color: rgba(144, 238, 144, 0.05);
+  background-color: rgba(144, 238, 144, 0.18);
   border: 1px solid rgb(79, 121, 66);
   border-radius: 7px;
   box-shadow: 3px 3px #D3D3D3;
 }
 
 #bordered-modal {
-  /* background-color: rgb(144, 238, 144); */
+  /* background-color: lightslategray; */
   border: 1px solid red;
   border-radius: 10px;
-  /* box-shadow: 5px 5px darkolivegreen; */
+  /* box-shadow: 5px 5px grey; */
 }
   
 .container h1 {

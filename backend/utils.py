@@ -2,6 +2,10 @@
 import requests
 import json
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
 
 environment = os.environ.get('LOGNAME', 'production')
 print('environment -> ', environment)
@@ -285,9 +289,10 @@ def get_time_sales(symbol: str, interval: str, start: str, end: str, session_fil
             print(json_response)
             return json_response
         else:
+            print('response.status_code -> ', response.status_code,
+                  'response.txt -> ', response.text)
+
             return {'res': str(response), 'status_code': response.status_code}
-        print('response.status_code -> ', response.status_code,
-              'response.txt -> ', response.text)
 
     except Exception as e:
         print('could not place order', e)

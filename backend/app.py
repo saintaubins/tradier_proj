@@ -1,10 +1,11 @@
 
-from flask import Flask, jsonify, request, render_template
+from flask import Flask, jsonify, request, render_template, Response
 from flask_cors import CORS
 import utils
 import automate
 import socketio
 import eventlet
+import time
 from flask_socketio import SocketIO
 import logging
 # from flask_sse import sse
@@ -28,13 +29,25 @@ allowed_origins = ['http://127.0.0.1:5001/', 'https://main--shimmering-jelly-900
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
-logging.basicConfig(filename='app.log', level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
 
 
 @app.route('/')
 def index():
     return jsonify({'message': 'Hello, Flask!'})
 
+
+def generate_events():
+    while True:
+        data = "Hello from the backend!"  # Your data to send
+        yield f"data: {data}\n\n"
+        time.sleep(15)  # Delay between sending events
+
+
+@app.route('/automation_events')
+def automation_events():
+    return Response(generate_events(), content_type='text/event-stream')
 
 # @app.route('/')
 # def index():

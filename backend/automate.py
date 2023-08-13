@@ -7,6 +7,11 @@ import time
 import threading
 import queue
 import os
+import logging
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 environment = os.environ.get('LOGNAME', 'production')
 
@@ -55,6 +60,7 @@ def set_current_trade(option_symbol: str, qty: str) -> dict:
         'option_type': option_t
     }
     print('current_trade -> ', current_trade)
+    logging.info(f"current_trade -> {current_trade}")
     return current_trade
 
 
@@ -120,6 +126,7 @@ def place_algo_order(
                     # ('current trade', curr_trade.values())
                 ]
             }
+            logging.info(f"success_dict -> {success_dict}")
             # thread, result_queue = figure_it_out(curr_trade, result_queue)
             figure_it_out(curr_trade, loop_the_trend)
             # res = result_queue.get()
@@ -195,12 +202,13 @@ def figure_it_out(d: dict, loop_the_trend: bool):
 
     exit_the_trade = False
     suggested_direction = ''
-    option_symbol = d.get('option_symbol')
+    option_symbol = d.get('option_symbol', 'no symbol')
     direction = d.get('option_type', 'no direction')
-    qty = d.get('qty')
-    side = d.get('side')
-    t_type = d.get('type')
-    duration = d.get('duration')
+    qty = d.get('qty', 'no qty')
+    side = d.get('side', 'no side')
+    t_type = d.get('type', 'no type')
+    duration = d.get('duration', 'no duration')
+    logging.info(f"option_symbol:{option_symbol}, direction:{direction}")
     while loop_the_trend:
         # for _ in range(2):
         ema1, ema7 = monitor_the_trade(d)

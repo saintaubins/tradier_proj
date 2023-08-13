@@ -2,7 +2,7 @@
 const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 document.getElementById("viewPositionsButton").addEventListener("click", function() {
-  console.log('Button clicked')
+  //console.log('Button clicked')
   fetchPositions();
   //placeAlgoOrder();
 });
@@ -113,7 +113,7 @@ function getNextFriday() {
 
   let nextFriday = new Date(today);
   nextFriday.setDate(today.getDate() + daysUntilFriday);
-
+  console.log('nextFriday -> ', nextFriday)
   return nextFriday;
 }
 

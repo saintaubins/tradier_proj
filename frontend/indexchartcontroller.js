@@ -50,7 +50,7 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         showOrderMessage(data.message.success);
         setTimeout(hideOrderMessage, 15000);
       } else {
-        console.log('series-> ', data.message)
+        //console.log('series-> ', data.message)
         
         newDataArray = data.message.series.data;
 
@@ -288,10 +288,10 @@ $(document).ready(function () {
   }).on('changeDate', function (e) {
     // This function will be triggered when the date is selected
     startDate = e.date; // The selected date object
-    console.log('startDate -> ', startDate); // You can use or process the selected date here
+    //console.log('startDate -> ', startDate); // You can use or process the selected date here
     const formattedDate = formatDate(startDate);
     startDate = formattedDate;
-    console.log('startDate -> ', startDate); // Output: "2023-08-14"
+    //console.log('startDate -> ', startDate); // Output: "2023-08-14"
   });
 });
 

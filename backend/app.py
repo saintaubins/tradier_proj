@@ -29,9 +29,11 @@ allowed_origins = ['http://127.0.0.1:5001/', 'https://main--shimmering-jelly-900
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 logging.basicConfig(filename='app.log', level=logging.DEBUG)
-# @app.route('/')
-# def index():
-#     return jsonify({'message': 'Hello, Flask!'})
+
+
+@app.route('/')
+def index():
+    return jsonify({'message': 'Hello, Flask!'})
 
 
 # @app.route('/')

@@ -1,5 +1,5 @@
-//const backEndUrl = 'http://127.0.0.1:5001/';
-const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+const backEndUrl = 'http://127.0.0.1:5001/';
+//const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 const profileButton = document.getElementById('profileButton');
     profileButton.addEventListener('click', async () => {
@@ -26,7 +26,7 @@ const profileButton = document.getElementById('profileButton');
             document.getElementById('dayTrader').innerText = profile.account.day_trader;
             document.getElementById('optionLevel').innerText = profile.account.option_level;
             document.getElementById('status').innerText = profile.account.status;
-            document.getElementById('type').innerText = profile.account.type;
+            document.getElementById('type0').innerText = profile.account.type;
             document.getElementById('lastUpdateDate').innerText = formattedLastUpdate;
         } catch (error) {
             console.error('Error occurred while fetching profile data:', error);

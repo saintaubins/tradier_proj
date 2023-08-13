@@ -3,9 +3,10 @@ import requests
 import json
 import os
 
-environment = os.environ.get('ENVIRONMENT', 'production')
+environment = os.environ.get('LOGNAME', 'production')
 print('environment -> ', environment)
-if environment == 'development':
+print('os env -> ', os.environ.get('LOGNAME'))
+if environment == 'semsaint-aubin':
     import config
     access_token = config.ACCESS_TOKEN
     account_id = config.ACCOUNT_ID
@@ -275,7 +276,7 @@ def get_time_sales(symbol: str, interval: str, start: str, end: str, session_fil
     try:
         response = requests.get(f'{live_api_base_url}markets/timesales',
                                 params={'symbol': symbol, 'interval': interval,
-                                        'start': f'{start} 09:30', 'end': f'{end} 16:00',
+                                        'start': f'{start}', 'end': f'{end} 24:00',
                                         'session_filter': 'all'},
                                 headers=live_headers
                                 )
@@ -283,13 +284,15 @@ def get_time_sales(symbol: str, interval: str, start: str, end: str, session_fil
             json_response = response.json()
             print(json_response)
             return json_response
+        else:
+            return {'res': str(response), 'status_code': response.status_code}
         print('response.status_code -> ', response.status_code,
               'response.txt -> ', response.text)
 
     except Exception as e:
         print('could not place order', e)
         return {'exception':
-                [
+                [response,
                     'There are invalid params',
                     f'could not get',
                     f'{e}']}

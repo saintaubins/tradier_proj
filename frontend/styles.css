@@ -24,13 +24,13 @@ body {
 }
   
 .container {
-  max-width: 80%;
+  max-width: 90%;
   margin: 5% auto;
-  padding: 10px;
-  background-color: rgba(144, 238, 144, 0.25);
-  border: 1px solid red;
+  padding: 5px;
+  background-color: rgba(144, 238, 144, 0.05);
+  border: 1px solid rgb(79, 121, 66);
   border-radius: 7px;
-  box-shadow: 5px 5px #D3D3D3;
+  box-shadow: 3px 3px #D3D3D3;
 }
 
 #bordered-modal {
@@ -51,16 +51,121 @@ body {
   border-radius: 3.5px;
 }
 
+/* brown */
 #tickerSymbol,
-#intervalSelect {
-  float:left;
-  width:50%;
+#intervalSelect,
+#symbolInput,
+#expDateInput,
+#optionTypeSelect,
+#searchLoad,
+#viewButton,
+#datepicker  {
+  width:100%;
+  background-color: rgba(139,69,19, 0.15);
+  border: 1px solid rgb(139,69,19);
+  color: rgb(139,69,19);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
 }
 
-#searchLoad {
-  float:right;
+/* blue */
+#viewPositionsButton,
+#optionSymbol,
+#qty,
+#sideSelect,
+#typeSelect,
+#durationSelect,
+#price,
+#stop,
+#symbol,
+#expDate,
+#placeOrderButton  {
   width:100%;
+  background-color: rgba(0, 0, 255, 0.15);
+  border: 1px solid rgb(0, 0, 255);
+  color: rgb(0, 0, 255);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
 }
+
+/* grey */
+#viewPositionsButton,
+#balanceButton,
+#profileButton  {
+  width:100%;
+  background-color: rgba(105, 105, 105, 0.15);
+  border: 1px solid rgb(105, 105, 105);
+  color: rgb(105, 105, 105);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
+/* orange */
+#orderId,
+#type,
+#duration,
+#modifyPrice,
+#modifyStop,
+#modifyOrderButton  {
+  width:100%;
+  background-color: rgba(255, 140, 0, 0.15);
+  border: 1px solid rgb(255, 140, 0);
+  color: rgb(255, 140, 0);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
+/* green */
+#openTradesButton  {
+  width:100%;
+  background-color: rgba(0, 100, 0, 0.15);
+  border: 1px solid rgb(0, 100, 0);
+  color: rgb(0, 100, 0);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
+/* purple */
+#symbolInput2,
+#startDate2,
+#endDate2,
+#limitSelect2,
+#sortSelect,
+#viewStatsButton  {
+  width:100%;
+  background-color: rgba(128, 0, 32, 0.15);
+  border: 1px solid rgb(128, 0, 32);
+  color: rgb(128, 0, 32);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
+/* red */
+#optionSymbol0,
+#qty0,
+#sideSelect0,
+#typeSelect0,
+#durationSelect0,
+#price0,
+#stop0,
+#symbol0,
+#expDate0,
+#algoOrderButton  {
+  width:100%;
+  background-color: rgba(178, 34, 34, 0.15);
+  border: 1px solid rgb(178, 34, 34);
+  color: rgb(178, 34, 34);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
 
 #successMessage,
 #positionsSuccessMessage,
@@ -80,22 +185,56 @@ body {
   text-align: center;
 }
 
+.accountLeftProfile {
+  float:left;
+  padding: 7px;
+  margin: 7px auto;
+  text-align: center;
+  background-color: rgba(255, 140, 0, 0.15);
+  border: 1px solid rgb(255, 140, 0);
+  color: rgb(255, 140, 0);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
+.accountRightProfile {
+  float:right;
+  padding: 7px;
+  margin: 7px auto;
+  text-align: center;
+  background-color: rgba(255, 140, 0, 0.15);
+  border: 1px solid rgb(255, 140, 0);
+  color: rgb(255, 140, 0);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+}
+
 .accountLeft {
   float:left;
-  /* width:30%; */
-  border: 1px solid green;
   padding: 7px;
   border-radius: 5px;
   margin: 7px auto;
   text-align: center;
+  background-color: rgba(233, 150, 122, 0.15);
+  border: 1px solid rgb(233, 150, 122);
+  color: rgb(233, 150, 122);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
 }
 
 .accountRight {
   float:right;
-  /* width:30%; */
-  border: 1px solid green;
   padding: 7px;
   border-radius: 5px;
   margin: 7px auto;
   text-align: center;
+  background-color: rgba(233, 150, 122, 0.15);
+  border: 1px solid rgb(233, 150, 122);
+  color: rgb(233, 150, 122);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
 }

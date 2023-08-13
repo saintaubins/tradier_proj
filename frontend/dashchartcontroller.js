@@ -1,5 +1,5 @@
-//const backEndUrl = 'http://127.0.0.1:5001/';
-const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+const backEndUrl = 'http://127.0.0.1:5001/';
+//const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 document.getElementById("viewPositionsButton").addEventListener("click", function() {
   console.log('Button clicked')
@@ -391,7 +391,26 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
+// Function to display the error message box
+function showErrorMessage(errorMessages) {
+  const errorMessageDiv = document.getElementById('errorMessage');
+  const errorText = document.getElementById('errorText');
+  errorText.innerHTML = ''; // Clear any previous error messages
 
+  errorMessages.forEach((errorMessage) => {
+    const errorItem = document.createElement('div');
+    errorItem.textContent = errorMessage;
+    errorText.appendChild(errorItem);
+  });
+
+  errorMessageDiv.style.display = 'block';
+}
+
+// Function to hide the error message box
+function hideErrorMessage() {
+  const successMessage = document.getElementById("errorMessage");
+  successMessage.style.display = "none";
+}
 
 
 

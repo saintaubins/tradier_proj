@@ -1,5 +1,5 @@
-//const backEndUrl = 'http://127.0.0.1:5001/';
-const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+const backEndUrl = 'http://127.0.0.1:5001/';
+//const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 const ema = document.getElementById('homeChart').getContext('2d');
 
@@ -18,6 +18,7 @@ const todayDate = getTodayDate();
 function getTimeSales(symbol, intervalSelect,startDate, endDate) {
   let newDataArray = []
   // Send the POST request
+  //console.log('backendUrl', backEndUrl)
   fetch(`${backEndUrl}timesales?symbol=${symbol}&intervalSelect=${intervalSelect}&startDate=${startDate}&endDate=${endDate}`)
     .then((response) => {
       if (!response.ok) {
@@ -30,10 +31,12 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
       //showErrorMessage(data.message.exception);
       //newDataArray = data.message.series.data;
       // Process the data returned by the server, if needed
-      if (data.message === null) {
-        showErrorMessage([` 😔 Sorry, that must be an invalid ticker symbol.`, 'Refresh the screen and try your ticker, symbol again.']);
-        setTimeout(hideErrorMessage, 9000);
-
+      if (data.message === null || data.message.status_code == 400) {
+        showErrorMessage([` 😔 Sorry, there are invalid parameters.`, 'Refresh the screen and try your search again.']);
+        setTimeout(hideErrorMessage, 15000);
+      }else if (data.message.series === null) {
+        showErrorMessage([` 😔 Sorry, there seems to be no data for this set...`]);
+        setTimeout(hideErrorMessage, 15000);
       }else if (data.message.errors) {
         showErrorMessage(data.message.errors);
         setTimeout(hideErrorMessage, 15000);
@@ -47,6 +50,8 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         showOrderMessage(data.message.success);
         setTimeout(hideOrderMessage, 15000);
       } else {
+        console.log('series-> ', data.message)
+        
         newDataArray = data.message.series.data;
 
         // Extracting close prices from the data
@@ -99,9 +104,9 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
     setTimeout(hideErrorMessage, 15000);
   } else {
     //event.preventDefault();
-    getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
+    getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
     setInterval(() => {
-      getTimeSales(tickerSymbol, intervalSelect, todayDate, todayDate);
+      getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
     }, 10000); // 10000 milliseconds = 10 seconds
   }
 });
@@ -274,5 +279,32 @@ function checkEMAValues(ema1, ema7, currPrice) {
     showErrorMessage([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }
 }
+let startDate = ''
+$(document).ready(function () {
+  $('#datepicker').datepicker({
+    format: 'yyyy-mm-dd', // Format of the selected date
+    autoclose: true, // Automatically close the datepicker when a date is selected
+    todayHighlight: true, // Highlight today's date
+  }).on('changeDate', function (e) {
+    // This function will be triggered when the date is selected
+    startDate = e.date; // The selected date object
+    console.log('startDate -> ', startDate); // You can use or process the selected date here
+    const formattedDate = formatDate(startDate);
+    startDate = formattedDate;
+    console.log('startDate -> ', startDate); // Output: "2023-08-14"
+  });
+});
+
+function formatDate(date) {
+  const year = date.getFullYear();
+  const month = (date.getMonth() + 1).toString().padStart(2, '0');
+  const day = date.getDate().toString().padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+// let inputDate = new Date('Mon Aug 14 2023 00:00:00 GMT-0400');
+// const formattedDate = formatDate(startDate);
+// console.log(formattedDate); // Output: "2023-08-14"
+  
 
 

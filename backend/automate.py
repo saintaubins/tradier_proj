@@ -8,9 +8,9 @@ import threading
 import queue
 import os
 
-environment = os.environ.get('ENVIRONMENT', 'production')
+environment = os.environ.get('LOGNAME', 'production')
 
-if environment == 'development':
+if environment == 'semsaint-aubin':
     import config
     access_token = config.ACCESS_TOKEN
     account_id = config.ACCOUNT_ID

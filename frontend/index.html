@@ -17,6 +17,7 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css" rel="stylesheet">
   <script src="app.js"></script>
   <!-- <script src="{{url_for('static',filename='scripts/indexchartcontroller.js')}}"></script> -->
 </head>
@@ -51,7 +52,7 @@
   
   <div class="container">
     <h1>Welcome to Active Algo Trading</h1>
-    <p>Type in a ticker symbol, select a time interval, and click search.</p>
+    <p>Type in a ticker symbol, select a time interval, a start date, and click search.</p>
     <div id="errorMessage" class="alert alert-danger alert-dismissible" style="display: none;">
       <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
       <strong id="errorText"></strong>
@@ -60,8 +61,12 @@
         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
         <strong id="successText"></strong>
     </div>
-    <div class="row">
-      <form class="col-xs-12 col-sm-12 col-md-12">
+    <!-- <div class="container"> -->
+      <!-- <h1>Bootstrap Datepicker Example</h1> -->
+      
+    <!-- </div> -->
+    <!-- <div class="row">
+      <form class="col-xs-12 col-sm-12 col-md-12 col-md-12">
         <div class="input-group">
           <input type="text" class="form-control" id="tickerSymbol" placeholder="Ex: AAPL">
             <select class="form-control" id="intervalSelect">
@@ -69,6 +74,7 @@
               <option value="5min">5min</option>
               <option value="1min">1min</option>
             </select>
+            <input type="text" class="form-control" id="datepicker">
             <div class="input-group-btn">
               <button class="btn btn-default" type="button" id="searchLoad">
                 <i class="glyphicon glyphicon-search"></i>
@@ -76,7 +82,30 @@
             </div>
         </div>
       </form>
-    </div>
+    </div> -->
+    <!-- <div class="container"> -->
+      <div class="form-group row">
+        <div class="col-xs-12 col-sm-3">
+          <input type="text" class="form-control" id="tickerSymbol" placeholder="Ex: AAPL">
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <select class="form-control" id="intervalSelect">
+            <option value="15min">15min</option>
+            <option value="5min">5min</option>
+            <option value="1min">1min</option>
+          </select>
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <input type="text" class="form-control" id="datepicker" placeholder="Start Date">
+        </div>
+        <div class="col-xs-12 col-sm-3">
+          <button class="btn btn-default" type="button" id="searchLoad">
+            <i class="glyphicon glyphicon-search"></i> Search
+          </button>
+        </div>
+      </div>
+    <!-- </div> -->
+
   </div>
   <div id="myChartContainer" class="container">
     <div class="row">
@@ -85,12 +114,15 @@
       </div>
     </div>
   </div>
-
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="indexchartcontroller.js"></script>
+  
   <!-- <script src="static/scripts/indexchartcontroller.js"></script> -->
   <!-- <script src="{{ url_for('static', filename='scripts/indexchartcontroller.js') }}"></script> -->
   

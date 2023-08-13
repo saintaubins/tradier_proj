@@ -13,7 +13,10 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-  <script src="app.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+  <!-- <script src="app.js"></script> -->
+  
 </head>
 <body>
     <nav class="navbar navbar-inverse">
@@ -48,16 +51,16 @@
         <p>Provide the information and place your trade.</p>
         <div class="form-group row">
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <label for="optionSymbol">Option Symbol:(required)</label>
-                <input class="form-control" id="optionSymbol" type="text" placeholder="TSLA230728P00020000">
+                <label for="optionSymbol0">Option Symbol:(required)</label>
+                <input class="form-control" id="optionSymbol0" type="text" placeholder="TSLA230728P00020000">
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-            <label for="qty">Qty:(required)</label>
-            <input class="form-control" id="qty" type="text" placeholder="1">
+            <label for="qty0">Qty:(required)</label>
+            <input class="form-control" id="qty0" type="text" placeholder="1">
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <label for="sideSelect">Side:(required)</label>
-                <select class="form-control" id="sideSelect">
+                <label for="sideSelect0">Side:(required)</label>
+                <select class="form-control" id="sideSelect0">
                   <option value="buy_to_open">Buy to open</option>
                   <option value="buy_to_close">Buy to close</option>
                   <option value="sell_to_open">Sell to open</option>
@@ -65,8 +68,8 @@
                 </select>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <label for="typeSelect">Type:(required)</label>
-                <select class="form-control" id="typeSelect">
+                <label for="typeSelect0">Type:(required)</label>
+                <select class="form-control" id="typeSelect0">
                   <option value="limit">Limit</option>
                   <option value="market">Market</option>
                   <option value="stop">Stop</option>
@@ -74,8 +77,8 @@
                 </select>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <label for="durationSelect">Duration:(required)</label>
-                <select class="form-control" id="durationSelect">
+                <label for="durationSelect0">Duration:(required)</label>
+                <select class="form-control" id="durationSelect0">
                   <option value="gtc">GTC</option>
                   <option value="day">Day</option>
                   <option value="pre">Pre</option>
@@ -83,20 +86,20 @@
                 </select>
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <label for="price">Price:(required if limit, or stop limit.)</label>
-                <input class="form-control" id="price" type="text" placeholder="1.00">
+                <label for="price0">Price:(required if limit, or stop limit.)</label>
+                <input class="form-control" id="price0" type="text" placeholder="1.00">
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-                <label for="stop">Stop:(required if stop, or stop limit.)</label>
-                <input class="form-control" id="stop" type="text" placeholder="1.00">
+                <label for="stop0">Stop:(required if stop, or stop limit.)</label>
+                <input class="form-control" id="stop0" type="text" placeholder="1.00">
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <label for="symbol">Symbol:</label>
-              <input class="form-control" id="symbol" type="text" placeholder="AAPL">
+              <label for="symbol0">Symbol:</label>
+              <input class="form-control" id="symbol0" type="text" placeholder="AAPL">
             </div>
             <div class="col-xs-12 col-sm-6 col-md-4">
-              <label for="expDate">Exp Date:</label>
-              <input class="form-control" id="expDate" type="text" placeholder="2023-07-28">
+              <label for="expDate0">Exp Date:</label>
+              <input class="form-control" id="expDate0" type="text" placeholder="2023-07-28">
             </div>
           </div>
         
@@ -149,7 +152,39 @@
         </div>
       </div>
     </div>
-    <script src="automate.js"></script>
+
+    <div id="myChartContainer" class="container">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12">
+          <canvas id="algoChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- <h1>Server-Sent Events Example</h1>
+    <div id="message-container"></div> -->
+
+    <!-- <script>
+      const eventSource = new EventSource('/frontend/Automate.html');
+
+      eventSource.addEventListener('message', event => {
+          const container = document.getElementById('message-container');
+          container.innerHTML = `Received message: ${event.data}`;
+      });
+    </script> -->
+  
+  <script>
+    //const socket = io('http://127.0.0.1:5001');  // Adjust the URL as needed
+  
+    socket.on('message', (data) => {
+      console.log('Received message:', data.data);
+    });
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="automate.js"></script>
 </body> 
 
 </html>

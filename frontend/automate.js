@@ -1,5 +1,7 @@
-//const backEndUrl = 'http://127.0.0.1:5001/';
-const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+const backEndUrl = 'http://127.0.0.1:5001/';
+//const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
+
+//const socket = io('http://127.0.0.1:5001/');
 
 document.getElementById("algoOrderButton").addEventListener("click", function() {
     console.log('algoOrderButton clicked')
@@ -21,15 +23,15 @@ document.getElementById("modalNoButton").addEventListener("click", function() {
 document.addEventListener('DOMContentLoaded', function () {
     // Function to open the modal with data
     function openModalWithData() {
-      const symbol = document.getElementById("symbol").value;
-      const expDate = document.getElementById("expDate").value;
-      const optionSymbol = document.getElementById("optionSymbol").value;
-      const qty = document.getElementById("qty").value;
-      const sideSelect = document.getElementById("sideSelect").value;
-      const typeSelect = document.getElementById("typeSelect").value;
-      const durationSelect = document.getElementById("durationSelect").value;
-      const price = document.getElementById("price").value;
-      const stop = document.getElementById("stop").value;
+      const symbol = document.getElementById("symbol0").value;
+      const expDate = document.getElementById("expDate0").value;
+      const optionSymbol = document.getElementById("optionSymbol0").value;
+      const qty = document.getElementById("qty0").value;
+      const sideSelect = document.getElementById("sideSelect0").value;
+      const typeSelect = document.getElementById("typeSelect0").value;
+      const durationSelect = document.getElementById("durationSelect0").value;
+      const price = document.getElementById("price0").value;
+      const stop = document.getElementById("stop0").value;
   
       // Set the values in the modal
       document.getElementById("modalSymbol").textContent = symbol;
@@ -54,15 +56,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function placeAlgoOrder() {
   //console.log('isAlgoOrder:', isAlgoOrder)
-  const symbol = document.getElementById("symbol").value.trim();
-  const expDate = document.getElementById("expDate").value.trim();
-  const optionSymbol = document.getElementById("optionSymbol").value.trim();
-  const qty = document.getElementById("qty").value.trim();
-  const sideSelect = document.getElementById("sideSelect").value.trim();
-  const typeSelect = document.getElementById("typeSelect").value.trim();
-  const durationSelect = document.getElementById("durationSelect").value.trim();
-  const price = document.getElementById("price").value.trim();
-  const stop = document.getElementById("stop").value.trim();
+  const symbol = document.getElementById("symbol0").value.trim();
+  const expDate = document.getElementById("expDate0").value.trim();
+  const optionSymbol = document.getElementById("optionSymbol0").value.trim();
+  const qty = document.getElementById("qty0").value.trim();
+  const sideSelect = document.getElementById("sideSelect0").value.trim();
+  const typeSelect = document.getElementById("typeSelect0").value.trim();
+  const durationSelect = document.getElementById("durationSelect0").value.trim();
+  const price = document.getElementById("price0").value.trim();
+  const stop = document.getElementById("stop0").value.trim();
 
   const placeAlgoOrderUrl = `${backEndUrl}placealgoorder?symbol=${symbol}&expDate=${expDate}&optionSymbol=${optionSymbol}&qty=${qty}&sideSelect=${sideSelect}&typeSelect=${typeSelect}&durationSelect=${durationSelect}&price=${price}&stop=${stop}`;
 
@@ -158,3 +160,62 @@ document.addEventListener('DOMContentLoaded', function () {
     // ... populate other form fields
   }
 });
+
+const algo = document.getElementById('algoChart');
+
+const labelsX = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December'
+];
+
+const dataY = {
+  labels: labelsX,
+  datasets: [{
+    label: 'Current price',
+    data: [65, 59, 80, 81, 56, 55, 40, 11, 80, 34, 34, 76],
+    fill: false,
+    borderColor: 'rgb(123,104,238)',
+    borderJoinStyle: 'round',
+    pointRadius: 0,
+    tension: 0.25
+  },{
+    label: 'EMA Short',
+    data: [15, 40, 78, 30, 67, 95, 54, 45, 87, 21, 34, 56],
+    fill: false,
+    borderColor: 'rgb(255, 255, 0)',
+    borderJoinStyle: 'round',
+    pointRadius: 0,
+    tension: 0.25
+  },{
+    label: 'EMA Long',
+    data: [78, 56, 34, 45, 23, 87, 90, 34, 44, 22, 67, 23],
+    fill: false,
+    borderColor: 'rgb(23, 192, 2)',
+    borderJoinStyle: 'round',
+    pointRadius: 0,
+    tension: 0.25
+  }]
+};
+
+new Chart(algo, {
+  type: 'line',
+  data: dataY,
+  options: {
+    scales: {
+      y: {
+        beginAtZero: true
+      }
+    }
+  }
+});
+

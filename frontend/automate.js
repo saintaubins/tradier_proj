@@ -155,8 +155,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const rowData = JSON.parse(decodeURIComponent(rowDataJson));
     console.log('rowData -> ', rowData)
     // Populate form fields using the rowData object
-    document.getElementById('optionSymbol').value = rowData.symbol;
-    document.getElementById('price').value = rowData.mark;
+    document.getElementById('optionSymbol0').value = rowData.symbol;
+    document.getElementById('price0').value = rowData.mark;
     // ... populate other form fields
   }
 });

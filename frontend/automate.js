@@ -80,7 +80,9 @@ function sendOrder(Url) {
     })
       .then((response) => {
         if (!response.ok) {
+          console.log('response -> ', response)
           throw new Error("Network response was not ok");
+          
         }
         return response.json(); // Parse the response as JSON
       })

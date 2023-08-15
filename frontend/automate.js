@@ -160,79 +160,127 @@ document.addEventListener('DOMContentLoaded', function () {
     // ... populate other form fields
   }
 });
-
+console.log('sharedData ->', sharedData)
 const algo = document.getElementById('algoChart');
 
-const labelsX = [
-  'January',
-  'February',
-  'March',
-  'April',
-  'May',
-  'June',
-  'July',
-  'August',
-  'September',
-  'October',
-  'November',
-  'December'
-];
+let labelsX = []
+let priceData = []
+let dataY = {}
+// let dataY = {
+//   labels: labelsX,
+//   datasets: [{
+//     label: 'Current price',
+//     data: [],
+//     fill: false,
+//     borderColor: 'rgb(123,104,238)',
+//     // borderJoinStyle: 'round',
+//     pointRadius: 0,
+//     tension: 0.25
+//   },{
+//     label: 'EMA Short',
+//     data: [],
+//     fill: false,
+//     borderColor: 'rgb(255, 255, 0)',
+//     // borderJoinStyle: 'round',
+//     pointRadius: 0,
+//     tension: 0.25
+//   },{
+//     label: 'EMA Long',
+//     data: [],
+//     fill: false,
+//     borderColor: 'rgb(23, 192, 2)',
+//     // borderJoinStyle: 'round',
+//     pointRadius: 0,
+//     tension: 0.25
+//   }]
+// };
 
-const dataY = {
-  labels: labelsX,
-  datasets: [{
-    label: 'Current price',
-    data: [65, 59, 80, 81, 56, 55, 40, 11, 80, 34, 34, 76],
-    fill: false,
-    borderColor: 'rgb(123,104,238)',
-    borderJoinStyle: 'round',
-    pointRadius: 0,
-    tension: 0.25
-  },{
-    label: 'EMA Short',
-    data: [15, 40, 78, 30, 67, 95, 54, 45, 87, 21, 34, 56],
-    fill: false,
-    borderColor: 'rgb(255, 255, 0)',
-    borderJoinStyle: 'round',
-    pointRadius: 0,
-    tension: 0.25
-  },{
-    label: 'EMA Long',
-    data: [78, 56, 34, 45, 23, 87, 90, 34, 44, 22, 67, 23],
-    fill: false,
-    borderColor: 'rgb(23, 192, 2)',
-    borderJoinStyle: 'round',
-    pointRadius: 0,
-    tension: 0.25
-  }]
-};
-
-new Chart(algo, {
+let monitorChart = new Chart(algo, {
   type: 'line',
   data: dataY,
   options: {
     scales: {
       y: {
-        beginAtZero: true
+        beginAtZero: false
       }
     }
   }
 });
 
-///////////////////socket connection code //////////////////////////////
 
-// const eventSource = new EventSource(`${backEndUrl}events`);
+function updateChart(newInfo) {
+  sharedData = newInfo;
+  console.log('sharedData ->', sharedData)
+  //algo.update()
 
-// eventSource.onopen = function(event) {
-//     console.log('Connection opened');
-// };
+  if(sharedData.curr_price) {
+    // Extract prices from your data array
+    priceData = sharedData.curr_price.map(dataPoint => dataPoint.price);
+    labelsX = sharedData.curr_price.map(label => label.time);
 
-// eventSource.onmessage = function(event) {
-//     console.log('Received data:', event.data);
-//     document.getElementById('message').innerHTML = event.data;
-// };
+    // Assuming sharedData.curr_price is the current price value
+    //const currentPrice = sharedData.curr_price;
+    //const currentTime = sharedData.curr_price;
 
-// eventSource.onerror = function(event) {
-//     console.error('Error occurred:', event);
-// };
+    // Add the current price to the priceData array
+    //priceData.push(currentPrice);
+    //labelsX.push(currentTime);
+  }
+
+  dataY = {
+    labels: labelsX,
+    datasets: [{
+      label: 'Current price',
+      data: priceData,
+      fill: false,
+      borderColor: 'rgb(123,104,238)',
+      // borderJoinStyle: 'round',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'EMA Short',
+      data: sharedData.ema1,
+      fill: false,
+      borderColor: 'rgb(255, 255, 0)',
+      // borderJoinStyle: 'round',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'EMA Long',
+      data: sharedData.ema7,
+      fill: false,
+      borderColor: 'rgb(23, 192, 2)',
+      // borderJoinStyle: 'round',
+      pointRadius: 0,
+      tension: 0.25
+    }]
+  };
+
+  monitorChart.destroy();
+  monitorChart = new Chart(algo, {
+    type: 'line',
+    data: dataY,
+    options: {
+      scales: {
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+
+  // if(sharedData.curr_price) {
+  //   // Extract prices from your data array
+  //   priceData = sharedData.curr_price.map(dataPoint => dataPoint.price);
+  //   labelsX = sharedData.curr_price.map(label => label.time);
+
+  //   // Assuming sharedData.curr_price is the current price value
+  //   const currentPrice = sharedData.curr_price;
+  //   const currentTime = sharedData.curr_price;
+
+  //   // Add the current price to the priceData array
+  //   priceData.push(currentPrice);
+  //   labelsX.push(currentTime);
+  // }
+}
 

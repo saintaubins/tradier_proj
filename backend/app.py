@@ -15,16 +15,11 @@ import logging
 app = Flask(__name__)
 # socket_io = socketio.SocketIO(app, cors_allowed_origins="*", logger=True)
 
-socket_io = SocketIO(cors_allowed_origins="*")
-# socket_io.init_app(app)
-# app.wsgi_app = socketio.WSGIApp(socket_io, app.wsgi_app)
-# app.config["REDIS_URL"] = "redis://localhost"  # Set up your Redis server URL
+allowed_origins = ['http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app',
+                   'https://tradier-app-b7ceb132d0e1.herokuapp.com']
 
-# app.register_blueprint(sse, url_prefix='/frontend/Automate.html')
-
-# Replace 'http://example.com' and 'http://yourdomain.com' with the domains you want to allow
-allowed_origins = ['http://127.0.0.1:5001/', 'https://main--shimmering-jelly-900e3e.netlify.app/',
-                   '*', 'https://tradier-app-b7ceb132d0e1.herokuapp.com/']
+socket_io = SocketIO(app, cors_allowed_origins=[
+                     'http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app'])
 
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
@@ -38,16 +33,29 @@ def index():
     return jsonify({'message': 'Hello, Flask!'})
 
 
-def generate_events():
-    while True:
-        data = "Hello from the backend!"  # Your data to send
-        yield f"data: {data}\n\n"
-        time.sleep(15)  # Delay between sending events
-
+# def generate_events():
+#     while True:
+#         data = "Hello from the backend!"  # Your data to send
+#         yield f"data: {data}\n\n"
+#         time.sleep(15)  # Delay between sending events
 
 @app.route('/automation_events')
 def automation_events():
+    def generate_events():
+        while True:
+            # Generate or fetch the updated data here
+            message = automate.post_message()
+            yield f"data: {message}\n\n"
+            time.sleep(10)
+
     return Response(generate_events(), content_type='text/event-stream')
+
+# @app.route('/automation_events')
+# def automation_events():
+#     while True:
+#         res = automate.post_message()
+#         print('Ares-> ', res)
+#         return Response(res, content_type='text/event-stream')
 
 # @app.route('/')
 # def index():

@@ -109,7 +109,15 @@ body {
 #duration,
 #modifyPrice,
 #modifyStop,
-#modifyOrderButton  {
+#modifyOrderButton,
+#suggested_direction,
+#direction,
+#exit_the_trade,
+#loop_the_trend,
+#ema1,
+#ema7,
+#currPrice,
+#dateTime  {
   width:100%;
   background-color: rgba(255, 140, 0, 0.15);
   border: 1px solid rgb(255, 140, 0);

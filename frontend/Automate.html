@@ -14,11 +14,10 @@
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
   <!-- <script src="app.js"></script> -->
   <!-- <script src="automate.js"></script> -->
-  
 </head>
+
 <body>
     <nav class="navbar navbar-inverse">
         <div class="container-fluid">
@@ -154,38 +153,121 @@
       </div>
     </div>
 
-    
-    <div id="myChartContainer" class="container">
-      <div id="message"></div>
+    <div class="container">
+      <h1>Status of the algo trade.</h1>
+      <p>This shall provide the periodic data of the current trade.</p>
       <div class="row">
-        <div class="col-xs-12 col-sm-12 col-md-12">
-          
-          <canvas id="algoChart"></canvas>
-        </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="form-group">
+                  <label for="suggested_direction">Suggested Direction</label>
+                  <input type="text" class="form-control" id="suggested_direction" readonly>
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="form-group">
+                  <label for="direction">Direction</label>
+                  <input type="text" class="form-control" id="direction" readonly>
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="form-group">
+                  <label for="exit_the_trade">Exit the Trade</label>
+                  <input type="text" class="form-control" id="exit_the_trade" readonly>
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="form-group">
+                  <label for="loop_the_trend">Loop the Trend</label>
+                  <input type="text" class="form-control" id="loop_the_trend" readonly>
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="form-group">
+                  <label for="ema1">EMA1</label>
+                  <input type="text" class="form-control" id="ema1" readonly>
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+              <div class="form-group">
+                  <label for="ema7">EMA7</label>
+                  <input type="text" class="form-control" id="ema7" readonly>
+              </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+                <label for="currPrice">Current Price</label>
+                <input type="text" class="form-control" id="currPrice" readonly>
+            </div>
+          </div>
+          <div class="col-xs-12 col-sm-6 col-md-4">
+            <div class="form-group">
+                <label for="dateTime">Date Time</label>
+                <input type="text" class="form-control" id="dateTime" readonly>
+            </div>
+          </div>
+      </div>
+  </div>
+    
+  <div id="monitorChartContainer" class="container">
+    <div id="message"></div>
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-12">
+        <canvas id="algoChart"></canvas>
       </div>
     </div>
+  </div>
 
  
 
   <script>
-    //const backEndUrl1 = 'http://127.0.0.1:5001/';
-    const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/'; 
+    let sharedData = {};
+    //const backEndUrl1 = 'http://127.0.0.1:5001';
+    const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com'; 
 
-    const eventSource = new EventSource(`${backEndUrl1}automation_events`);
+    const eventSource = new EventSource(`${backEndUrl1}/automation_events`);
 
     eventSource.onopen = function(event) {
         console.log('Connection opened');
     };
 
     eventSource.onmessage = function(event) {
-        console.log('Received data:', event.data);
-        document.getElementById('message').innerHTML = event.data;
+    const eventData = JSON.parse(event.data); // Parse the JSON data received
+    console.log('Received data:', eventData);
+    sharedData = eventData;
+    updateChart(sharedData)
+    
+
+    const messageElement = document.getElementById('message');
+    console.log('Message element:', messageElement);
+
+    if (messageElement) {
+        messageElement.textContent = eventData.option_symbol;
+        console.log('Message element is found.');
+    } else {
+        console.log('Message element not found.');
+    }
+
+    if(eventData.ema1 != null) {
+      // Update specific elements on your page with the received data
+      document.getElementById('suggested_direction').value = eventData.suggested_direction;
+      document.getElementById('direction').value = eventData.direction;
+      document.getElementById('exit_the_trade').value = eventData.exit_the_trade;
+      document.getElementById('loop_the_trend').value = eventData.loop_the_trend;
+      document.getElementById('ema1').value = eventData.ema1[eventData.ema1.length-1];
+      document.getElementById('ema7').value = eventData.ema7[eventData.ema7.length-1];
+      document.getElementById('currPrice').value = eventData.curr_price[eventData.curr_price.length-1].price;
+      document.getElementById('dateTime').value = eventData.curr_price[eventData.curr_price.length-1].time;
+      }
+    
     };
 
     eventSource.onerror = function(event) {
-        console.error('Error occurred:', event);
+        console.error('Error occurred:', event.data);
     };
   </script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation"></script>

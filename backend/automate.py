@@ -8,6 +8,7 @@ import threading
 import queue
 import os
 import logging
+import json
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
@@ -165,16 +166,25 @@ def monitor_the_trade(d: dict) -> bool:
 
     data = get_market_trend(d)
 
-    print('monitor_the_trend -> ', data)
+    # print('monitor_the_trend -> ', data)
 
     # Get the data array from the dataset
     data_array = data['series']['data']
+    print('data_array -> ', data_array)
 
     # Calculate EMA1 and EMA7 for close prices
     ema1 = calculate_EMA(data_array, 1)
     ema7 = calculate_EMA(data_array, 7)
+    # period = 7
+    # ema1_values, ema7_values, current_price_values = calculate_EMA(
+    #     data_array)
+    print('ema1_values ->', ema1[-1])
+    print('ema7_values ->', ema7[-1])
+    print('current_price_values ->', data_array)
+    print('time_values ->', data_array)
 
-    return ema1, ema7
+    # return ema1, ema7
+    return ema1, ema7,  data_array
 
 
 def calculate_EMA(data, period):
@@ -192,13 +202,62 @@ def calculate_EMA(data, period):
 
     return ema_array
 
+# def calculate_EMA(data, period):
+#     ema1_array = []
+#     ema7_array = []
+#     current_price_array = []
+#     smoothing_factor = 2 / (period + 1)
+
+#     for i in range(len(data)):
+#         close_price = data[i]['close']
+
+#         # Calculate EMA1
+#         if i == 0:
+#             ema1 = close_price
+#         else:
+#             ema1 = (close_price * smoothing_factor) + \
+#                    (ema1_array[i - 1] * (1 - smoothing_factor))
+#         ema1_array.append(ema1)
+
+#         # Calculate EMA7
+#         if i < 7:
+#             ema7 = close_price
+#         else:
+#             ema7 = (close_price * smoothing_factor) + \
+#                    (ema7_array[i - 1] * (1 - smoothing_factor))
+#         ema7_array.append(ema7)
+
+#         # Store the current price
+#         current_price_array.append(close_price)
+
+#     return ema1_array, ema7_array, current_price_array
+
+
+status = {
+    'suggested_direction': None,
+    'direction': None,
+    'exit_the_trade': None,
+    'loop_the_trend': None,
+    'ema1': None,
+    'ema7': None,
+    'curr_price': None,
+    'option_symbol': None
+}
+
+
+def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol):
+    global status
+    status['suggested_direction'] = suggested_direction
+    status['direction'] = direction
+    status['exit_the_trade'] = exit_the_trade
+    status['loop_the_trend'] = loop_the_trend
+    status['ema1'] = ema1
+    status['ema7'] = ema7
+    status['curr_price'] = curr_price
+    status['option_symbol'] = option_symbol
+
 
 def figure_it_out(d: dict, loop_the_trend: bool):
-    # creating a queue
-    # result_queue = queue.Queue()
-
-    # thread = threading.Thread(target=figure_it_out, args=(d, result_queue))
-    # thread.start()
 
     exit_the_trade = False
     suggested_direction = ''
@@ -211,7 +270,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
     logging.info(f"option_symbol:{option_symbol}, direction:{direction}")
     while loop_the_trend:
         # for _ in range(2):
-        ema1, ema7 = monitor_the_trade(d)
+        ema1, ema7, curr_price = monitor_the_trade(d)
         if ema1[-1] > ema7[-1]:
             suggested_direction = 'long'
         if ema1[-1] < ema7[-1]:
@@ -241,13 +300,29 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             print('loop_the_trend', loop_the_trend)
             print('ema1 ->', ema1[-1])
             print('ema7 ->', ema7[-1])
+            print('curr_price ->', curr_price[-1])
+            print('option_symbol ->', option_symbol)
 
-            message = {
-                'm': 'good time to be in a trade'
-            }
-        time.sleep(15)
+            # global message
+            update_status(suggested_direction, direction,
+                          exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol)
+
+        # message = post_message()
+
+        # generate_events()
+        time.sleep(10)
 
     # put the thread in the queue before returning
     # result_queue.put(res)
 
     return message
+
+
+def post_message() -> str:
+    return json.dumps(status)  # Serialize the message dictionary as JSON
+
+# def generate_events(message):
+    # while True:
+    # data = message  # Your data to send
+    # return f"data: {data}"
+    # time.sleep(15)  # Delay between sending events

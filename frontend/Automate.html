@@ -221,10 +221,10 @@
 
   <script>
     let sharedData = {};
-    //const backEndUrl1 = 'http://127.0.0.1:5001';
-    const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com'; 
+    //const backEndUrl1 = 'http://127.0.0.1:5001/';
+    const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/'; 
 
-    const eventSource = new EventSource(`${backEndUrl1}/automation_events`);
+    const eventSource = new EventSource(`${backEndUrl1}automation_events`);
 
     eventSource.onopen = function(event) {
         console.log('Connection opened');

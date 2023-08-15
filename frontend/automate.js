@@ -74,7 +74,10 @@ function placeAlgoOrder() {
 
 function sendOrder(Url) {
     // Send the POST request
-    fetch(Url)
+    fetch(Url, {
+      method: 'Get',
+      mode: 'no-cors',
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

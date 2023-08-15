@@ -12,17 +12,22 @@ import logging
 # from flask_socketio import SocketIO
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
 # socket_io = socketio.SocketIO(app, cors_allowed_origins="*", logger=True)
 
 allowed_origins = ['http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app',
                    'https://tradier-app-b7ceb132d0e1.herokuapp.com', '*']
 
-socket_io = SocketIO(app, cors_allowed_origins=[
-                     'http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app', 'https://tradier-app-b7ceb132d0e1.herokuapp.com', '*'])
+app = Flask(__name__)
+
+# socket_io = SocketIO(app, cors_allowed_origins=[
+#                      'http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app', 'https://tradier-app-b7ceb132d0e1.herokuapp.com', '*'])
 
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
+
+# Initialize your SocketIO app
+socket_io = SocketIO(app)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')

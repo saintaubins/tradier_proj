@@ -19,7 +19,7 @@ allowed_origins = ['http://localhost:8000', 'https://main--shimmering-jelly-900e
                    'https://tradier-app-b7ceb132d0e1.herokuapp.com']
 
 socket_io = SocketIO(app, cors_allowed_origins=[
-                     'http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app', 'https://tradier-app-b7ceb132d0e1.herokuapp.com'])
+                     'http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app', 'https://tradier-app-b7ceb132d0e1.herokuapp.com', '*'])
 
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})

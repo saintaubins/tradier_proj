@@ -191,7 +191,12 @@ def place_algo_order():
     )
     print('res -> ', res)
     # print('some_func -> ', some_func)
-    return jsonify({'message': res})
+
+    response_data = {'message': res}
+    response = jsonify(response_data)
+    response.headers.add("Access-Control-Allow-Origin",
+                         "https://main--shimmering-jelly-900e3e.netlify.app")
+    return response
 
 
 @app.route('/cancelorder', methods=['GET', 'POST'])

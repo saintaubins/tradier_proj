@@ -221,6 +221,7 @@
 
   <script>
     let sharedData = {};
+    const proxy = 'https://cors-anywhere.herokuapp.com/';
     //const backEndUrl1 = 'http://127.0.0.1:5001/';
     const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/'; 
 
@@ -262,11 +263,11 @@
     };
 
     eventSource.onerror = function(event) {
-        console.error('Error occurred:', event.data);
+        console.error('Error occurred:', event);
     };
   </script>
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script> -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chartjs-chart-financial"></script>

@@ -8,8 +8,8 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
 
 environment = os.environ.get('LOGNAME', 'production')
-print('environment -> ', environment)
-print('os env -> ', os.environ.get('LOGNAME'))
+# print('environment -> ', environment)
+# print('os env -> ', os.environ.get('LOGNAME'))
 if environment == 'semsaint-aubin':
     import config
     access_token = config.ACCESS_TOKEN

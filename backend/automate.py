@@ -162,11 +162,8 @@ def get_market_trend(d: dict) -> dict:
 
 
 def monitor_the_trade(d: dict) -> bool:
-    # time_to_exit = False
 
     data = get_market_trend(d)
-
-    # print('monitor_the_trend -> ', data)
 
     # Get the data array from the dataset
     data_array = data['series']['data']
@@ -201,36 +198,6 @@ def calculate_EMA(data, period):
         ema_array.append(ema)
 
     return ema_array
-
-# def calculate_EMA(data, period):
-#     ema1_array = []
-#     ema7_array = []
-#     current_price_array = []
-#     smoothing_factor = 2 / (period + 1)
-
-#     for i in range(len(data)):
-#         close_price = data[i]['close']
-
-#         # Calculate EMA1
-#         if i == 0:
-#             ema1 = close_price
-#         else:
-#             ema1 = (close_price * smoothing_factor) + \
-#                    (ema1_array[i - 1] * (1 - smoothing_factor))
-#         ema1_array.append(ema1)
-
-#         # Calculate EMA7
-#         if i < 7:
-#             ema7 = close_price
-#         else:
-#             ema7 = (close_price * smoothing_factor) + \
-#                    (ema7_array[i - 1] * (1 - smoothing_factor))
-#         ema7_array.append(ema7)
-
-#         # Store the current price
-#         current_price_array.append(close_price)
-
-#     return ema1_array, ema7_array, current_price_array
 
 
 status = {
@@ -307,22 +274,12 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             update_status(suggested_direction, direction,
                           exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol)
 
-        # message = post_message()
-
-        # generate_events()
         time.sleep(10)
-
-    # put the thread in the queue before returning
-    # result_queue.put(res)
 
     return message
 
 
 def post_message() -> str:
+    # print('from post_message the is status -> ', status)
+    logging.info(f'from post_message the is status -> {status}')
     return json.dumps(status)  # Serialize the message dictionary as JSON
-
-# def generate_events(message):
-    # while True:
-    # data = message  # Your data to send
-    # return f"data: {data}"
-    # time.sleep(15)  # Delay between sending events

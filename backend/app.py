@@ -46,6 +46,7 @@ def automation_events():
             message = automate.post_message()
             response = f"data: {json.dumps(message)}\n"
             response += "Access-Control-Allow-Origin: https://main--shimmering-jelly-900e3e.netlify.app\n\n"
+            print('response -> ', response)
             yield response
             time.sleep(10)
 

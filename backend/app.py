@@ -15,8 +15,8 @@ import logging
 # app = Flask(__name__)
 # socket_io = socketio.SocketIO(app, cors_allowed_origins="*", logger=True)
 
-allowed_origins = ['http://localhost:8000/', 'https://main--shimmering-jelly-900e3e.netlify.app/',
-                   'https://tradier-app-b7ceb132d0e1.herokuapp.com/', '*']
+allowed_origins = ['http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app',
+                   'https://tradier-app-b7ceb132d0e1.herokuapp.com']
 
 app = Flask(__name__)
 
@@ -44,7 +44,7 @@ def index():
 #         yield f"data: {data}\n\n"
 #         time.sleep(15)  # Delay between sending events
 
-@app.route('/automation_events')
+@app.route('/automation_events', methods=['GET', 'POST'])
 def automation_events():
     def generate_events():
         while True:
@@ -74,7 +74,7 @@ def automation_events():
 #     socket_io.emit('message', {'data': 'Hello from backend'})
 
 
-@app.route('/optionschain')
+@app.route('/optionschain', methods=['GET', 'POST'])
 def options_chain():
     # Retrieve query parameters from the URL
     symbol = request.args.get('symbol', 'TSLA')
@@ -90,39 +90,39 @@ def options_chain():
     return jsonify({'message': res})
 
 
-@app.route('/getquotes')
+@app.route('/getquotes', methods=['GET', 'POST'])
 def get_quotes():
     res = utils.get_quotes()
     return jsonify({'message': res})
 
 
-@app.route('/user/profile')
+@app.route('/user/profile', methods=['GET', 'POST'])
 def get_user_profile():
     res = utils.get_user_profile()
     return jsonify({'message': res})
 
 
-@app.route('/getorders')
+@app.route('/getorders', methods=['GET', 'POST'])
 def get_orders():
     res = utils.get_orders()
     print('res ->', res)
     return jsonify({'message': res})
 
 
-@app.route('/getpositions')
+@app.route('/getpositions', methods=['GET', 'POST'])
 def get_positions():
     res = utils.get_positions()
     print('res ->', res)
     return jsonify({'message': res})
 
 
-@app.route('/getoptionsstrikeprice')
+@app.route('/getoptionsstrikeprice', methods=['GET', 'POST'])
 def get_options_strike_price():
     res = utils.get_option_strike_price()
     return jsonify({'message': res})
 
 
-@app.route('/get_algotrade_data')
+@app.route('/get_algotrade_data', methods=['GET', 'POST'])
 def get_algotrade_data():
     # Replace with your logic to generate the data
     data = {
@@ -133,7 +133,7 @@ def get_algotrade_data():
     return jsonify(data)
 
 
-@app.route('/placeoptionorder')
+@app.route('/placeoptionorder', methods=['GET', 'POST'])
 def place_option_order():
     # Retrieve query parameters from the URL
     symbol = request.args.get('symbol', '').strip()
@@ -163,7 +163,7 @@ def place_option_order():
     return jsonify({'message': res})
 
 
-@app.route('/placealgoorder')
+@app.route('/placealgoorder', methods=['GET', 'POST'])
 def place_algo_order():
     # Retrieve query parameters from the URL
     symbol = request.args.get('symbol', '').strip()
@@ -194,14 +194,14 @@ def place_algo_order():
     return jsonify({'message': res})
 
 
-@app.route('/cancelorder')
+@app.route('/cancelorder', methods=['GET', 'POST'])
 def cancel_option_order():
     order_id = request.args.get('order_id')
     res = utils.cancel_order(order_id=order_id)
     return jsonify({'message': res})
 
 
-@app.route('/timesales')
+@app.route('/timesales', methods=['GET', 'POST'])
 def time_sales():
     symbol = request.args.get('symbol')
     startDate = request.args.get('startDate')
@@ -212,7 +212,7 @@ def time_sales():
     return jsonify({'message': res})
 
 
-@app.route('/modifyorder')
+@app.route('/modifyorder', methods=['GET', 'POST'])
 def modify_order():
     order_id = request.args.get('orderId')
     type = request.args.get('type')
@@ -223,13 +223,13 @@ def modify_order():
     return jsonify({'message': res})
 
 
-@app.route('/balances')
+@app.route('/balances', methods=['GET', 'POST'])
 def get_balances():
     res = utils.get_balances()
     return jsonify({'message': res})
 
 
-@app.route('/gainloss')
+@app.route('/gainloss', methods=['GET', 'POST'])
 def get_gain_loss():
     res = utils.get_gain_loss()
     return jsonify({'message': res})

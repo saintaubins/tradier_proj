@@ -44,11 +44,8 @@ def automation_events():
         while True:
             # Generate or fetch the updated data here
             message = automate.post_message()
-            response_data = {
-                "data": message
-            }
-            response = f"data: {response_data}\n"
-            response += f"Access-Control-Allow-Origin: https://main--shimmering-jelly-900e3e.netlify.app\n\n"
+            response = f"data: {json.dumps(message)}\n"
+            response += "Access-Control-Allow-Origin: https://main--shimmering-jelly-900e3e.netlify.app\n\n"
             yield response
             time.sleep(10)
 

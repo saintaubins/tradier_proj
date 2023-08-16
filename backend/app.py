@@ -15,7 +15,7 @@ import json
 # app = Flask(__name__)
 # socket_io = socketio.SocketIO(app, cors_allowed_origins="*", logger=True)
 
-allowed_origins = ['http://localhost:8000',
+allowed_origins = ['*', 'http://localhost:8000',
                    'https://main--shimmering-jelly-900e3e.netlify.app']
 
 app = Flask(__name__)

@@ -74,10 +74,7 @@ function placeAlgoOrder() {
 
 function sendOrder(Url) {
     // Send the POST request
-    fetch(Url, {
-      method: 'Get',
-      mode: 'no-cors',
-    })
+    fetch(Url)
       .then((response) => {
         if (!response.ok) {
           console.log('response -> ', response)

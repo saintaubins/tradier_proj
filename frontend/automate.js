@@ -18,6 +18,7 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
     let orderInfoRes = []
     let loopTheTrend = []
     let currentTrade = []
+    
     try {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -27,6 +28,8 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
         orderInfoRes = data.message.success[0];
         loopTheTrend = data.message.success[1];
         currentTrade = data.message.success[2];
+
+
       }
       console.log('data.message.success -> ', data.message.success);
       console.log('orderInfoRes -> ', orderInfoRes);
@@ -36,7 +39,42 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
         console.error('An error occurred:', error);
     }
 
+    // now place another fetch call to the backend with the data!
 });
+
+let monitorTradeUrl = `${backEndUrl}figure_it_out?arg1=${arg1}&arg2=${arg2}`;
+
+function monitorTrade(monitorTradeUrl) {
+  return new Promise((resolve, reject) => {
+    // Send the POST request
+    fetch(monitorTradeUrl)
+      .then((response) => {
+          if (!response.ok) {
+              console.log('response -> ', response);
+              throw new Error("Network response was not ok");
+          }
+          return response.json(); // Parse the response as JSON
+      })
+      .then((data) => {
+          // Process the data returned by the server, if needed
+          if (data.message.errors) {
+              showErrorMessage(data.message.errors.error);
+              setTimeout(hideErrorMessage, 15000);
+          } else if (data.message.exception) {
+              showErrorMessage(data.message.exception);
+              setTimeout(hideErrorMessage, 15000);
+          } else if (data.message.success) {
+              showOrderMessage(data.message.success);
+              setTimeout(hideOrderMessage, 15000);
+          }
+          resolve(data); // Resolve the promise with the data
+      })
+      .catch((error) => {
+          console.error("Error occurred while making the request:", error);
+          reject(error); // Reject the promise with the error
+      });
+  });
+}
 
 document.getElementById("modalNoButton").addEventListener("click", function() {
     console.log(' no button clicked');

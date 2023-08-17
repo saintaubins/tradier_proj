@@ -183,6 +183,15 @@ def place_algo_order():
 # make a route for figure_it_out(curr_trade, loop_the_trend)
 
 
+@app.route('/figure_it_out', methods=['GET', 'POST'])
+def figure_it_out():
+    loop_the_trend = request.args.get('loopTheTrend')
+    current_trade = request.args.get('currentTrade')
+    res = automate.figure_it_out(
+        current_trade=current_trade, loop_the_trend=loop_the_trend)
+    return jsonify({'message': res})
+
+
 @app.route('/cancelorder', methods=['GET', 'POST'])
 def cancel_option_order():
     order_id = request.args.get('order_id')

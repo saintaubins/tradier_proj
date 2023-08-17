@@ -17,7 +17,7 @@ if environment == 'semsaint-aubin':
     allowed_origin = 'http://localhost:8000'
 
 else:
-    allowed_origin = 'https://main--shimmering-jelly-900e3e.netlify.app'
+    allowed_origin = 'https://shimmering-jelly-900e3e.netlify.app'
 
 
 allowed_origins = ['*', allowed_origin]
@@ -221,12 +221,6 @@ def get_gain_loss():
     res = utils.get_gain_loss()
     return jsonify({'message': res})
 
-
-# if __name__ == '__main__':
-    # app.run(debug=True, port=5001)
-    # from eventlet import wsgi
-    # app.run(host='0.0.0.0', port=5001)
-    # wsgi.server(eventlet.listen(('0.0.0.0', 5001)), app)
 
 if __name__ == '__main__':
     # Change port number if needed

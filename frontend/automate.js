@@ -15,11 +15,23 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
     // const getAlgoUrl = placeAlgoOrder();
     // let data = sendOrder(getAlgoUrl);
     // console.log('dataPlacedTrade -> ', data);
-
+    let orderInfoRes = []
+    let loopTheTrend = []
+    let currentTrade = []
     try {
       const getAlgoUrl = placeAlgoOrder();
+
       let data = await sendOrder(getAlgoUrl);
-      console.log('dataPlacedTrade -> ', data);
+
+      if(Array.isArray(data.message.success)){
+        orderInfoRes = data.message.success[0];
+        loopTheTrend = data.message.success[1];
+        currentTrade = data.message.success[2];
+      }
+      console.log('data.message.success -> ', data.message.success);
+      console.log('orderInfoRes -> ', orderInfoRes);
+      console.log('loopTheTrend -> ', loopTheTrend);
+      console.log('currentTrade -> ', currentTrade);
     } catch (error) {
         console.error('An error occurred:', error);
     }

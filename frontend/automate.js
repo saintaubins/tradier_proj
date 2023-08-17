@@ -212,7 +212,7 @@ let monitorChart = new Chart(algo, {
 
 function updateChart(newInfo) {
   sharedData = newInfo;
-  //console.log('sharedData ->', sharedData)
+  console.log('sharedData ->', sharedData)
   //algo.update()
 
   if(sharedData.curr_price) {

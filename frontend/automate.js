@@ -9,15 +9,18 @@ document.getElementById("algoOrderButton").addEventListener("click", function() 
     placeAlgoOrder();
 });
 
+let orderInfoRes = []
+let loopTheTrend = []
+let currentTrade = []
 document.getElementById("modalYesButton").addEventListener("click", async function() {
     //console.log(' yes button clicked');
     //const getUrl = placeOrder();
     // const getAlgoUrl = placeAlgoOrder();
     // let data = sendOrder(getAlgoUrl);
     // console.log('dataPlacedTrade -> ', data);
-    let orderInfoRes = []
-    let loopTheTrend = []
-    let currentTrade = []
+    // let orderInfoRes = []
+    // let loopTheTrend = []
+    // let currentTrade = []
     
     try {
       const getAlgoUrl = placeAlgoOrder();
@@ -42,7 +45,7 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
     // now place another fetch call to the backend with the data!
 });
 
-let monitorTradeUrl = `${backEndUrl}figure_it_out?arg1=${arg1}&arg2=${arg2}`;
+let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
 
 function monitorTrade(monitorTradeUrl) {
   return new Promise((resolve, reject) => {

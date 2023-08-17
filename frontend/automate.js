@@ -215,7 +215,7 @@ function updateChart(newInfo) {
   console.log('sharedData ->', sharedData)
   //algo.update()
 
-  if(sharedData.curr_price) {
+  if(Array.isArray(sharedData.curr_price)) {
     // Extract prices from your data array
     priceData = sharedData.curr_price.map(dataPoint => dataPoint.price);
     labelsX = sharedData.curr_price.map(label => label.time);

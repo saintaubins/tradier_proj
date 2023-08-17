@@ -167,7 +167,7 @@ def monitor_the_trade(d: dict) -> bool:
 
     # Get the data array from the dataset
     data_array = data['series']['data']
-    print('data_array -> ', data_array)
+    # print('data_array -> ', data_array)
 
     # Calculate EMA1 and EMA7 for close prices
     ema1 = calculate_EMA(data_array, 1)
@@ -177,8 +177,8 @@ def monitor_the_trade(d: dict) -> bool:
     #     data_array)
     print('ema1_values ->', ema1[-1])
     print('ema7_values ->', ema7[-1])
-    print('current_price_values ->', data_array)
-    print('time_values ->', data_array)
+    # print('current_price_values ->', data_array)
+    # print('time_values ->', data_array)
 
     # return ema1, ema7
     return ema1, ema7,  data_array
@@ -201,14 +201,14 @@ def calculate_EMA(data, period):
 
 
 status = {
-    'suggested_direction': None,
-    'direction': None,
-    'exit_the_trade': None,
-    'loop_the_trend': None,
-    'ema1': None,
-    'ema7': None,
-    'curr_price': None,
-    'option_symbol': None
+    'suggested_direction': 'tbd',
+    'direction': 'tbd',
+    'exit_the_trade': 'tbd',
+    'loop_the_trend': 'tbd',
+    'ema1': 'tbd',
+    'ema7': 'tbd',
+    'curr_price': 'tbd',
+    'option_symbol': 'tbd'
 }
 
 
@@ -267,7 +267,9 @@ def figure_it_out(d: dict, loop_the_trend: bool):
             print('loop_the_trend', loop_the_trend)
             print('ema1 ->', ema1[-1])
             print('ema7 ->', ema7[-1])
-            print('curr_price ->', curr_price[-1])
+            print('curr_price ->', curr_price)
+            logging.info(
+                f"curr_price:{curr_price}")
             print('option_symbol ->', option_symbol)
 
             # global message
@@ -282,4 +284,4 @@ def figure_it_out(d: dict, loop_the_trend: bool):
 def post_message() -> str:
     # print('from post_message the is status -> ', status)
     logging.info(f'from post_message the is status -> {status}')
-    return json.dumps(status)  # Serialize the message dictionary as JSON
+    return status  # Serialize the message dictionary as JSON

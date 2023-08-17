@@ -9,25 +9,28 @@ import time
 from flask_socketio import SocketIO
 import logging
 import json
-# from flask_socketio import SocketIO
+import os
+
+environment = os.environ.get('LOGNAME', 'production')
+
+if environment == 'semsaint-aubin':
+    allowed_origin = 'http://localhost:8000'
+
+else:
+    allowed_origin = 'https://main--shimmering-jelly-900e3e.netlify.app'
 
 
-# app = Flask(__name__)
-# socket_io = socketio.SocketIO(app, cors_allowed_origins="*", logger=True)
-
-allowed_origins = ['*', 'http://localhost:8000',
-                   'https://main--shimmering-jelly-900e3e.netlify.app']
+allowed_origins = ['*', allowed_origin]
 
 app = Flask(__name__)
 
-# socket_io = SocketIO(app, cors_allowed_origins=[
-#                      'http://localhost:8000', 'https://main--shimmering-jelly-900e3e.netlify.app', 'https://tradier-app-b7ceb132d0e1.herokuapp.com', '*'])
+socket_io = SocketIO(cors_allowed_origins=['*', allowed_origin])
 
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 # Initialize your SocketIO app
-socket_io = SocketIO(app)
+# socket_io = SocketIO(app)
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
@@ -45,24 +48,12 @@ def automation_events():
             # Generate or fetch the updated data here
             message = automate.post_message()
             response = f"data: {json.dumps(message)}\n"
-            response += "Access-Control-Allow-Origin: https://main--shimmering-jelly-900e3e.netlify.app\n\n"
+            response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             print('response -> ', response)
             yield response
             time.sleep(10)
 
     return Response(generate_events(), content_type='text/event-stream')
-
-
-# @app.route('/')
-# def index():
-#     return render_template('Automate.html')  # Your frontend HTML file
-
-
-# @socket_io.on('connect')
-# def handle_connect():
-#     app.logger.info('Client connected')
-#     print('Client connected')
-#     socket_io.emit('message', {'data': 'Hello from backend'})
 
 
 @app.route('/optionschain', methods=['GET', 'POST'])
@@ -186,7 +177,7 @@ def place_algo_order():
     response_data = {'message': res}
     response = jsonify(response_data)
     response.headers.add("Access-Control-Allow-Origin",
-                         "https://main--shimmering-jelly-900e3e.netlify.app")
+                         f"{allowed_origin}")
     return response
 
 

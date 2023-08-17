@@ -142,14 +142,14 @@ def place_algo_order(
                 'success': [
                     str(response.text),
                     ('loop_the_trend ', loop_the_trend),
-                    # ('current trade', curr_trade.values())
+                    ('current trade', curr_trade)
                 ]
             }
             logging.info(f"success_dict -> {success_dict}")
 
             # figure_it_out(curr_trade, loop_the_trend)
 
-            return success_dict, figure_it_out(curr_trade, loop_the_trend)
+            return success_dict
 
     except Exception as e:
         print('could not place algo order', e)

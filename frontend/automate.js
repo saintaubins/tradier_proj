@@ -13,7 +13,8 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
     //console.log(' yes button clicked');
     //const getUrl = placeOrder();
     const getAlgoUrl = placeAlgoOrder();
-    sendOrder(getAlgoUrl);
+    data = sendOrder(getAlgoUrl);
+    console.log('dataPlacedTrade -> ', data);
 });
 
 document.getElementById("modalNoButton").addEventListener("click", function() {

@@ -318,6 +318,8 @@ function updateChart(newInfo) {
     // Add the current price to the priceData array
     //priceData.push(currentPrice);
     //labelsX.push(currentTime);
+  } else {
+    labelsX = []
   }
 
   dataY = {

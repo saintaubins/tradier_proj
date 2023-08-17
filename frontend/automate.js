@@ -9,12 +9,21 @@ document.getElementById("algoOrderButton").addEventListener("click", function() 
     placeAlgoOrder();
 });
 
-document.getElementById("modalYesButton").addEventListener("click", function() {
+document.getElementById("modalYesButton").addEventListener("click", async function() {
     //console.log(' yes button clicked');
     //const getUrl = placeOrder();
-    const getAlgoUrl = placeAlgoOrder();
-    let data = sendOrder(getAlgoUrl);
-    console.log('dataPlacedTrade -> ', data);
+    // const getAlgoUrl = placeAlgoOrder();
+    // let data = sendOrder(getAlgoUrl);
+    // console.log('dataPlacedTrade -> ', data);
+
+    try {
+      const getAlgoUrl = placeAlgoOrder();
+      let data = await sendOrder(getAlgoUrl);
+      console.log('dataPlacedTrade -> ', data);
+    } catch (error) {
+        console.error('An error occurred:', error);
+    }
+
 });
 
 document.getElementById("modalNoButton").addEventListener("click", function() {
@@ -74,34 +83,65 @@ function placeAlgoOrder() {
 }
 
 function sendOrder(Url) {
+    // // Send the POST request
+    // fetch(Url)
+    //   .then((response) => {
+    //     if (!response.ok) {
+    //       console.log('response -> ', response)
+    //       throw new Error("Network response was not ok");
+          
+    //     }
+    //     return response.json(); // Parse the response as JSON
+    //   })
+    //   .then((data) => {
+    //     // Process the data returned by the server, if needed
+    //     if (data.message.errors) {
+    //       showErrorMessage(data.message.errors.error);
+    //       setTimeout(hideErrorMessage, 15000);
+  
+    //     } else if (data.message.exception) {
+    //       showErrorMessage(data.message.exception);
+    //       setTimeout(hideErrorMessage, 15000);
+  
+    //     } else if (data.message.success) {
+    //       showOrderMessage(data.message.success);
+    //       setTimeout(hideOrderMessage, 15000);
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.error("Error occurred while making the request:", error);
+    //   });
+
+  return new Promise((resolve, reject) => {
     // Send the POST request
     fetch(Url)
       .then((response) => {
-        if (!response.ok) {
-          console.log('response -> ', response)
-          throw new Error("Network response was not ok");
-          
-        }
-        return response.json(); // Parse the response as JSON
+          if (!response.ok) {
+              console.log('response -> ', response);
+              throw new Error("Network response was not ok");
+          }
+          return response.json(); // Parse the response as JSON
       })
       .then((data) => {
-        // Process the data returned by the server, if needed
-        if (data.message.errors) {
-          showErrorMessage(data.message.errors.error);
-          setTimeout(hideErrorMessage, 15000);
-  
-        } else if (data.message.exception) {
-          showErrorMessage(data.message.exception);
-          setTimeout(hideErrorMessage, 15000);
-  
-        } else if (data.message.success) {
-          showOrderMessage(data.message.success);
-          setTimeout(hideOrderMessage, 15000);
-        }
+          // Process the data returned by the server, if needed
+          if (data.message.errors) {
+              showErrorMessage(data.message.errors.error);
+              setTimeout(hideErrorMessage, 15000);
+          } else if (data.message.exception) {
+              showErrorMessage(data.message.exception);
+              setTimeout(hideErrorMessage, 15000);
+          } else if (data.message.success) {
+              showOrderMessage(data.message.success);
+              setTimeout(hideOrderMessage, 15000);
+          }
+          resolve(data); // Resolve the promise with the data
       })
       .catch((error) => {
-        console.error("Error occurred while making the request:", error);
+          console.error("Error occurred while making the request:", error);
+          reject(error); // Reject the promise with the error
       });
+  });
+
 }
 
 // Function to display the error message box

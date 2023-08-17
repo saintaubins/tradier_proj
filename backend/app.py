@@ -180,6 +180,8 @@ def place_algo_order():
                          f"{allowed_origin}")
     return response
 
+# make a route for figure_it_out(curr_trade, loop_the_trend)
+
 
 @app.route('/cancelorder', methods=['GET', 'POST'])
 def cancel_option_order():

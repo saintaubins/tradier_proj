@@ -46,20 +46,30 @@ loop_the_trend = False
 curr_trade = {}
 exit_the_trade = False
 
+current_trade = {
+    'symbol': 'tbd',
+    'option_symbol': 'tbd',
+    'type': 'market',
+    'side': 'sell_to_close',
+    'qty': 'tbd',
+    'duration': 'gtc',
+    'option_type': 'tbd'
+}
+
 
 def set_current_trade(option_symbol: str, qty: str) -> dict:
     option_t = get_option_type(option_symbol)
     option_s = extract_ticker_symbol(option_symbol)
 
-    current_trade = {
-        'symbol': option_s,
-        'option_symbol': option_symbol,
-        'type': 'market',
-        'side': 'sell_to_close',
-        'qty': qty,
-        'duration': 'gtc',
-        'option_type': option_t
-    }
+    global current_trade
+    current_trade['symbol'] = option_s
+    current_trade['option_symbol'] = option_symbol
+    current_trade['type'] = 'market'
+    current_trade['side'] = 'sell_to_close'
+    current_trade['qty'] = qty
+    current_trade['duration'] = 'gtc'
+    current_trade['option_type'] = option_t
+
     print('current_trade -> ', current_trade)
     logging.info(f"current_trade -> {current_trade}")
     return current_trade
@@ -80,6 +90,14 @@ def extract_ticker_symbol(option_symbol):
     return ticker_symbol
 
 
+loop_the_trend = False
+
+
+def set_loop_the_trend(b: bool):
+    global loop_the_trend
+    loop_the_trend = b
+
+
 def place_algo_order(
     symbol: str,
     exp_dt: str,
@@ -91,7 +109,7 @@ def place_algo_order(
     price: str,
     stop: str
 ) -> dict:
-    loop_the_trend = False
+
     try:
         # print('algo order symbol -> ', symbol)
         response = requests.post(
@@ -118,8 +136,8 @@ def place_algo_order(
             return error_dict
         else:
             print('algo response.text -> ', response.text)
-            loop_the_trend = True
-            curr_trade = set_current_trade(option_symbol, qty)
+            set_loop_the_trend(True)
+            set_current_trade(option_symbol, qty)
             success_dict = {
                 'success': [
                     str(response.text),
@@ -128,10 +146,9 @@ def place_algo_order(
                 ]
             }
             logging.info(f"success_dict -> {success_dict}")
-            # thread, result_queue = figure_it_out(curr_trade, result_queue)
-            figure_it_out(curr_trade, loop_the_trend)
-            # res = result_queue.get()
-            # print('thread res -> ', res)
+
+            # figure_it_out(curr_trade, loop_the_trend)
+
             return success_dict
 
     except Exception as e:

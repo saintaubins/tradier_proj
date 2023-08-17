@@ -189,7 +189,19 @@ def figure_it_out():
     current_trade = request.args.get('currentTrade')
     res = automate.figure_it_out(
         current_trade=current_trade, loop_the_trend=loop_the_trend)
-    return jsonify({'message': res})
+    # return jsonify({'message': res})
+
+    def generate_events():
+        while True:
+            # Generate or fetch the updated data here
+            message = automate.post_message()
+            response = f"data: {json.dumps(message)}\n"
+            response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
+            print('response -> ', response)
+            yield response
+            time.sleep(10)
+
+    return Response(generate_events(), content_type='text/event-stream')
 
 
 @app.route('/cancelorder', methods=['GET', 'POST'])

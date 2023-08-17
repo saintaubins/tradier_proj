@@ -160,7 +160,7 @@ def place_algo_order():
 
     print('symbol -> ', qty)
 
-    res = automate.place_algo_order(
+    res, follow_up_function = automate.place_algo_order(
         symbol=symbol,
         exp_dt=exp_dt,
         option_symbol=option_symbol,

@@ -149,7 +149,7 @@ def place_algo_order(
 
             # figure_it_out(curr_trade, loop_the_trend)
 
-            return success_dict
+            return success_dict, figure_it_out(curr_trade, loop_the_trend)
 
     except Exception as e:
         print('could not place algo order', e)

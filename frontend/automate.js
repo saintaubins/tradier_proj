@@ -32,7 +32,9 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
         loopTheTrend = data.message.success[1];
         currentTrade = data.message.success[2];
 
+        let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
 
+        monitorTrade(monitorTradeUrl);
       }
       console.log('data.message.success -> ', data.message.success);
       console.log('orderInfoRes -> ', orderInfoRes);
@@ -45,7 +47,7 @@ document.getElementById("modalYesButton").addEventListener("click", async functi
     // now place another fetch call to the backend with the data!
 });
 
-let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
+//let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
 
 function monitorTrade(monitorTradeUrl) {
   return new Promise((resolve, reject) => {

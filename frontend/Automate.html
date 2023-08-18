@@ -277,34 +277,34 @@
   };
 
   eventTrade.onmessage = function(event) {
-      const eventData = JSON.parse(event.data); // Parse the JSON data received
+      const eventTrade = JSON.parse(event.data); // Parse the JSON data received
 
-      sharedData = eventData;
+      sharedData = eventTrade;
       updateChart(sharedData);
-      // console.log('eventData ', eventData['suggested_direction'])
-      console.log('eventData ', eventData)
+      // console.log('eventTrade ', eventTrade['suggested_direction'])
+      console.log('eventTrade ', eventTrade)
 
       const messageElement = document.getElementById('message');
       console.log('Message element:', messageElement);
 
       if (messageElement) {
-          messageElement.textContent = eventData.option_symbol;
+          messageElement.textContent = eventTrade.option_symbol;
           console.log('Message element is found.');
       } else {
           console.log('Message element not found.');
       }
-      //console.log('eventData.suggested_direction ', eventData.suggested_direction)
-      if(eventData) {
+      //console.log('eventTrade.suggested_direction ', eventTrade.suggested_direction)
+      if(eventTrade) {
         // Update specific elements on your page with the received data
-        document.getElementById('suggested_direction').value = eventData.suggested_direction;
-        document.getElementById('direction').value = eventData.direction;
-        document.getElementById('exit_the_trade').value = eventData.exit_the_trade;
-        document.getElementById('loop_the_trend').value = eventData.loop_the_trend;
-        if(Array.isArray(eventData.ema1)) {
-          document.getElementById('ema1').value = eventData.ema1[eventData.ema1.length-1];
-          document.getElementById('ema7').value = eventData.ema7[eventData.ema7.length-1];
-          document.getElementById('currPrice').value = eventData.curr_price[eventData.curr_price.length-1].price;
-          document.getElementById('dateTime').value = eventData.curr_price[eventData.curr_price.length-1].time;
+        document.getElementById('suggested_direction').value = eventTrade.suggested_direction;
+        document.getElementById('direction').value = eventTrade.direction;
+        document.getElementById('exit_the_trade').value = eventTrade.exit_the_trade;
+        document.getElementById('loop_the_trend').value = eventTrade.loop_the_trend;
+        if(Array.isArray(eventTrade.ema1)) {
+          document.getElementById('ema1').value = eventTrade.ema1[eventTrade.ema1.length-1];
+          document.getElementById('ema7').value = eventTrade.ema7[eventTrade.ema7.length-1];
+          document.getElementById('currPrice').value = eventTrade.curr_price[eventTrade.curr_price.length-1].price;
+          document.getElementById('dateTime').value = eventTrade.curr_price[eventTrade.curr_price.length-1].time;
         } else {
           document.getElementById('ema1').value = 'tbd';
           document.getElementById('ema7').value = 'tbd';

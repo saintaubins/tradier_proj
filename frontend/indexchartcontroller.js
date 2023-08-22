@@ -19,7 +19,10 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
   let newDataArray = []
   // Send the POST request
   //console.log('backendUrl', backEndUrl)
-  fetch(`${backEndUrl}timesales?symbol=${symbol}&intervalSelect=${intervalSelect}&startDate=${startDate}&endDate=${endDate}`)
+  fetch(`${backEndUrl}timesales?symbol=${symbol}&intervalSelect=${intervalSelect}&startDate=${startDate}&endDate=${endDate}`,{
+    mode: 'cors',
+    credentials: 'include'
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");

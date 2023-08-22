@@ -46,10 +46,18 @@ def index():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -72,10 +80,18 @@ def automation_events():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -99,10 +115,18 @@ def options_chain():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -116,10 +140,18 @@ def get_quotes():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -133,10 +165,18 @@ def get_user_profile():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -151,10 +191,18 @@ def get_orders():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -186,10 +234,18 @@ def get_algotrade_data():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -227,10 +283,18 @@ def place_option_order():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'POST, GET'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -283,10 +347,18 @@ def place_algo_order():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'POST, GET'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -330,10 +402,18 @@ def figure_it_out():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -348,10 +428,18 @@ def cancel_option_order():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -370,10 +458,18 @@ def time_sales():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -392,10 +488,18 @@ def modify_order():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 
@@ -409,10 +513,18 @@ def get_balances():
 def handle_preflight():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
-    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    allowed_origins = [
+        'https://shimmering-jelly-900e3e.netlify.app',
+        'http://localhost:8000'  # Add your second allowed origin here
+    ]
+
+    origin = request.headers.get('Origin')
+    if origin in allowed_origins:
+        response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    response.headers['Access-Control-Allow-Credentials'] = 'true'
     return response
 
 

@@ -44,7 +44,7 @@ function monitorTrade(monitorTradeUrl) {
   return new Promise((resolve, reject) => {
     // Send the POST request
     fetch(monitorTradeUrl, {
-      mode: 'cors'
+      mode: 'no-cors'
     })
       .then((response) => {
           if (!response.ok) {
@@ -74,7 +74,7 @@ function monitorTrade(monitorTradeUrl) {
       .catch((error) => {
           console.error("Error occurred while making the request:", error);
           showErrorMessage(['Error occurred while making the request:', `${error}`]);
-          setTimeout(hideErrorMessage, 15000);
+          //setTimeout(hideErrorMessage, 15000);
           reject(error); // Reject the promise with the error
       });
   });

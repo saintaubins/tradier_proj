@@ -86,8 +86,8 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
       }
     })
     .catch((error) => {
-      // showErrorMessage([data.message.exception])
-      // setTimeout(hideErrorMessage, 15000);
+       showErrorMessage([`${error}`])
+       setTimeout(hideErrorMessage, 15000);
       console.error("Error occurred while making the request:", error);
     });
     

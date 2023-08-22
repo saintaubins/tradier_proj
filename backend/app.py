@@ -148,6 +148,7 @@ def place_option_order():
 
 @app.route('/placealgoorder', methods=['GET', 'POST'])
 def place_algo_order():
+    logging.info(f"###########place algo order#######################")
     # Retrieve query parameters from the URL
     symbol = request.args.get('symbol', '').strip()
     exp_dt = request.args.get('expDate', '').strip()
@@ -177,13 +178,22 @@ def place_algo_order():
 
     response_data = {'message': res}
     response = jsonify(response_data)
-    response.headers.add("Access-Control-Allow-Origin",
-                         f"{allowed_origin}")
+
+    allowed_origins = [
+        "https://shimmering-jelly-900e3e.netlify.app",  # Add your allowed origins here
+        "http://localhost:8000"
+    ]
+    origin = request.headers.get("Origin")
+
+    if origin in allowed_origins:
+        response.headers.add("Access-Control-Allow-Origin", origin)
+
     return response
 
 
 @app.route('/figure_it_out', methods=['GET', 'POST'])
 def figure_it_out():
+    logging.info(f"###########figure it out#######################")
     print('##########################################')
     loop_the_trend = request.args.get('loopTheTrend')
     current_trade_str = request.args.get('currentTrade')

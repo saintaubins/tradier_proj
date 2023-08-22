@@ -256,7 +256,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
         while loop_the_trend:
             # for _ in range(2):
             ema1, ema7, curr_price = monitor_the_trade(d)
-
+            logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
             if ema1[-1] > ema7[-1]:
                 suggested_direction = 'long'
             if ema1[-1] < ema7[-1]:
@@ -303,6 +303,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
 
         return message
     except Exception as e:
+        logging.info(f'something went wrong with automation: {e}')
         print(f'something went wrong with automation: {e} ')
 
 

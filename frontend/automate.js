@@ -71,6 +71,8 @@ function monitorTrade(monitorTradeUrl) {
       })
       .catch((error) => {
           console.error("Error occurred while making the request:", error);
+          showErrorMessage(['Error occurred while making the request:', `${error}`]);
+          setTimeout(hideErrorMessage, 15000);
           reject(error); // Reject the promise with the error
       });
   });

@@ -11,6 +11,7 @@ import logging
 import json
 import os
 
+
 environment = os.environ.get('LOGNAME', 'production')
 
 if environment == 'semsaint-aubin':
@@ -180,28 +181,40 @@ def place_algo_order():
                          f"{allowed_origin}")
     return response
 
-# make a route for figure_it_out(curr_trade, loop_the_trend)
-
 
 @app.route('/figure_it_out', methods=['GET', 'POST'])
 def figure_it_out():
+    print('##########################################')
     loop_the_trend = request.args.get('loopTheTrend')
-    current_trade = request.args.get('currentTrade')
-    res = automate.figure_it_out(
-        current_trade=current_trade, loop_the_trend=loop_the_trend)
-    # return jsonify({'message': res})
+    current_trade_str = request.args.get('currentTrade')
+    current_trade_str = current_trade_str.replace("'", "\"")
+    current_trade = json.loads(current_trade_str)
+    try:
 
-    def generate_events():
-        while True:
-            # Generate or fetch the updated data here
-            message = automate.post_message()
-            response = f"data: {json.dumps(message)}\n"
-            response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
-            print('response -> ', response)
-            yield response
-            time.sleep(10)
+        # current_trade = current_trade
+        print('*******************look here**************')
+        print('current_trade -> ', current_trade)
 
-    return Response(generate_events(), content_type='text/event-stream')
+        res = automate.figure_it_out(
+            d=current_trade, loop_the_trend=loop_the_trend)
+
+        print('res from figure it out ->', res)
+
+        response_data = {'message': res}
+        response = jsonify(response_data)
+
+        allowed_origins = [
+            "https://shimmering-jelly-900e3e.netlify.app",  # Add your allowed origins here
+            "http://localhost:8000"
+        ]
+        origin = request.headers.get("Origin")
+
+        if origin in allowed_origins:
+            response.headers.add("Access-Control-Allow-Origin", origin)
+
+        return response
+    except Exception as e:
+        return jsonify({'error from current_trade': f'{e}'})
 
 
 @app.route('/cancelorder', methods=['GET', 'POST'])

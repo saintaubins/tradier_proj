@@ -311,9 +311,17 @@ function clearTableData() {
         if (data.message && data.message.response_text === "order already in finalized state: filled") {
           // Show a message to the user that the order is already filled and cannot be closed
           alert("This order is already filled and cannot be closed.");
+        } else if (data.message.response_text ==  'order not available to be canceled'){
+          
+          alert('order not available to be canceled.');
+          
+        } else if (data.message.response_text ==  'An error occurred while communicating with the backend.'){
+          
+          alert('An error occurred while communicating with the backend.');
+          
         } else {
           // Refresh the table after successfully closing the order
-          alert('Order successfully closed.');
+          alert('order successfully closed.');
           fetchDataAndPopulateTable();
         }
       })

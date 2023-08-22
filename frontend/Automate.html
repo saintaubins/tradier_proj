@@ -208,7 +208,7 @@
       </div>
   </div>
     
-  <div id="monitorChartContainer" class="container">
+  <div id="monitorChartContainer" class="chart-container">
     <div id="message"></div>
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
@@ -228,29 +228,44 @@
     const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/'; 
 
     const eventSource = new EventSource(`${backEndUrl1}automation_events`);
-    const eventTrade = new EventSource(`${backEndUrl1}figure_it_out`);
+    //const eventTrade = new EventSource(`${backEndUrl1}figure_it_out`);
 
     eventSource.onopen = function(event) {
         console.log('Connection opened event source');
     };
  
-    eventTrade.onopen = function(event) {
-        console.log('Connection opened figure it out');
-    };
-
+    // eventTrade.onopen = function(event) {
+    //     console.log('Connection opened figure it out');
+    // };
+    let isLoaded = false;
     eventSource.onmessage = function(event) {
+      
       const eventData = JSON.parse(event.data); // Parse the JSON data received
 
       sharedData = eventData;
+      //updateChart(sharedData);
+      
+      document.addEventListener("DOMContentLoaded", function() {
+      // This code will run after the document is fully loaded
+
+      // Call the updateChart function here
       updateChart(sharedData);
+      isLoaded = true;
+      console.log('let isLoaded = true;', isLoaded)
+      });
+
+      if(isLoaded == true) {
+        updateChart(sharedData);
+        console.log('*******called updatechart outside the load********')
+      }
       // console.log('eventData ', eventData['suggested_direction'])
-      console.log('eventData ', eventData)
+      //console.log('eventData ', eventData)
 
     const messageElement = document.getElementById('message');
     console.log('Message element:', messageElement);
 
     if (messageElement) {
-        messageElement.textContent = eventData.option_symbol;
+        messageElement.textContent = 'Underlying Trade: ' + eventData.option_symbol;
         console.log('Message element is found.');
     } else {
         console.log('Message element not found.');
@@ -275,44 +290,6 @@
       }
     }
   };
-
-  eventTrade.onmessage = function(event) {
-      const eventTrade = JSON.parse(event.data); // Parse the JSON data received
-
-      sharedData = eventTrade;
-      updateChart(sharedData);
-      // console.log('eventTrade ', eventTrade['suggested_direction'])
-      console.log('eventTrade ', eventTrade)
-
-      const messageElement = document.getElementById('message');
-      console.log('Message element:', messageElement);
-
-      if (messageElement) {
-          messageElement.textContent = eventTrade.option_symbol;
-          console.log('Message element is found.');
-      } else {
-          console.log('Message element not found.');
-      }
-      //console.log('eventTrade.suggested_direction ', eventTrade.suggested_direction)
-      if(eventTrade) {
-        // Update specific elements on your page with the received data
-        document.getElementById('suggested_direction').value = eventTrade.suggested_direction;
-        document.getElementById('direction').value = eventTrade.direction;
-        document.getElementById('exit_the_trade').value = eventTrade.exit_the_trade;
-        document.getElementById('loop_the_trend').value = eventTrade.loop_the_trend;
-        if(Array.isArray(eventTrade.ema1)) {
-          document.getElementById('ema1').value = eventTrade.ema1[eventTrade.ema1.length-1];
-          document.getElementById('ema7').value = eventTrade.ema7[eventTrade.ema7.length-1];
-          document.getElementById('currPrice').value = eventTrade.curr_price[eventTrade.curr_price.length-1].price;
-          document.getElementById('dateTime').value = eventTrade.curr_price[eventTrade.curr_price.length-1].time;
-        } else {
-          document.getElementById('ema1').value = 'tbd';
-          document.getElementById('ema7').value = 'tbd';
-          document.getElementById('currPrice').value = 'tbd';
-          document.getElementById('dateTime').value = 'tbd';
-        }
-      }
-    };
 
     eventSource.onerror = function(event) {
         console.error('Error occurred:', event);

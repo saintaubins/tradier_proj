@@ -24,13 +24,40 @@ body {
 }
   
 .container {
-  max-width: 90%;
+  max-width: 95%;
+  min-width: 95%;
   margin: 5% auto;
   padding: 5px;
   background-color: rgba(144, 238, 144, 0.18);
   border: 1px solid rgb(79, 121, 66);
   border-radius: 7px;
   box-shadow: 3px 3px #D3D3D3;
+}
+
+.chart-container,
+#message {
+  width: 95%;
+  min-width: 95%;
+  overflow-x: auto;
+  overflow-y: auto; 
+  /* white-space: nowrap;  */
+  margin: 3% auto;
+  padding: 5px;
+  background-color: rgba(144, 238, 144, 0.18);
+  border: 1px solid rgb(79, 121, 66);
+  border-radius: 7px;
+  box-shadow: 3px 3px #D3D3D3;
+}
+
+/* #algoChart {
+  min-width: 100%; 
+}  */
+
+#message {
+  text-align: center;
+  color: rgb(79, 121, 66);
+  /* width: 50%; */
+
 }
 
 #bordered-modal {

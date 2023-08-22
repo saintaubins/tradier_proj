@@ -1,7 +1,6 @@
 //const backEndUrl = 'http://127.0.0.1:5001/';
 const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
-//const socket = io('http://127.0.0.1:5001/');
 
 document.getElementById("algoOrderButton").addEventListener("click", function() {
     console.log('algoOrderButton clicked')
@@ -11,40 +10,32 @@ document.getElementById("algoOrderButton").addEventListener("click", function() 
 
 let orderInfoRes = []
 let loopTheTrend = []
-let currentTrade = []
-document.getElementById("modalYesButton").addEventListener("click", async function() {
-    //console.log(' yes button clicked');
-    //const getUrl = placeOrder();
-    // const getAlgoUrl = placeAlgoOrder();
-    // let data = sendOrder(getAlgoUrl);
-    // console.log('dataPlacedTrade -> ', data);
-    // let orderInfoRes = []
-    // let loopTheTrend = []
-    // let currentTrade = []
-    
-    try {
+//let currentTrade = {}
+let currTrade = {}
+let encodedData = {}
+document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
-      let data = await sendOrder(getAlgoUrl);
-
-      if(Array.isArray(data.message.success)){
-        orderInfoRes = data.message.success[0];
-        loopTheTrend = data.message.success[1];
-        currentTrade = data.message.success[2];
-
-        let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
-
+      sendOrder(getAlgoUrl)
+      .then((data) => {
+          console.log('data -> ', data)
+          orderInfoRes = data.message.success[0];
+          loopTheTrend = data.message.success[1][1];
+          currTrade = data.message.success[2][1];
+          //console.log('currTrade -> ', currTrade)
+          encodedData = encodedData = encodeURIComponent(JSON.stringify(currTrade));
+          
+          console.log('encodedData ', encodedData)
+      }).then(() => {
+        let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}`;
+        console.log('monitorTradeUrl:', monitorTradeUrl)
         monitorTrade(monitorTradeUrl);
-      }
-      console.log('data.message.success -> ', data.message.success);
-      console.log('orderInfoRes -> ', orderInfoRes);
-      console.log('loopTheTrend -> ', loopTheTrend);
-      console.log('currentTrade -> ', currentTrade);
-    } catch (error) {
-        console.error('An error occurred:', error);
-    }
+      })
+      
+     .catch((error) => {
+      console.error('An error occurred:', error);
+     }); 
 
-    // now place another fetch call to the backend with the data!
 });
 
 //let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
@@ -61,17 +52,21 @@ function monitorTrade(monitorTradeUrl) {
           return response.json(); // Parse the response as JSON
       })
       .then((data) => {
+          console.log('**********************************')
+          console.log('data -> ', data)
           // Process the data returned by the server, if needed
-          if (data.message.errors) {
-              showErrorMessage(data.message.errors.error);
+          //console.log('data -> ', data['error from current_trade'])
+          if (data['error from current_trade']) {
+              showErrorMessage([data['error from current_trade']]);
               setTimeout(hideErrorMessage, 15000);
-          } else if (data.message.exception) {
-              showErrorMessage(data.message.exception);
+           } else if (data.message == null) {
+              showErrorMessage(['Did not set monitoring for the trade.']);
               setTimeout(hideErrorMessage, 15000);
-          } else if (data.message.success) {
-              showOrderMessage(data.message.success);
-              setTimeout(hideOrderMessage, 15000);
-          }
+          } //else if (data.message.success) {
+          //     showOrderMessage(data.message.success);
+          //     setTimeout(hideOrderMessage, 15000);
+          // }
+          
           resolve(data); // Resolve the promise with the data
       })
       .catch((error) => {
@@ -138,35 +133,7 @@ function placeAlgoOrder() {
 }
 
 function sendOrder(Url) {
-    // // Send the POST request
-    // fetch(Url)
-    //   .then((response) => {
-    //     if (!response.ok) {
-    //       console.log('response -> ', response)
-    //       throw new Error("Network response was not ok");
-          
-    //     }
-    //     return response.json(); // Parse the response as JSON
-    //   })
-    //   .then((data) => {
-    //     // Process the data returned by the server, if needed
-    //     if (data.message.errors) {
-    //       showErrorMessage(data.message.errors.error);
-    //       setTimeout(hideErrorMessage, 15000);
-  
-    //     } else if (data.message.exception) {
-    //       showErrorMessage(data.message.exception);
-    //       setTimeout(hideErrorMessage, 15000);
-  
-    //     } else if (data.message.success) {
-    //       showOrderMessage(data.message.success);
-    //       setTimeout(hideOrderMessage, 15000);
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.error("Error occurred while making the request:", error);
-    //   });
-
+    
   return new Promise((resolve, reject) => {
     // Send the POST request
     fetch(Url)
@@ -189,6 +156,7 @@ function sendOrder(Url) {
               showOrderMessage(data.message.success);
               setTimeout(hideOrderMessage, 15000);
           }
+          console.log('data stuff -> ', data)
           resolve(data); // Resolve the promise with the data
       })
       .catch((error) => {
@@ -298,6 +266,11 @@ let monitorChart = new Chart(algo, {
   data: dataY,
   options: {
     scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: labelsX.length // Display all ticks
+        }
+      },
       y: {
         beginAtZero: false
       }
@@ -308,21 +281,18 @@ let monitorChart = new Chart(algo, {
 
 function updateChart(newInfo) {
   sharedData = newInfo;
-  console.log('sharedData ->', sharedData)
-  //algo.update()
-
+  console.log('sharedData updateChart function ->', sharedData)
+ 
   if(Array.isArray(sharedData.curr_price)) {
     // Extract prices from your data array
     priceData = sharedData.curr_price.map(dataPoint => dataPoint.price);
     labelsX = sharedData.curr_price.map(label => label.time);
 
-    // Assuming sharedData.curr_price is the current price value
-    //const currentPrice = sharedData.curr_price;
-    //const currentTime = sharedData.curr_price;
+    console.log('labelsX length:', labelsX.length);
+    console.log('priceData length:', priceData.length);
+    console.log('ema1 length:', sharedData.ema1.length);
+    console.log('ema7 length:', sharedData.ema7.length);
 
-    // Add the current price to the priceData array
-    //priceData.push(currentPrice);
-    //labelsX.push(currentTime);
   } else {
     labelsX = []
   }
@@ -362,11 +332,18 @@ function updateChart(newInfo) {
     data: dataY,
     options: {
       scales: {
+        x: {
+          ticks: {
+            maxTicksLimit: labelsX.length // Display all ticks
+          }
+        },
         y: {
           beginAtZero: false
         }
       }
     }
   });
+  monitorChart.update();
+  //algo.update()
 }
 

@@ -290,9 +290,9 @@ def figure_it_out(d: dict, loop_the_trend: bool):
                 print('loop_the_trend', loop_the_trend)
                 print('ema1 ->', ema1[-1])
                 print('ema7 ->', ema7[-1])
-                print('curr_price ->', curr_price)
+                print('curr_price ->', curr_price[-1])
                 logging.info(
-                    f"curr_price:{curr_price}")
+                    f"curr_price:{curr_price[-1]}")
                 print('option_symbol ->', option_symbol)
 
                 # global message

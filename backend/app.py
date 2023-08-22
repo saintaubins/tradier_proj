@@ -68,6 +68,17 @@ def automation_events():
     return Response(generate_events(), content_type='text/event-stream')
 
 
+@app.route('/optionschain', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/optionschain', methods=['GET', 'POST'])
 def options_chain():
     # Retrieve query parameters from the URL
@@ -84,10 +95,32 @@ def options_chain():
     return jsonify({'message': res})
 
 
+@app.route('/getquotes', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/getquotes', methods=['GET', 'POST'])
 def get_quotes():
     res = utils.get_quotes()
     return jsonify({'message': res})
+
+
+@app.route('/user/profile', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
 
 
 @app.route('/user/profile', methods=['GET', 'POST'])
@@ -96,11 +129,33 @@ def get_user_profile():
     return jsonify({'message': res})
 
 
+@app.route('/getorders', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/getorders', methods=['GET', 'POST'])
 def get_orders():
     res = utils.get_orders()
     print('res ->', res)
     return jsonify({'message': res})
+
+
+@app.route('/getpositions', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
 
 
 @app.route('/getpositions', methods=['GET', 'POST'])
@@ -125,6 +180,17 @@ def get_algotrade_data():
         'exit_the_trade': False
     }
     return jsonify(data)
+
+
+@app.route('/placeoptionorder', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
 
 
 @app.route('/placeoptionorder', methods=['GET', 'POST'])
@@ -260,11 +326,33 @@ def figure_it_out():
         return jsonify({'error from current_trade': f'{e}'})
 
 
+@app.route('/cancelorder', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/cancelorder', methods=['GET', 'POST'])
 def cancel_option_order():
     order_id = request.args.get('order_id')
     res = utils.cancel_order(order_id=order_id)
     return jsonify({'message': res})
+
+
+@app.route('/timesales', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
 
 
 @app.route('/timesales', methods=['GET', 'POST'])
@@ -278,6 +366,17 @@ def time_sales():
     return jsonify({'message': res})
 
 
+@app.route('/modifyorder', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/modifyorder', methods=['GET', 'POST'])
 def modify_order():
     order_id = request.args.get('orderId')
@@ -289,10 +388,32 @@ def modify_order():
     return jsonify({'message': res})
 
 
+@app.route('/balances', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/balances', methods=['GET', 'POST'])
 def get_balances():
     res = utils.get_balances()
     return jsonify({'message': res})
+
+
+@app.route('/gainloss', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
 
 
 @app.route('/gainloss', methods=['GET', 'POST'])

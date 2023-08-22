@@ -43,9 +43,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 function monitorTrade(monitorTradeUrl) {
   return new Promise((resolve, reject) => {
     // Send the POST request
-    fetch(monitorTradeUrl, {
-      mode: 'cors'
-    })
+    fetch(monitorTradeUrl, {mode: 'cors'})
       .then((response) => {
           if (!response.ok) {
               console.log('response -> ', response);

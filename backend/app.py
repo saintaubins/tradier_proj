@@ -390,6 +390,8 @@ def figure_it_out():
         ]
         origin = request.headers.get("Origin")
 
+        print('**********origin*************', origin)
+
         if origin in allowed_origins:
             response.headers.add("Access-Control-Allow-Origin", origin)
 

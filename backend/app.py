@@ -146,6 +146,17 @@ def place_option_order():
     return jsonify({'message': res})
 
 
+@app.route('/placealgoorder', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/placealgoorder', methods=['GET', 'POST'])
 def place_algo_order():
     logging.info(f"###########place algo order#######################")
@@ -188,6 +199,17 @@ def place_algo_order():
     if origin in allowed_origins:
         response.headers.add("Access-Control-Allow-Origin", origin)
 
+    return response
+
+
+@app.route('/figure_it_out', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'POST, GET'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
     return response
 
 

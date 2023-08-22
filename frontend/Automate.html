@@ -228,22 +228,17 @@
     const backEndUrl1 = 'https://tradier-app-b7ceb132d0e1.herokuapp.com'; 
 
     const eventSource = new EventSource(`${backEndUrl1}/automation_events`);
-    //const eventTrade = new EventSource(`${backEndUrl1}figure_it_out`);
 
     eventSource.onopen = function(event) {
         console.log('Connection opened event source');
     };
  
-    // eventTrade.onopen = function(event) {
-    //     console.log('Connection opened figure it out');
-    // };
     let isLoaded = false;
     eventSource.onmessage = function(event) {
       
       const eventData = JSON.parse(event.data); // Parse the JSON data received
 
       sharedData = eventData;
-      //updateChart(sharedData);
       
       document.addEventListener("DOMContentLoaded", function() {
       // This code will run after the document is fully loaded
@@ -258,8 +253,6 @@
         updateChart(sharedData);
         console.log('*******called updatechart outside the load********')
       }
-      // console.log('eventData ', eventData['suggested_direction'])
-      //console.log('eventData ', eventData)
 
     const messageElement = document.getElementById('message');
     console.log('Message element:', messageElement);

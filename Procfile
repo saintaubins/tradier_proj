@@ -1,1 +1,1 @@
-web: gunicorn --chdir backend backend.app:app --timeout 65
+web: gunicorn --chdir backend backend.app:app --timeout 120

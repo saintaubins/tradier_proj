@@ -4,7 +4,9 @@ const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 const profileButton = document.getElementById('profileButton');
     profileButton.addEventListener('click', async () => {
         try {
-            const response = await fetch(`${backEndUrl}user/profile`);
+            const response = await fetch(`${backEndUrl}user/profile`, {
+                mode: 'cors'
+            });
             const data = await response.json();
 
             const profile = data.message.profile;
@@ -36,7 +38,9 @@ const profileButton = document.getElementById('profileButton');
 const balanceButton = document.getElementById('balanceButton');
 balanceButton.addEventListener('click', async () => {
     try {
-        const response = await fetch(`${backEndUrl}balances`);
+        const response = await fetch(`${backEndUrl}balances`, {
+            mode: 'cors'
+        });
         const data = await response.json();
 
         const balances = data.message.balances;

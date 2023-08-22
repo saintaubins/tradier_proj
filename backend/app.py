@@ -77,7 +77,7 @@ def automation_events():
 
 
 @app.route('/optionschain', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight1():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -112,7 +112,7 @@ def options_chain():
 
 
 @app.route('/getquotes', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight2():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -137,7 +137,7 @@ def get_quotes():
 
 
 @app.route('/user/profile', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight3():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -162,7 +162,7 @@ def get_user_profile():
 
 
 @app.route('/getorders', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight4():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -188,7 +188,7 @@ def get_orders():
 
 
 @app.route('/getpositions', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight5():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -231,7 +231,7 @@ def get_algotrade_data():
 
 
 @app.route('/placeoptionorder', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight6():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -280,7 +280,7 @@ def place_option_order():
 
 
 @app.route('/placealgoorder', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight7():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -344,7 +344,7 @@ def place_algo_order():
 
 
 @app.route('/figure_it_out', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight8():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -399,7 +399,7 @@ def figure_it_out():
 
 
 @app.route('/cancelorder', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight9():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -425,7 +425,7 @@ def cancel_option_order():
 
 
 @app.route('/timesales', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight10():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -455,7 +455,7 @@ def time_sales():
 
 
 @app.route('/modifyorder', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight11():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -485,7 +485,7 @@ def modify_order():
 
 
 @app.route('/balances', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight12():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [
@@ -510,7 +510,7 @@ def get_balances():
 
 
 @app.route('/gainloss', methods=['OPTIONS'])
-def handle_preflight():
+def handle_preflight13():
     # Respond to the preflight request with appropriate CORS headers
     response = app.make_default_options_response()
     allowed_origins = [

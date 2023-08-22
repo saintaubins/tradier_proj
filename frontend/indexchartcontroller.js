@@ -20,8 +20,7 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
   // Send the POST request
   //console.log('backendUrl', backEndUrl)
   fetch(`${backEndUrl}timesales?symbol=${symbol}&intervalSelect=${intervalSelect}&startDate=${startDate}&endDate=${endDate}`,{
-    mode: 'cors',
-    credentials: 'include'
+    mode: 'cors'
   })
     .then((response) => {
       if (!response.ok) {

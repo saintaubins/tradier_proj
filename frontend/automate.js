@@ -43,7 +43,9 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 function monitorTrade(monitorTradeUrl) {
   return new Promise((resolve, reject) => {
     // Send the POST request
-    fetch(monitorTradeUrl)
+    fetch(monitorTradeUrl, {
+      mode: 'cors'
+    })
       .then((response) => {
           if (!response.ok) {
               console.log('response -> ', response);
@@ -138,7 +140,9 @@ function sendOrder(Url) {
     
   return new Promise((resolve, reject) => {
     // Send the POST request
-    fetch(Url)
+    fetch(Url, {
+      mode: 'cors'
+    })
       .then((response) => {
           if (!response.ok) {
               console.log('response -> ', response);

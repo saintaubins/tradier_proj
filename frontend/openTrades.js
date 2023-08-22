@@ -135,7 +135,7 @@ function setCurrentTrade(optionSymbol, qty) {
 }
 function sendOrder(Url) {
   // Send the POST request
-  fetch(Url)
+  fetch(Url, {mode: 'cors'})
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -164,7 +164,7 @@ function sendOrder(Url) {
 
 function sendModifyOrder(Url) {
   // Send the POST request
-  fetch(Url)
+  fetch(Url, {mode: 'cors'})
     .then((response) => {
       if (!response.ok) {
         throw new Error("Network response was not ok");
@@ -296,14 +296,15 @@ function clearTableData() {
     }
   }
 
+  //method: 'DELETE',
+      // headers: {
+      //   'Content-Type': 'application/json', // Add any other headers if needed
+      // },
   // Function to close a filled order
   function closeOrder(orderId) {
     //fetch(`http://127.0.0.1:5000/cancelorder?order_id=${orderId}`, {
     fetch(`${backEndUrl}cancelorder?order_id=${orderId}`, {
-      //method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json', // Add any other headers if needed
-      },
+      mode: 'cors'
     })
       .then((response) => response.json())
       .then((data) => {
@@ -332,7 +333,7 @@ function clearTableData() {
 
   // Function to fetch data from the '/getorders' endpoint and populate the table
   function fetchDataAndPopulateTable() {
-    fetch(`${backEndUrl}getorders`) // Replace with your actual server endpoint
+    fetch(`${backEndUrl}getorders`, {mode: 'cors'}) // Replace with your actual server endpoint
       .then(response => response.json())
       .then(data => {
         //console.log('data.message.orders -> ', data.message.orders)

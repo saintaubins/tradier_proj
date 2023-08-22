@@ -17,7 +17,7 @@ const tableBody = document.getElementById('statsData');
 
   async function fetchDataAndPopulateTable() {
     try {
-      const response = await fetch(`${backEndUrl}gainloss`);
+      const response = await fetch(`${backEndUrl}gainloss`, {mode: 'cors'});
       const data = await response.json();
 
       const gainLossData = data.message.gainloss.closed_position;

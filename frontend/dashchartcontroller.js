@@ -10,7 +10,9 @@ document.getElementById("viewPositionsButton").addEventListener("click", functio
 function fetchPositions() {
   const positionsUrl = `${backEndUrl}getpositions`
 
-  fetch(positionsUrl)
+  fetch(positionsUrl, {
+    mode: 'cors'
+  })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
@@ -151,7 +153,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
   console.log("url -> ",url)
     // Making the GET request using fetch
-    fetch(url)
+    fetch(url, {
+      mode: 'cors'
+    })
       .then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");

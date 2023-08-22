@@ -70,6 +70,7 @@ def automation_events():
             response = f"data: {json.dumps(message)}\n"
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             print('response -> ', response)
+            app.logger.debug(f'response from automation events-> ', response)
             yield response
             time.sleep(10)
 

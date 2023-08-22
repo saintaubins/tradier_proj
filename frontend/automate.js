@@ -44,7 +44,7 @@ function monitorTrade(monitorTradeUrl) {
   return new Promise((resolve, reject) => {
     // Send the POST request
     fetch(monitorTradeUrl, {
-      mode: 'no-cors'
+      mode: 'cors'
     })
       .then((response) => {
           if (!response.ok) {

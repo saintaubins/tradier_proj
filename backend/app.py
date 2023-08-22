@@ -42,6 +42,17 @@ def index():
     return jsonify({'message': 'Hello, Flask!'})
 
 
+@app.route('/automation_events', methods=['OPTIONS'])
+def handle_preflight():
+    # Respond to the preflight request with appropriate CORS headers
+    response = app.make_default_options_response()
+    response.headers['Access-Control-Allow-Origin'] = 'https://shimmering-jelly-900e3e.netlify.app'
+    response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
+    # Specify allowed headers
+    response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
+    return response
+
+
 @app.route('/automation_events', methods=['GET', 'POST'])
 def automation_events():
     def generate_events():

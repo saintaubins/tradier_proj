@@ -10,6 +10,8 @@ from flask_socketio import SocketIO
 import logging
 import json
 import os
+# from sseclient import EventSource
+import threading
 
 
 environment = os.environ.get('LOGNAME', 'production')
@@ -25,6 +27,8 @@ allowed_origins = ['*', allowed_origin]
 
 app = Flask(__name__)
 
+app.config['TIMEOUT'] = 60
+
 socket_io = SocketIO(cors_allowed_origins=['*', allowed_origin])
 
 # Initialize CORS with the allowed origins
@@ -35,6 +39,29 @@ CORS(app, resources={r"/*": {"origins": allowed_origins}})
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
+
+
+# MAX_CONNECTIONS = 6  # Maximum number of open SSE connections
+
+
+# class ConnectionPool:
+#     def __init__(self):
+#         self.connections = []
+#         self.lock = threading.Lock()
+
+#     def get_connection(self):
+#         with self.lock:
+#             if len(self.connections) < MAX_CONNECTIONS:
+#                 connection = EventSource('/automation_events')
+#                 self.connections.append(connection)
+#                 return connection
+#             else:
+#                 return None
+
+#     def return_connection(self, connection):
+#         with self.lock:
+#             self.connections.remove(connection)
+#             connection.close()
 
 
 @app.route('/')
@@ -71,8 +98,9 @@ def automation_events():
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             print('response -> ', response)
             app.logger.debug(f'response from automation events-> {response}')
+            app.logger.debug(f'message from automation events-> {message}')
             yield response
-            time.sleep(30)
+            time.sleep(10)
 
     return Response(generate_events(), content_type='text/event-stream')
 

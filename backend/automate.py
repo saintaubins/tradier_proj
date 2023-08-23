@@ -299,7 +299,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
                 update_status(suggested_direction, direction,
                               exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol)
 
-            time.sleep(20)
+            time.sleep(10)
 
         return message
     except Exception as e:

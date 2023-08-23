@@ -10,14 +10,16 @@ document.getElementById("algoOrderButton").addEventListener("click", function() 
 
 let orderInfoRes = []
 let loopTheTrend = []
-//let currentTrade = {}
+let afterTrade = {}
 let currTrade = {}
 let encodedData = {}
+let monitorTradeUrl = ''
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
       sendOrder(getAlgoUrl)
       .then((data) => {
+        if (data.message.success){
           console.log('data -> ', data)
           orderInfoRes = data.message.success[0];
           loopTheTrend = data.message.success[1][1];
@@ -26,13 +28,37 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           encodedData = encodedData = encodeURIComponent(JSON.stringify(currTrade));
           
           console.log('encodedData ', encodedData)
+        }
       }).then(() => {
-        let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}`;
+        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}`;
         console.log('monitorTradeUrl:', monitorTradeUrl)
-        monitorTrade(monitorTradeUrl);
+        //afterTrade = monitorTrade(monitorTradeUrl);
+      }).then(() => {
+        //afterTrade = monitorTrade(monitorTradeUrl);
+        const promise1 = monitorTrade(monitorTradeUrl);
+
+        // console.log('afterTrade -> ', afterTrade)
+        // if (afterTrade.message.res.success) {
+        //   showAfterOrderMessage([`${afterTrade.message.res.success}`]);
+        // } else {
+        //   showAfterOrderMessage([`${afterTrade.message.res.exception}`]);
+        // }
+        Promise.all([promise1])
+        .then(([afterTrade]) => {
+          console.log('afterTrade -> ', afterTrade);
+          if (afterTrade.message) {
+            showAfterOrderMessage([`${afterTrade.message.m}`, `${afterTrade.message.res}`]);
+          } else {
+            showAfterOrderMessage([`${afterTrade.message}`]);
+          }
+        })
+        .catch((error) => {
+          // Handle any errors that might occur during the promise execution
+          console.error('An error occurred in the promise:', error);
+        });
       })
-      
      .catch((error) => {
+      showErrorMessage([`${error}`]);
       console.error('An error occurred:', error);
      }); 
 
@@ -207,6 +233,22 @@ function showOrderMessage(orderMessages) {
     orderMessageDiv.style.display = 'block';
   }
 
+// Function to display the success message box
+function showAfterOrderMessage(orderMessages) {
+  const orderMessageDiv = document.getElementById('afterOrderMessage');
+  const orderText = document.getElementById('afterOrderText');
+  orderText.innerHTML = ''; // Clear any previous error messages
+
+  orderMessages.forEach((orderMessage) => {
+    const orderItem = document.createElement('div');
+    orderItem.textContent = orderMessage;
+    orderText.appendChild(orderItem);
+  });
+
+  orderMessageDiv.style.display = 'block';
+}
+
+
 // Function to hide the order message box
 function hideOrderMessage() {
     const orderMessage = document.getElementById("orderMessage");
@@ -236,34 +278,6 @@ const algo = document.getElementById('algoChart');
 let labelsX = []
 let priceData = []
 let dataY = {}
-// let dataY = {
-//   labels: labelsX,
-//   datasets: [{
-//     label: 'Current price',
-//     data: [],
-//     fill: false,
-//     borderColor: 'rgb(123,104,238)',
-//     // borderJoinStyle: 'round',
-//     pointRadius: 0,
-//     tension: 0.25
-//   },{
-//     label: 'EMA Short',
-//     data: [],
-//     fill: false,
-//     borderColor: 'rgb(255, 255, 0)',
-//     // borderJoinStyle: 'round',
-//     pointRadius: 0,
-//     tension: 0.25
-//   },{
-//     label: 'EMA Long',
-//     data: [],
-//     fill: false,
-//     borderColor: 'rgb(23, 192, 2)',
-//     // borderJoinStyle: 'round',
-//     pointRadius: 0,
-//     tension: 0.25
-//   }]
-// };
 
 let monitorChart = new Chart(algo, {
   type: 'line',
@@ -291,11 +305,6 @@ function updateChart(newInfo) {
     // Extract prices from your data array
     priceData = sharedData.curr_price.map(dataPoint => dataPoint.price);
     labelsX = sharedData.curr_price.map(label => label.time);
-
-    console.log('labelsX length:', labelsX.length);
-    console.log('priceData length:', priceData.length);
-    console.log('ema1 length:', sharedData.ema1.length);
-    console.log('ema7 length:', sharedData.ema7.length);
 
   } else {
     labelsX = []

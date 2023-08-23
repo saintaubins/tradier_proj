@@ -169,6 +169,7 @@ document.addEventListener('DOMContentLoaded', function() {
         showSuccessMessage([data.message.options.option[0].expiration_date, "Underlying:", data.message.options.option[0].underlying])
       })
       .catch((error) => {
+        showSuccessMessage(["Error occurred while making the request:", `${error}`])
         console.error("Error occurred while making the request:", error);
       });
   });

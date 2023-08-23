@@ -269,7 +269,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
                 loop_the_trend = False
                 print('time to exit, we should have a profit')
                 update_status(suggested_direction, direction,
-                              exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol)
+                              exit_the_trade, loop_the_trend, ema1, ema7, curr_price, f'{option_symbol}: trade closed')
 
                 # place code to exit the trade
                 res = utils.place_option_order(

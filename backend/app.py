@@ -81,6 +81,7 @@ def handle_preflight():
     origin = request.headers.get('Origin')
     if origin in allowed_origins:
         response.headers['Access-Control-Allow-Origin'] = origin
+
     response.headers['Access-Control-Allow-Methods'] = 'GET, POST'
     # Specify allowed headers
     response.headers['Access-Control-Allow-Headers'] = 'Content-Type'
@@ -382,6 +383,9 @@ def handle_preflight8():
     ]
 
     origin = request.headers.get('Origin')
+    logging.info(
+        f"###########figure it out preflight#########{origin}##############")
+    print(f'########################################{origin}##')
     if origin in allowed_origins:
         response.headers['Access-Control-Allow-Origin'] = origin
     response.headers['Access-Control-Allow-Methods'] = 'POST, GET'

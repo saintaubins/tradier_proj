@@ -23,13 +23,13 @@ else:
     allowed_origin = 'https://shimmering-jelly-900e3e.netlify.app'
 
 
-allowed_origins = ['*', allowed_origin]
+allowed_origins = [allowed_origin]
 
 app = Flask(__name__)
 
 app.config['TIMEOUT'] = 60
 
-socket_io = SocketIO(cors_allowed_origins=['*', allowed_origin])
+socket_io = SocketIO(cors_allowed_origins=[allowed_origin])
 
 # Initialize CORS with the allowed origins
 CORS(app, resources={r"/*": {"origins": allowed_origins}})

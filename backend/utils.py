@@ -287,10 +287,10 @@ def get_time_sales(symbol: str, interval: str, start: str, end: str, session_fil
                                 )
         if response.ok and response.status_code != 400:
             json_response = response.json()
-            print(json_response)
+            print('successful response from utils.timesales', response.status_code)
             return json_response
         else:
-            print('response.status_code -> ', response.status_code,
+            print('response.status_code not ok -> ', response.status_code,
                   'response.txt -> ', response.text)
 
             return {'res': str(response), 'status_code': response.status_code}

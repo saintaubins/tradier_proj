@@ -99,7 +99,7 @@ def automation_events():
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             # print('response -> ', response)
             # app.logger.debug(f'response from automation events-> {response}')
-            # app.logger.debug(f'message from automation events-> {message}')
+            app.logger.debug(f'message from automation events-> {message}')
             yield response
             time.sleep(10)
 
@@ -485,7 +485,7 @@ def time_sales():
     endDate = request.args.get('endDate')
     interval = request.args.get('intervalSelect')
     res = utils.get_time_sales(symbol, interval, startDate, endDate, 'e')
-    print('res ->', res)
+    print('response from times sales working, app.py')
     return jsonify({'message': res})
 
 

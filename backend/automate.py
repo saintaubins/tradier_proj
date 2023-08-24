@@ -187,7 +187,7 @@ def monitor_the_trade(d: dict) -> bool:
     # print('data_array -> ', data_array)
 
     ################# Calculate EMA1 and EMA7 for close prices###########################
-    ema1 = calculate_EMA(data_array, 2)
+    ema1 = calculate_EMA(data_array, 3)
     ema7 = calculate_EMA(data_array, 7)
     # period = 7
     # ema1_values, ema7_values, current_price_values = calculate_EMA(

@@ -275,7 +275,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
                 res = utils.place_option_order(
                     '', '', option_symbol, qty, side, t_type, duration, '', '')
                 message = {
-                    'm': 'time to exit, we should have a profit',
+                    'm': 'Time to exit, we should have a profit!',
                     'res': f'{res}'
                 }
                 return message

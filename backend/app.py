@@ -97,9 +97,9 @@ def automation_events():
             message = automate.post_message()
             response = f"data: {json.dumps(message)}\n\n"
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
-            print('response -> ', response)
-            app.logger.debug(f'response from automation events-> {response}')
-            app.logger.debug(f'message from automation events-> {message}')
+            # print('response -> ', response)
+            # app.logger.debug(f'response from automation events-> {response}')
+            # app.logger.debug(f'message from automation events-> {message}')
             yield response
             time.sleep(10)
 

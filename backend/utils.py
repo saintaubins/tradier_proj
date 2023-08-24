@@ -144,7 +144,8 @@ def place_option_order(
             print('response.text -> ', response.text)
             success_dict = {
                 'success': [
-                    str(response.text)
+                    str(response.text),
+                    str(response.status_code)
                 ]
             }
             return success_dict

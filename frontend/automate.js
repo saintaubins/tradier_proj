@@ -51,12 +51,12 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           }
         })
         .then(() => {
-          monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
-          console.log('monitorTradeUrl:', monitorTradeUrl)
+          monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
+          console.log('monitorTradeUrl2:', monitorTradeUrl2)
           //afterTrade = monitorTrade(monitorTradeUrl);
         })
         .then(() => {
-          const promise2 = monitorTrade(monitorTradeUrl);
+          const promise2 = monitorTrade(monitorTradeUrl2);
 
           //Promise.all([promise2])
           //.then(([afterTrade2]) => {

@@ -101,7 +101,7 @@ def automation_events():
             # app.logger.debug(f'response from automation events-> {response}')
             # app.logger.debug(f'message from automation events-> {message}')
             yield response
-            time.sleep(10)
+            time.sleep(5)
 
     return Response(generate_events(), content_type='text/event-stream')
 

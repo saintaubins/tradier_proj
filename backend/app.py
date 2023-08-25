@@ -99,7 +99,7 @@ def automation_events():
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             # print('response -> ', response)
             # app.logger.debug(f'response from automation events-> {response}')
-            app.logger.debug(f'message from automation events-> {message}')
+            app.logger.debug(f'message from automation events-> {message["direction"]}')
             yield response
             time.sleep(5)
 

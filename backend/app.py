@@ -99,7 +99,7 @@ def automation_events():
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             # print('response -> ', response)
             # app.logger.debug(f'response from automation events-> {response}')
-            app.logger.debug(f'message from automation events-> {message}')
+            # app.logger.debug(f'message from automation events-> {message}')
             yield response
             time.sleep(10)
 
@@ -163,6 +163,7 @@ def handle_preflight2():
 @app.route('/getquotes', methods=['GET', 'POST'])
 def get_quotes():
     res = utils.get_quotes()
+    app.logger.debug(f'result from get quotes-> {res}')
     return jsonify({'message': res})
 
 
@@ -188,6 +189,7 @@ def handle_preflight3():
 @app.route('/user/profile', methods=['GET', 'POST'])
 def get_user_profile():
     res = utils.get_user_profile()
+    app.logger.debug(f'result from user profile-> {res}')
     return jsonify({'message': res})
 
 
@@ -214,6 +216,7 @@ def handle_preflight4():
 def get_orders():
     res = utils.get_orders()
     print('res ->', res)
+    app.logger.debug(f'result from get orders-> {res}')
     return jsonify({'message': res})
 
 
@@ -239,25 +242,26 @@ def handle_preflight5():
 @app.route('/getpositions', methods=['GET', 'POST'])
 def get_positions():
     res = utils.get_positions()
-    print('res ->', res)
+    app.logger.debug(f'result from get positions-> {res}')
     return jsonify({'message': res})
 
 
 @app.route('/getoptionsstrikeprice', methods=['GET', 'POST'])
 def get_options_strike_price():
     res = utils.get_option_strike_price()
+    app.logger.debug(f'result from get options strike prices-> {res}')
     return jsonify({'message': res})
 
 
-@app.route('/get_algotrade_data', methods=['GET', 'POST'])
-def get_algotrade_data():
+# @app.route('/get_algotrade_data', methods=['GET', 'POST'])
+# def get_algotrade_data():
 
-    data = {
-        'suggested_direction': 'long',
-        'direction': 'Call',
-        'exit_the_trade': False
-    }
-    return jsonify(data)
+#     data = {
+#         'suggested_direction': 'long',
+#         'direction': 'Call',
+#         'exit_the_trade': False
+#     }
+#     return jsonify(data)
 
 
 @app.route('/placeoptionorder', methods=['OPTIONS'])
@@ -306,6 +310,7 @@ def place_option_order():
         stop=stop
     )
     print('res -> ', res)
+    app.logger.debug(f'result from place option order-> {res}')
     return jsonify({'message': res})
 
 
@@ -370,6 +375,8 @@ def place_algo_order():
     if origin in allowed_origins:
         response.headers.add("Access-Control-Allow-Origin", origin)
 
+    app.logger.debug(f'response from place algo order-> {response}')
+
     return response
 
 
@@ -428,8 +435,11 @@ def figure_it_out():
         if origin in allowed_origins:
             response.headers.add("Access-Control-Allow-Origin", origin)
 
+        app.logger.debug(f'response from figure it out-> {response}')
+
         return response
     except Exception as e:
+        app.logger.debug(f'Exception from figure it out-> {e}')
         return jsonify({'error from current_trade': f'{e}'})
 
 
@@ -456,6 +466,7 @@ def handle_preflight9():
 def cancel_option_order():
     order_id = request.args.get('order_id')
     res = utils.cancel_order(order_id=order_id)
+    app.logger.debug(f'result from cancel order-> {res}')
     return jsonify({'message': res})
 
 
@@ -486,6 +497,7 @@ def time_sales():
     interval = request.args.get('intervalSelect')
     res = utils.get_time_sales(symbol, interval, startDate, endDate, 'e')
     print('response from times sales working, app.py')
+    app.logger.debug(f'res from time sales 👋 Data has been sent! 😀')
     return jsonify({'message': res})
 
 
@@ -516,6 +528,7 @@ def modify_order():
     price = request.args.get('modifyPrice')
     stop = request.args.get('modifyStop')
     res = utils.modify_order(order_id, type, duration, price, stop)
+    app.logger.debug(f'res from modify order')
     return jsonify({'message': res})
 
 
@@ -566,6 +579,7 @@ def handle_preflight13():
 @app.route('/gainloss', methods=['GET', 'POST'])
 def get_gain_loss():
     res = utils.get_gain_loss()
+    app.logger.debug(f'res from gain loss 👋 data has been sent! 😀')
     return jsonify({'message': res})
 
 

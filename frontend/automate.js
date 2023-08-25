@@ -301,7 +301,7 @@ function updateChart(newInfo) {
   sharedData = newInfo;
   console.log('sharedData updateChart function ->', sharedData)
  
-  if(Array.isArray(sharedData.curr_price)) {
+  if(Array.isArray(sharedData.data_array)) {
     // Extract prices from your data array
     priceData = sharedData.data_array.map(dataPoint => dataPoint.price);
     labelsX = sharedData.data_array.map(label => label.time);

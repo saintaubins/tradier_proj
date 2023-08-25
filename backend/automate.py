@@ -187,7 +187,7 @@ def monitor_the_trade(d: dict) -> bool:
     # print('data_array -> ', data_array)
 
     ################# Calculate EMA1 and EMA7 for close prices###########################
-    ema1 = calculate_EMA(data_array, 3)
+    ema1 = calculate_EMA(data_array, 4)
     ema7 = calculate_EMA(data_array, 7)
     # period = 7
     # ema1_values, ema7_values, current_price_values = calculate_EMA(
@@ -205,7 +205,7 @@ def calculate_EMA(data, period):
     ema_array = []
     smoothing_factor = 2 / (period + 1)
 
-    # Calculate the EMA 1 (no need for looping)
+    # Calculate the EMA 3 (no need for looping)
     ema_array.append(data[0]['close'])
 
     # Calculate the EMA 7

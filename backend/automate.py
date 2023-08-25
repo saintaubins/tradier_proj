@@ -309,8 +309,9 @@ def figure_it_out(d: dict, loop_the_trend: bool):
 
 def post_message() -> str:
     try:
-        logging.info(f'from post_message the is status -> {status}')
-        return status  # Serialize the message dictionary as JSON
+        logging.info(
+            f'👋 from post_message the is status data is being sent! {status}😀')
+        return status
     except Exception as e:
         logging.info(f'Exception from post_massage -> {e}')
         print(f'error from post_message: {e}')

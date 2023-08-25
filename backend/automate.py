@@ -187,7 +187,7 @@ def monitor_the_trade(d: dict) -> bool:
     # print('data_array -> ', data_array)
 
     ################# Calculate EMA1 and EMA7 for close prices###########################
-    ema1 = calculate_EMA(data_array, 4)
+    ema1 = calculate_EMA(data_array, 3)
     ema7 = calculate_EMA(data_array, 7)
     # period = 7
     # ema1_values, ema7_values, current_price_values = calculate_EMA(
@@ -229,7 +229,7 @@ status = {
 }
 
 
-def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol):
+def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol):
     global status
     status['suggested_direction'] = suggested_direction
     status['direction'] = direction
@@ -237,7 +237,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
     status['loop_the_trend'] = loop_the_trend
     status['ema1'] = ema1
     status['ema7'] = ema7
-    status['curr_price'] = curr_price
+    status['data_array'] = data_array
     status['option_symbol'] = option_symbol
 
 
@@ -255,7 +255,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
         logging.info(f"option_symbol:{option_symbol}, direction:{direction}")
         while loop_the_trend:
             # for _ in range(2):
-            ema1, ema7, curr_price = monitor_the_trade(d)
+            ema1, ema7, data_array = monitor_the_trade(d)
             logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
             if ema1[-1] > ema7[-1]:
                 suggested_direction = 'long'
@@ -269,7 +269,7 @@ def figure_it_out(d: dict, loop_the_trend: bool):
                 loop_the_trend = False
                 print('time to exit, we should have a profit')
                 update_status(suggested_direction, direction,
-                              exit_the_trade, loop_the_trend, ema1, ema7, curr_price, f'{option_symbol}: trade closed')
+                              exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: trade closed')
 
                 # place code to exit the trade
                 res = utils.place_option_order(
@@ -290,14 +290,14 @@ def figure_it_out(d: dict, loop_the_trend: bool):
                 print('loop_the_trend', loop_the_trend)
                 print('ema1 ->', ema1[-1])
                 print('ema7 ->', ema7[-1])
-                print('curr_price ->', curr_price[-1])
+                print('data_array ->', data_array[-1])
                 logging.info(
-                    f"curr_price:{curr_price[-1]}")
-                print('option_symbol ->', option_symbol)
+                    f"data_array:{data_array[-1]}")
+                # print('option_symbol ->', option_symbol)
 
                 # global message
                 update_status(suggested_direction, direction,
-                              exit_the_trade, loop_the_trend, ema1, ema7, curr_price, option_symbol)
+                              exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
             time.sleep(10)
 

@@ -61,7 +61,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           //Promise.all([promise2])
           //.then(([afterTrade2]) => {
             console.log('afterTrade2 -> ', promise2);
-            if (promise2[[PromiseState]] == "fulfilled"){
+            if (promise2[Promise][[PromiseState]] == "fulfilled"){
               showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
             } 
             else {

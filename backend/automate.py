@@ -241,9 +241,9 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
     status['option_symbol'] = option_symbol
 
 
-def figure_it_out(d: dict, loop_the_trend: bool, first_call:bool):
+def figure_it_out(d: dict, loop_the_trend: bool, first_call:str):
     message = {}
-    # exit_the_trade = False
+    first_call = first_call.replace("'", "")
     try:
         exit_the_trade = False
         suggested_direction = ''
@@ -253,7 +253,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call:bool):
         side = d.get('side', 'no side')
         t_type = d.get('type', 'no type')
         duration = d.get('duration', 'no duration')
-        logging.info(f"option_symbol:{option_symbol}, direction:{direction}")
+    
+        logging.info(f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
         if first_call:
             message = {
                         'm': 'just placed the trade',

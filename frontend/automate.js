@@ -32,7 +32,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         }
       })
       .then(() => {
-        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${true}`;
+        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'True'}`;
         console.log('monitorTradeUrl:', monitorTradeUrl)
         //afterTrade = monitorTrade(monitorTradeUrl);
       })
@@ -50,7 +50,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           }
         })
         .then(() => {
-          monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${false}`;
+          monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
           console.log('monitorTradeUrl:', monitorTradeUrl)
           //afterTrade = monitorTrade(monitorTradeUrl);
         })
@@ -99,13 +99,13 @@ function monitorTrade(monitorTrade) {
           if (data['error from current_trade']) {
               showErrorMessage([data['error from current_trade']]);
               setTimeout(hideErrorMessage, 15000);
-           } else if (data.message == null) {
+            } else if (data.message == null) {
               showErrorMessage(['Did not set monitoring for the trade.']);
               setTimeout(hideErrorMessage, 15000);
-          } //else if (data.message.success) {
-          //     showOrderMessage(data.message.success);
-          //     setTimeout(hideOrderMessage, 15000);
-          // }
+            } else if (data.message.m == 'just placed the trade') {
+                showOrderMessage([data.message.m]);
+                setTimeout(hideOrderMessage, 15000);
+            }
           
           resolve(data); // Resolve the promise with the data
       })

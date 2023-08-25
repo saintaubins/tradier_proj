@@ -255,13 +255,13 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call:str):
         duration = d.get('duration', 'no duration')
     
         logging.info(f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
-        if first_call:
+        if first_call == True:
             message = {
                         'm': 'just placed the trade',
                         'res': f'Good job'
                     } 
             return message
-        else:
+        elif first_call == False:
             while loop_the_trend:
                 # for _ in range(2):
                 ema1, ema7, data_array = monitor_the_trade(d)

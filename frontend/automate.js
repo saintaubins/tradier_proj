@@ -45,6 +45,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           console.log('promise1 -> ', promise1);
           if (promise1.message) {
             showAfterOrderMessage([`${promise1.message.m}`, `${promise1.message.res}`]);
+            setTimeout(hideAfterOrderMessage, 15000);
           } else {
             showAfterOrderMessage([`${promise1.message}`]);
           }
@@ -60,9 +61,10 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           //Promise.all([promise2])
           //.then(([afterTrade2]) => {
             console.log('afterTrade2 -> ', promise2);
-            if (promise2.message) {
+            if (promise2.message.m == "just placed the trade") {
               showAfterOrderMessage([`${promise2.message.m}`, `${promise2.message.res}`]);
-            } else {
+            } 
+            else {
               showAfterOrderMessage([`${promise2.message}`]);
             }
           //})
@@ -103,8 +105,8 @@ function monitorTrade(monitorTrade) {
               showErrorMessage(['Did not set monitoring for the trade.']);
               setTimeout(hideErrorMessage, 15000);
             } else if (data.message.m == 'just placed the trade') {
-                showOrderMessage([data.message.m]);
-                setTimeout(hideOrderMessage, 15000);
+              showOrderMessage([data.message.m]);
+              setTimeout(hideOrderMessage, 15000);
             }
           
           resolve(data); // Resolve the promise with the data
@@ -260,6 +262,11 @@ function showAfterOrderMessage(orderMessages) {
   });
 
   orderMessageDiv.style.display = 'block';
+}
+
+function hideAfterOrderMessage() {
+  const orderMessage = document.getElementById("afterOrderMessage");
+  orderMessage.style.display = "none";
 }
 
 

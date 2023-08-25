@@ -241,9 +241,10 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
     status['option_symbol'] = option_symbol
 
 
-def figure_it_out(d: dict, loop_the_trend: bool):
+def figure_it_out(d: dict, loop_the_trend: bool, first_call:bool):
+    message = {}
+    # exit_the_trade = False
     try:
-
         exit_the_trade = False
         suggested_direction = ''
         option_symbol = d.get('option_symbol', 'no symbol')
@@ -253,55 +254,62 @@ def figure_it_out(d: dict, loop_the_trend: bool):
         t_type = d.get('type', 'no type')
         duration = d.get('duration', 'no duration')
         logging.info(f"option_symbol:{option_symbol}, direction:{direction}")
-        while loop_the_trend:
-            # for _ in range(2):
-            ema1, ema7, data_array = monitor_the_trade(d)
-            logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
-            if ema1[-1] > ema7[-1]:
-                suggested_direction = 'long'
-            if ema1[-1] < ema7[-1]:
-                suggested_direction = 'short'
-            if direction == 'Call' and suggested_direction == 'short':
-                exit_the_trade = True
-            if direction == 'Put' and suggested_direction == 'long':
-                exit_the_trade = True
-            if exit_the_trade == True:
-                loop_the_trend = False
-                print('time to exit, we should have a profit')
-                update_status(suggested_direction, direction,
-                              exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: trade closed')
+        if first_call:
+            message = {
+                        'm': 'just placed the trade',
+                        'res': f'Good job'
+                    } 
+            return message
+        else:
+            while loop_the_trend:
+                # for _ in range(2):
+                ema1, ema7, data_array = monitor_the_trade(d)
+                logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
+                if ema1[-1] > ema7[-1]:
+                    suggested_direction = 'long'
+                if ema1[-1] < ema7[-1]:
+                    suggested_direction = 'short'
+                if direction == 'Call' and suggested_direction == 'short':
+                    exit_the_trade = True
+                if direction == 'Put' and suggested_direction == 'long':
+                    exit_the_trade = True
+                if exit_the_trade == True:
+                    loop_the_trend = False
+                    print('time to exit, we should have a profit')
+                    update_status(suggested_direction, direction,
+                                exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: trade closed')
 
-                # place code to exit the trade
-                res = utils.place_option_order(
-                    '', '', option_symbol, qty, side, t_type, duration, '', '')
-                message = {
-                    'm': 'Time to exit, we should have a profit!',
-                    'res': f'{res}'
-                }
-                return message
-            else:
-                logging.info(
-                    f"option_symbol:{option_symbol}, direction:{direction}got this far")
-                loop_the_trend = True
-                print('good time to be in a trade')
-                print('suggested_direction', suggested_direction)
-                print('direction -> ', direction)
-                print('exit_the_trade', exit_the_trade)
-                print('loop_the_trend', loop_the_trend)
-                print('ema1 ->', ema1[-1])
-                print('ema7 ->', ema7[-1])
-                print('data_array ->', data_array[-1])
-                logging.info(
-                    f"data_array:{data_array[-1]}")
-                # print('option_symbol ->', option_symbol)
+                    # place code to exit the trade
+                    res = utils.place_option_order(
+                        '', '', option_symbol, qty, side, t_type, duration, '', '')
+                    message = {
+                        'm': 'Time to exit, we should have a profit!',
+                        'res': f'{res}'
+                    }
+                    return message
+                else:
+                    logging.info(
+                        f"option_symbol:{option_symbol}, direction:{direction} got this far")
+                    loop_the_trend = True
+                    print('good time to be in a trade')
+                    print('suggested_direction', suggested_direction)
+                    print('direction -> ', direction)
+                    print('exit_the_trade', exit_the_trade)
+                    print('loop_the_trend', loop_the_trend)
+                    print('ema1 ->', ema1[-1])
+                    print('ema7 ->', ema7[-1])
+                    # print('data_array ->', data_array[-1])
+                    logging.info(
+                        f"data_array:{data_array[-1]}")
+                    # print('option_symbol ->', option_symbol)
 
-                # global message
-                update_status(suggested_direction, direction,
-                              exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                    # global message
+                    update_status(suggested_direction, direction,
+                                exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
-            time.sleep(10)
+                time.sleep(5)
 
-        return message
+
     except Exception as e:
         logging.info(f'something went wrong with automation: {e}')
         print(f'something went wrong with automation: {e} ')

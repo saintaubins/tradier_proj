@@ -14,6 +14,7 @@ let afterTrade = {}
 let currTrade = {}
 let encodedData = {}
 let monitorTradeUrl = ''
+let monitorTradeUrl2 = ''
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -29,47 +30,60 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           
           console.log('encodedData ', encodedData)
         }
-      }).then(() => {
-        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}`;
+      })
+      .then(() => {
+        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${true}`;
         console.log('monitorTradeUrl:', monitorTradeUrl)
         //afterTrade = monitorTrade(monitorTradeUrl);
-      }).then(() => {
+      })
+      .then(() => {
         //afterTrade = monitorTrade(monitorTradeUrl);
         const promise1 = monitorTrade(monitorTradeUrl);
 
-        // console.log('afterTrade -> ', afterTrade)
-        // if (afterTrade.message.res.success) {
-        //   showAfterOrderMessage([`${afterTrade.message.res.success}`]);
-        // } else {
-        //   showAfterOrderMessage([`${afterTrade.message.res.exception}`]);
-        // }
-        Promise.all([promise1])
-        .then(([afterTrade]) => {
-          console.log('afterTrade -> ', afterTrade);
-          if (afterTrade.message) {
-            showAfterOrderMessage([`${afterTrade.message.m}`, `${afterTrade.message.res}`]);
+        //Promise.all([promise1])
+        //.then(([afterTrade]) => {
+          console.log('promise1 -> ', promise1);
+          if (promise1.message) {
+            showAfterOrderMessage([`${promise1.message.m}`, `${promise1.message.res}`]);
           } else {
-            showAfterOrderMessage([`${afterTrade.message}`]);
+            showAfterOrderMessage([`${promise1.message}`]);
           }
         })
-        .catch((error) => {
-          // Handle any errors that might occur during the promise execution
-          console.error('An error occurred in the promise:', error);
-        });
+        .then(() => {
+          monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${false}`;
+          console.log('monitorTradeUrl:', monitorTradeUrl)
+          //afterTrade = monitorTrade(monitorTradeUrl);
+        })
+        .then(() => {
+          const promise2 = monitorTrade(monitorTradeUrl);
+
+          //Promise.all([promise2])
+          //.then(([afterTrade2]) => {
+            console.log('afterTrade2 -> ', promise2);
+            if (promise2.message) {
+              showAfterOrderMessage([`${promise2.message.m}`, `${promise2.message.res}`]);
+            } else {
+              showAfterOrderMessage([`${promise2.message}`]);
+            }
+          //})
+        // .catch((error) => {
+        //   // Handle any errors that might occur during the promise execution
+        //   console.error('An error occurred in the promise:', error);
+        // });
       })
-     .catch((error) => {
-      showErrorMessage([`${error}`]);
-      console.error('An error occurred:', error);
-     }); 
+      .catch((error) => {
+        showErrorMessage([`${error}`]);
+        console.error('An error occurred in fetch request, with figure it out:', error);
+      }); 
 
 });
 
 //let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
 
-function monitorTrade(monitorTradeUrl) {
+function monitorTrade(monitorTrade) {
   return new Promise((resolve, reject) => {
     // Send the POST request
-    fetch(monitorTradeUrl, {mode: 'cors'})
+    fetch(monitorTrade, {mode: 'cors'})
       .then((response) => {
           if (!response.ok) {
               console.log('response -> ', response);

@@ -407,6 +407,7 @@ def figure_it_out():
     logging.info(f"###########figure it out#######################")
     print('##########################################')
     loop_the_trend = request.args.get('loopTheTrend')
+    first_call = request.args.get('firstCall')
     current_trade_str = request.args.get('currentTrade')
     current_trade_str = current_trade_str.replace("'", "\"")
     current_trade = json.loads(current_trade_str)
@@ -417,7 +418,7 @@ def figure_it_out():
         print('current_trade -> ', current_trade)
 
         res = automate.figure_it_out(
-            d=current_trade, loop_the_trend=loop_the_trend)
+            d=current_trade, loop_the_trend=loop_the_trend, first_call=first_call)
 
         print('res from figure it out ->', res)
 

@@ -95,7 +95,7 @@ def automation_events():
         while True:
             # Generate or fetch the updated data here
             # message = automate.post_message()
-            message = automate.update_status
+            message = automate.status
             response = f"data: {json.dumps(message)}\n\n"
             response += f"Access-Control-Allow-Origin: {allowed_origin}\n\n"
             # print('response -> ', response)

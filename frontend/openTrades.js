@@ -308,7 +308,7 @@ function clearTableData() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log('data.message -> ', data.message.response_text)
+        //console.log('data.message -> ', data.message.response_text)
         if (data.message && data.message.response_text === "order already in finalized state: filled") {
           // Show a message to the user that the order is already filled and cannot be closed
           alert("This order is already filled and cannot be closed.");

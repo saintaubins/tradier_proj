@@ -60,20 +60,21 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           const promise2 = monitorTrade(monitorTradeUrl2);
 
           Promise.all([promise2])
-          //.then(([afterTrade2]) => {
-            console.log('afterTrade2 -> ', promise2[[PromiseState]]);
-            if (promise2[[PromiseState]] == "fulfilled"){
+          .then((results) => {
+            const afterTrade2 = results[0];
+            console.log('afterTrade2 -> ', afterTrade2);
+            if (afterTrade2.message == 'fulfilled'){
               showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
             } 
             else {
-              showAfterOrderMessage([`${promise2.message}`]);
+              showAfterOrderMessage([`${afterTrade2.message}`]);
             }
       })
       .catch((error) => {
         showErrorMessage([`${error}`]);
         console.error('An error occurred in fetch request, with figure it out:', error);
       }); 
-
+    })
 });
 
 //let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;

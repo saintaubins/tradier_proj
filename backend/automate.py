@@ -272,7 +272,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 update_stat = update_status(suggested_direction, direction,
                                             exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
                 logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
-                logging.info(f'#########res {update_stat["option_symbol"]}')
+                logging.info(
+                    f'#########update_stat {update_stat["option_symbol"]}')
                 if ema1[-1] > ema7[-1]:
                     suggested_direction = 'long'
                 if ema1[-1] < ema7[-1]:
@@ -281,7 +282,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     exit_the_trade = True
                 if direction == 'Put' and suggested_direction == 'long':
                     exit_the_trade = True
-                if exit_the_trade == True:
+                elif exit_the_trade == True:
                     loop_the_trend = False
                     print('time to exit, we should have a profit')
                     update_status(suggested_direction, direction,
@@ -311,9 +312,9 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                         f"data_array: {data_array[-1]}")
                     # print('option_symbol ->', option_symbol)
 
-                # global message
-                # update_status(suggested_direction, direction,
-                #               exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                    # global message
+                    update_status(suggested_direction, direction,
+                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
                 time.sleep(5)
 

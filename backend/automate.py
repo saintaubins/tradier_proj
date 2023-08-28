@@ -266,6 +266,10 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
             while loop_the_trend:
                 # for _ in range(2):
                 ema1, ema7, data_array = monitor_the_trade(d)
+
+                # global message
+                update_status(suggested_direction, direction,
+                              exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
                 logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
                 if ema1[-1] > ema7[-1]:
                     suggested_direction = 'long'
@@ -305,9 +309,9 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                         f"data_array:{data_array[-1]}")
                     # print('option_symbol ->', option_symbol)
 
-                    # global message
-                    update_status(suggested_direction, direction,
-                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                # global message
+                # update_status(suggested_direction, direction,
+                #                   exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
                 time.sleep(5)
 

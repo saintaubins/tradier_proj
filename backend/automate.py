@@ -222,9 +222,9 @@ status = {
     'direction': 'tbd',
     'exit_the_trade': 'tbd',
     'loop_the_trend': 'tbd',
-    'ema1': 'tbd',
-    'ema7': 'tbd',
-    'curr_price': 'tbd',
+    'ema1': [],
+    'ema7': [],
+    'data_array': [],
     'option_symbol': 'tbd'
 }
 

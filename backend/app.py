@@ -411,10 +411,10 @@ def figure_it_out():
     current_trade_str = request.args.get('currentTrade')
     current_trade_str = current_trade_str.replace("'", "\"")
     current_trade = json.loads(current_trade_str)
-    print('loop the trend##################', loop_the_trend)
-    print('first_call####', first_call)
-    print('current_trade_str#######', current_trade_str)
-    print('current_trade######', current_trade)
+    logging.info(f'loop the trend################## {loop_the_trend}')
+    logging.info(f'first_call#### {first_call}')
+    logging.info(f'current_trade_str####### {current_trade_str}')
+    logging.info(f'current_trade###### {current_trade}')
     try:
 
         # current_trade = current_trade

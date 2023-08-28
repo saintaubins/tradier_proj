@@ -325,7 +325,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
 def post_message() -> dict:
     try:
         logging.info(
-            f'👋 from post_message the is status data is being sent! {status}😀')
+            f'👋 from post_message the is status data is being sent! {status["option_symbol"]}😀')
         return status
     except Exception as e:
         logging.info(f'Exception from post_massage -> {e}')

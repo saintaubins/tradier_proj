@@ -61,6 +61,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 
           Promise.all([promise2])
           .then((results) => {
+            console.log('results from promise2 -> ', results )
             const afterTrade2 = results[0];
             console.log('afterTrade2 -> ', afterTrade2);
             if (afterTrade2.message == 'fulfilled'){
@@ -77,7 +78,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
     })
 });
 
-//let monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${currentTrade}`;
+
 
 function monitorTrade(monitorTrade) {
   return new Promise((resolve, reject) => {
@@ -92,7 +93,7 @@ function monitorTrade(monitorTrade) {
       })
       .then((data) => {
           console.log('**********************************')
-          console.log('data -> ', data)
+          console.log('monitor Trade data -> ', data)
           // Process the data returned by the server, if needed
           //console.log('data -> ', data['error from current_trade'])
           if (data['error from current_trade']) {

@@ -241,7 +241,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
     status['option_symbol'] = option_symbol
 
 
-def figure_it_out(d: dict, loop_the_trend: bool, first_call:str):
+def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
     message = {}
     first_call = first_call.replace("'", "")
     try:
@@ -253,15 +253,16 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call:str):
         side = d.get('side', 'no side')
         t_type = d.get('type', 'no type')
         duration = d.get('duration', 'no duration')
-    
-        logging.info(f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
-        if first_call == True:
+
+        logging.info(
+            f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
+        if first_call == 'True':
             message = {
-                        'm': 'just placed the trade',
-                        'res': f'Good job'
-                    } 
+                'm': 'just placed the trade',
+                'res': f'Good job'
+            }
             return message
-        elif first_call == False:
+        elif first_call == 'False':
             while loop_the_trend:
                 # for _ in range(2):
                 ema1, ema7, data_array = monitor_the_trade(d)
@@ -278,7 +279,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call:str):
                     loop_the_trend = False
                     print('time to exit, we should have a profit')
                     update_status(suggested_direction, direction,
-                                exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: trade closed')
+                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: trade closed')
 
                     # place code to exit the trade
                     res = utils.place_option_order(
@@ -306,10 +307,9 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call:str):
 
                     # global message
                     update_status(suggested_direction, direction,
-                                exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
                 time.sleep(5)
-
 
     except Exception as e:
         logging.info(f'something went wrong with automation: {e}')

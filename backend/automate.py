@@ -239,6 +239,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
     status['ema7'] = ema7
     status['data_array'] = data_array
     status['option_symbol'] = option_symbol
+    return status
 
 
 def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
@@ -268,9 +269,10 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 ema1, ema7, data_array = monitor_the_trade(d)
 
                 # global message
-                update_status(suggested_direction, direction,
-                              exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                res = update_status(suggested_direction, direction,
+                                    exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
                 logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
+                logging.info(f'#########res {res}')
                 if ema1[-1] > ema7[-1]:
                     suggested_direction = 'long'
                 if ema1[-1] < ema7[-1]:
@@ -320,7 +322,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
         print(f'something went wrong with automation: {e} ')
 
 
-def post_message() -> str:
+def post_message() -> dict:
     try:
         logging.info(
             f'👋 from post_message the is status data is being sent! {status}😀')

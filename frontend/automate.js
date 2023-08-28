@@ -40,16 +40,18 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         //afterTrade = monitorTrade(monitorTradeUrl);
         const promise1 = monitorTrade(monitorTradeUrl);
 
-        //Promise.all([promise1])
-        //.then(([afterTrade]) => {
-          console.log('promise1 -> ', promise1);
-          if (promise1.message) {
-            showAfterOrderMessage([`${promise1.message.m}`, `${promise1.message.res}`]);
+        Promise.all([promise1])
+        .then((res) => {
+          console.log('res from promise1 -> ', res);
+          const afterTrade1 = res[0];
+          if (afterTrade1.message) {
+            showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`]);
             setTimeout(hideAfterOrderMessage, 15000);
           } else {
-            showAfterOrderMessage([`${promise1.message}`]);
+            showAfterOrderMessage([`${afterTrade1.message}`]);
           }
         })
+      })
         .then(() => {
           
           monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;

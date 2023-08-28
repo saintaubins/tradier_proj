@@ -272,7 +272,7 @@
       document.getElementById('direction').value = eventData.direction;
       document.getElementById('exit_the_trade').value = eventData.exit_the_trade;
       document.getElementById('loop_the_trend').value = eventData.loop_the_trend;
-      if(Array.isArray(eventData.ema1.length > 1)) {
+      if(eventData.data_array.length > 1) {
         document.getElementById('ema1').value = eventData.ema1[eventData.ema1.length-1];
         document.getElementById('ema7').value = eventData.ema7[eventData.ema7.length-1];
         document.getElementById('currPrice').value = eventData.data_array[eventData.data_array.length-1].price;

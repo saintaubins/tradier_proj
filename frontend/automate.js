@@ -103,7 +103,7 @@ function monitorTrade(monitorTrade) {
               showErrorMessage(['Did not set monitoring for the trade.']);
               setTimeout(hideErrorMessage, 15000);
             } else if (data.message.m == 'just placed the trade') {
-              showOrderMessage([data.message.m]);
+              showOrderMessage([data.message.m, data.message.res]);
               setTimeout(hideOrderMessage, 15000);
             }
           

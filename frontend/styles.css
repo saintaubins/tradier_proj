@@ -1,5 +1,20 @@
 body {
     font-family: Arial, sans-serif;
+    transition: background-color 0.5s, color 0.5s;
+}
+
+/* body {
+  transition: background-color 0.5s, color 0.5s;
+} */
+
+.day {
+  background-color: white;
+  color: black;
+}
+
+.night {
+  background-color: black;
+  color: white;
 }
   
 .navbar {

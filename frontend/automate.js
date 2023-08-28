@@ -51,6 +51,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           }
         })
         .then(() => {
+          
           monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
           console.log('monitorTradeUrl2:', monitorTradeUrl2)
           //afterTrade = monitorTrade(monitorTradeUrl);
@@ -58,7 +59,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         .then(() => {
           const promise2 = monitorTrade(monitorTradeUrl2);
 
-          //Promise.all([promise2])
+          Promise.all([promise2])
           //.then(([afterTrade2]) => {
             console.log('afterTrade2 -> ', promise2[[PromiseState]]);
             if (promise2[[PromiseState]] == "fulfilled"){
@@ -67,11 +68,6 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             else {
               showAfterOrderMessage([`${promise2.message}`]);
             }
-          //})
-        // .catch((error) => {
-        //   // Handle any errors that might occur during the promise execution
-        //   console.error('An error occurred in the promise:', error);
-        // });
       })
       .catch((error) => {
         showErrorMessage([`${error}`]);

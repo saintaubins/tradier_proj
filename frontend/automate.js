@@ -104,6 +104,8 @@ function pollForTradeCompletion(url) {
       }
     } catch (error) {
       console.error('An error occurred while polling:', error);
+      showAfterOrderMessage([`An error occurred while polling: ${error}`])
+      setTimeout(hideAfterOrderMessage, interval)
       // Handle error gracefully
     }
   };

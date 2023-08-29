@@ -91,16 +91,12 @@ function pollForTradeCompletion(url) {
       const data = await response.json();
       
       console.log('polling data -> ', data)
+
       if (data.message === 'fulfilled') {
         isTradeFulfilled = true;
+        clearInterval(pollingInterval); // Stop polling when trade is fulfilled
       } else if (data.message) {
         showAfterOrderMessage([data.message.m, data.message.res]);
-      }
-      
-      if (!isTradeFulfilled) {
-        setTimeout(poll, interval);
-        showAfterOrderMessage(['Currently in a trade'])
-        setTimeout(hideAfterOrderMessage, interval)
       }
     } catch (error) {
       console.error('An error occurred while polling:', error);
@@ -110,7 +106,7 @@ function pollForTradeCompletion(url) {
     }
   };
 
-  poll();
+  const pollingInterval = setInterval(poll, interval);
 }
 
 function monitorTrade(monitorTrade) {

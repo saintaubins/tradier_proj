@@ -275,7 +275,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
         logging.info(f'Something went wrong in update status: {e}')
 
 
-async def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
+def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
     message = {}
     first_call = first_call.replace("'", "")
     try:
@@ -302,7 +302,7 @@ async def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
         elif first_call == 'False':
             while loop_the_trend:
                 # for _ in range(2):
-                ema1, ema7, data_array = await monitor_the_trade(d)
+                ema1, ema7, data_array = monitor_the_trade(d)
 
                 # global message
                 update_stat = update_status(suggested_direction, direction,
@@ -352,7 +352,7 @@ async def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     update_status(suggested_direction, direction,
                                   exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
-                await asyncio.sleep(5)
+                time.sleep(3)
 
     except Exception as e:
         logging.info(f'something went wrong with figure it out: {e}')

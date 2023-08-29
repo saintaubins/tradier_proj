@@ -9,6 +9,7 @@ import queue
 import os
 import logging
 import json
+import asyncio
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
@@ -174,17 +175,20 @@ def get_today_date():
         logging.info(f'Something went wrong in get today date: {e}')
 
 
-def get_market_trend(d: dict) -> dict:
+async def get_market_trend(d: dict) -> dict:
     try:
-        # print('symbol -> ', d.get('symbol'))
         symbol = d.get('symbol', 'no symbol')
         interval = '15min'
         session_filter = 'all'
         start = get_today_date()
         end = get_today_date()
 
-        data = utils.get_time_sales(
-            symbol, interval, start, end, session_filter)
+        data = None
+
+        while data is None:
+            data = await utils.get_time_sales(
+                symbol, interval, start, end, session_filter)
+            await asyncio.sleep(3)
 
         return data
     except Exception as e:
@@ -192,9 +196,10 @@ def get_market_trend(d: dict) -> dict:
         logging.info(f'Something went wrong in get market trend: {e}')
 
 
-def monitor_the_trade(d: dict) -> bool:
+async def monitor_the_trade(d: dict) -> bool:
     try:
-        data = get_market_trend(d)
+        # data = get_market_trend(d)
+        data = await get_market_trend(d)
 
         # Get the data array from the dataset
         data_array = data['series']['data']
@@ -267,7 +272,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
         logging.info(f'Something went wrong in update status: {e}')
 
 
-def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
+async def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
     message = {}
     first_call = first_call.replace("'", "")
     try:
@@ -294,7 +299,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
         elif first_call == 'False':
             while loop_the_trend:
                 # for _ in range(2):
-                ema1, ema7, data_array = monitor_the_trade(d)
+                ema1, ema7, data_array = await monitor_the_trade(d)
 
                 # global message
                 update_stat = update_status(suggested_direction, direction,
@@ -344,7 +349,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     update_status(suggested_direction, direction,
                                   exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
-                time.sleep(5)
+                await asyncio.sleep(5)
 
     except Exception as e:
         logging.info(f'something went wrong with figure it out: {e}')

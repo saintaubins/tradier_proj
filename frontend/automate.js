@@ -56,30 +56,30 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           
           monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
           console.log('monitorTradeUrl2:', monitorTradeUrl2)
-          setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
+          //setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
           //afterTrade = monitorTrade(monitorTradeUrl);
         })
-      //   .then(() => {
-      //     const promise2 = monitorTrade(monitorTradeUrl2);
+        .then(() => {
+          const promise2 = monitorTrade(monitorTradeUrl2);
 
-      //     Promise.all([promise2])
-      //     .then((results) => {
-      //       console.log('results from promise2 -> ', results )
-      //       const afterTrade2 = results[0];
-      //       console.log('afterTrade2 -> ', afterTrade2);
-      //       if (afterTrade2.message == 'fulfilled'){
-      //         showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
-      //       } 
-      //       else {
-      //         showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
-      //       }
-      // })
+          Promise.all([promise2])
+          .then((results) => {
+            console.log('results from promise2 -> ', results )
+            const afterTrade2 = results[0];
+            console.log('afterTrade2 -> ', afterTrade2);
+            if (afterTrade2.message == 'fulfilled'){
+              showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+            } 
+            else {
+              showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
+            }
+      })
       .catch((error) => {
         showErrorMessage([`${error}`]);
         console.error('An error occurred in fetch request, with figure it out:', error);
       }); 
     })
-//});
+});
 
 function pollForTradeCompletion(url) {
   const interval = 5000; // Polling interval in milliseconds

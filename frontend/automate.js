@@ -56,31 +56,60 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           
           monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
           console.log('monitorTradeUrl2:', monitorTradeUrl2)
+          pollForTradeCompletion(monitorTradeUrl2)
           //afterTrade = monitorTrade(monitorTradeUrl);
         })
-        .then(() => {
-          const promise2 = monitorTrade(monitorTradeUrl2);
+      //   .then(() => {
+      //     const promise2 = monitorTrade(monitorTradeUrl2);
 
-          Promise.all([promise2])
-          .then((results) => {
-            console.log('results from promise2 -> ', results )
-            const afterTrade2 = results[0];
-            console.log('afterTrade2 -> ', afterTrade2);
-            if (afterTrade2.message == 'fulfilled'){
-              showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
-            } 
-            else {
-              showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
-            }
-      })
+      //     Promise.all([promise2])
+      //     .then((results) => {
+      //       console.log('results from promise2 -> ', results )
+      //       const afterTrade2 = results[0];
+      //       console.log('afterTrade2 -> ', afterTrade2);
+      //       if (afterTrade2.message == 'fulfilled'){
+      //         showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+      //       } 
+      //       else {
+      //         showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
+      //       }
+      // })
       .catch((error) => {
         showErrorMessage([`${error}`]);
         console.error('An error occurred in fetch request, with figure it out:', error);
       }); 
     })
-});
+//});
 
+function pollForTradeCompletion(url) {
+  const interval = 5000; // Polling interval in milliseconds
+  let isTradeFulfilled = false;
 
+  const poll = async () => {
+    try {
+      const response = await fetch(url);
+      const data = await response.json();
+      
+      console.log('polling data -> ', data)
+      if (data.message === 'fulfilled') {
+        isTradeFulfilled = true;
+      } else if (data.message) {
+        showAfterOrderMessage([data.message.m, data.message.res]);
+      }
+      
+      if (!isTradeFulfilled) {
+        setTimeout(poll, interval);
+        showAfterOrderMessage(['Currently in a trade'])
+        setTimeout(hideAfterOrderMessage, interval)
+      }
+    } catch (error) {
+      console.error('An error occurred while polling:', error);
+      // Handle error gracefully
+    }
+  };
+
+  poll();
+}
 
 function monitorTrade(monitorTrade) {
   return new Promise((resolve, reject) => {

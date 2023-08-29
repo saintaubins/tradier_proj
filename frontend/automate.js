@@ -84,8 +84,8 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 function pollForTradeCompletion(url) {
   const interval = 5000; // Polling interval in milliseconds
   let isTradeFulfilled = false;
-  poll();
   
+
   const poll = async () => {
     try {
       const response = await fetch(url, {mode: 'cors'});
@@ -108,6 +108,7 @@ function pollForTradeCompletion(url) {
   };
 
   //const pollingInterval = setInterval(poll, interval);
+  poll();
 }
 
 function monitorTrade(monitorTrade) {

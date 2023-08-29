@@ -87,7 +87,7 @@ function pollForTradeCompletion(url) {
 
   const poll = async () => {
     try {
-      const response = await fetch(url);
+      const response = await fetch(url, {mode: 'cors'});
       const data = await response.json();
       
       console.log('polling data -> ', data)

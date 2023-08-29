@@ -42,6 +42,7 @@ headers = {
 order_url = '{}accounts/{}/orders'.format(
     api_base_url, sandbox_account_number)
 
+# global vars
 loop_the_trend = False
 curr_trade = {}
 exit_the_trade = False
@@ -58,21 +59,26 @@ current_trade = {
 
 
 def set_current_trade(option_symbol: str, qty: str) -> dict:
-    option_t = get_option_type(option_symbol)
-    option_s = extract_ticker_symbol(option_symbol)
+    try:
+        option_t = get_option_type(option_symbol)
+        option_s = extract_ticker_symbol(option_symbol)
 
-    global current_trade
-    current_trade['symbol'] = option_s
-    current_trade['option_symbol'] = option_symbol
-    current_trade['type'] = 'market'
-    current_trade['side'] = 'sell_to_close'
-    current_trade['qty'] = qty
-    current_trade['duration'] = 'gtc'
-    current_trade['option_type'] = option_t
+        global current_trade
+        current_trade['symbol'] = option_s
+        current_trade['option_symbol'] = option_symbol
+        current_trade['type'] = 'market'
+        current_trade['side'] = 'sell_to_close'
+        current_trade['qty'] = qty
+        current_trade['duration'] = 'gtc'
+        current_trade['option_type'] = option_t
 
-    print('current_trade -> ', current_trade)
-    logging.info(f"current_trade -> {current_trade}")
-    return current_trade
+        print('current_trade -> ', current_trade)
+        logging.info(f"current_trade -> {current_trade}")
+        return current_trade
+
+    except Exception as e:
+        print(f'Something went wrong in set current trade: {e}')
+        logging.info(f'Something went wrong in set current trade: {e}')
 
 
 def get_option_type(option_symbol):
@@ -90,6 +96,7 @@ def extract_ticker_symbol(option_symbol):
     return ticker_symbol
 
 
+# global var
 loop_the_trend = False
 
 
@@ -147,74 +154,88 @@ def place_algo_order(
             }
             logging.info(f"success_dict -> {success_dict}")
 
-            # figure_it_out(curr_trade, loop_the_trend)
-
             return success_dict
 
     except Exception as e:
         print('could not place algo order', e)
         return {'exception':
                 [
-                    'Something went wrong',
+                    'Something went wrong in algo order',
                     f'could not place algo order',
                     f'{e}', 'This will also happen off market hours, a holiday, or a weekend.']}
 
 
 def get_today_date():
-    today = date.today()
-    return today.strftime("%Y-%m-%d")
+    try:
+        today = date.today()
+        return today.strftime("%Y-%m-%d")
+    except Exception as e:
+        print(f'Something went wrong in get today date: {e}')
+        logging.info(f'Something went wrong in get today date: {e}')
 
 
 def get_market_trend(d: dict) -> dict:
-    # print('symbol -> ', d.get('symbol'))
-    symbol = d.get('symbol', 'no symbol')
-    interval = '15min'
-    session_filter = 'all'
-    start = get_today_date()
-    end = get_today_date()
+    try:
+        # print('symbol -> ', d.get('symbol'))
+        symbol = d.get('symbol', 'no symbol')
+        interval = '15min'
+        session_filter = 'all'
+        start = get_today_date()
+        end = get_today_date()
 
-    data = utils.get_time_sales(symbol, interval, start, end, session_filter)
+        data = utils.get_time_sales(
+            symbol, interval, start, end, session_filter)
 
-    return data
+        return data
+    except Exception as e:
+        print(f'Something went wrong in get market trend: {e}')
+        logging.info(f'Something went wrong in get market trend: {e}')
 
 
 def monitor_the_trade(d: dict) -> bool:
+    try:
+        data = get_market_trend(d)
 
-    data = get_market_trend(d)
+        # Get the data array from the dataset
+        data_array = data['series']['data']
+        # print('data_array -> ', data_array)
 
-    # Get the data array from the dataset
-    data_array = data['series']['data']
-    # print('data_array -> ', data_array)
+        ################# Calculate EMA1 and EMA7 for close prices###########################
+        ema1 = calculate_EMA(data_array, 3)
+        ema7 = calculate_EMA(data_array, 7)
+        # period = 7
+        # ema1_values, ema7_values, current_price_values = calculate_EMA(
+        #     data_array)
+        print('ema1_values ->', ema1[-1])
+        print('ema7_values ->', ema7[-1])
+        # print('current_price_values ->', data_array)
+        # print('time_values ->', data_array)
 
-    ################# Calculate EMA1 and EMA7 for close prices###########################
-    ema1 = calculate_EMA(data_array, 3)
-    ema7 = calculate_EMA(data_array, 7)
-    # period = 7
-    # ema1_values, ema7_values, current_price_values = calculate_EMA(
-    #     data_array)
-    print('ema1_values ->', ema1[-1])
-    print('ema7_values ->', ema7[-1])
-    # print('current_price_values ->', data_array)
-    # print('time_values ->', data_array)
-
-    # return ema1, ema7
-    return ema1, ema7,  data_array
+        # return ema1, ema7
+        return ema1, ema7,  data_array
+    except Exception as e:
+        print(f'Something went wrong in monitor trade: {e}')
+        logging.info(f'Something went wrong in monitor trade: {e}')
 
 
 def calculate_EMA(data, period):
-    ema_array = []
-    smoothing_factor = 2 / (period + 1)
+    try:
+        ema_array = []
+        smoothing_factor = 2 / (period + 1)
 
-    # Calculate the EMA 3 (no need for looping)
-    ema_array.append(data[0]['close'])
+        # Calculate the EMA 3 (no need for looping)
+        ema_array.append(data[0]['close'])
 
-    # Calculate the EMA 7
-    for i in range(1, len(data)):
-        ema = (data[i]['close'] * smoothing_factor) + \
-            (ema_array[i - 1] * (1 - smoothing_factor))
-        ema_array.append(ema)
+        # Calculate the EMA 7
+        for i in range(1, len(data)):
+            ema = (data[i]['close'] * smoothing_factor) + \
+                (ema_array[i - 1] * (1 - smoothing_factor))
+            ema_array.append(ema)
 
-    return ema_array
+        return ema_array
+    except Exception as e:
+        print(f'Something went wrong in ema calculation: {e}')
+        logging.info(f'Something went wrong in ema calculation: {e}')
 
 
 status = {
@@ -231,15 +252,19 @@ status = {
 
 def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol):
     global status
-    status['suggested_direction'] = suggested_direction
-    status['direction'] = direction
-    status['exit_the_trade'] = exit_the_trade
-    status['loop_the_trend'] = loop_the_trend
-    status['ema1'] = ema1
-    status['ema7'] = ema7
-    status['data_array'] = data_array
-    status['option_symbol'] = option_symbol
-    return status
+    try:
+        status['suggested_direction'] = suggested_direction
+        status['direction'] = direction
+        status['exit_the_trade'] = exit_the_trade
+        status['loop_the_trend'] = loop_the_trend
+        status['ema1'] = ema1
+        status['ema7'] = ema7
+        status['data_array'] = data_array
+        status['option_symbol'] = option_symbol
+        return status
+    except Exception as e:
+        print(f'Something went wrong in update status: {e}')
+        logging.info(f'Something went wrong in update status: {e}')
 
 
 def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
@@ -258,9 +283,12 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
         logging.info(
             f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
         if first_call == 'True':
+            first_c = update_status(suggested_direction, direction,
+                                    exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
             message = {
                 'm': 'just placed the trade',
-                'res': f'Good job'
+                'res': f'Good job',
+                'first_c': f'{first_c}'
             }
             return message
         elif first_call == 'False':
@@ -319,8 +347,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 time.sleep(5)
 
     except Exception as e:
-        logging.info(f'something went wrong with automation: {e}')
-        print(f'something went wrong with automation: {e} ')
+        logging.info(f'something went wrong with figure it out: {e}')
+        print(f'something went wrong with figure it out: {e} ')
 
 
 def post_message() -> dict:

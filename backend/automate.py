@@ -199,10 +199,10 @@ def get_market_trend(d: dict) -> dict:
         logging.info(f'Something went wrong in get market trend: {e}')
 
 
-async def monitor_the_trade(d: dict) -> bool:
+def monitor_the_trade(d: dict) -> bool:
     try:
         # data = get_market_trend(d)
-        data = await get_market_trend(d)
+        data = get_market_trend(d)
 
         # Get the data array from the dataset
         data_array = data['series']['data']

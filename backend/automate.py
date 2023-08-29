@@ -175,7 +175,8 @@ def get_today_date():
         logging.info(f'Something went wrong in get today date: {e}')
 
 
-async def get_market_trend(d: dict) -> dict:
+# async def get_market_trend(d: dict) -> dict:
+def get_market_trend(d: dict) -> dict:
     try:
         symbol = d.get('symbol', 'no symbol')
         interval = '15min'
@@ -186,9 +187,11 @@ async def get_market_trend(d: dict) -> dict:
         data = None
 
         while data is None:
-            data = await utils.get_time_sales(
+            # data = await utils.get_time_sales(
+            data = utils.get_time_sales(
                 symbol, interval, start, end, session_filter)
-            await asyncio.sleep(3)
+            # await asyncio.sleep(3)
+            time.sleep(3)
 
         return data
     except Exception as e:

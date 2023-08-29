@@ -56,7 +56,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           
           monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
           console.log('monitorTradeUrl2:', monitorTradeUrl2)
-          pollForTradeCompletion(monitorTradeUrl2)
+          setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
           //afterTrade = monitorTrade(monitorTradeUrl);
         })
       //   .then(() => {
@@ -84,7 +84,8 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 function pollForTradeCompletion(url) {
   const interval = 5000; // Polling interval in milliseconds
   let isTradeFulfilled = false;
-
+  poll();
+  
   const poll = async () => {
     try {
       const response = await fetch(url, {mode: 'cors'});
@@ -106,7 +107,7 @@ function pollForTradeCompletion(url) {
     }
   };
 
-  const pollingInterval = setInterval(poll, interval);
+  //const pollingInterval = setInterval(poll, interval);
 }
 
 function monitorTrade(monitorTrade) {

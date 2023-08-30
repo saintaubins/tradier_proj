@@ -432,6 +432,7 @@ def figure_it_out():
 
         response_data = {'message': res}
         response = jsonify(response_data)
+        # response = json.dumps(response_data)
 
         allowed_origins = [
             "https://shimmering-jelly-900e3e.netlify.app",  # Add your allowed origins here

@@ -298,7 +298,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 'res': f'Good job',
                 'first_c': f'{first_c}'
             }
-            yield message
+            yield list(message)
         elif first_call == 'False':
             while loop_the_trend:
                 # for _ in range(2):
@@ -313,7 +313,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     'update_stat': list(update_stat)
                 }
 
-                yield intermediate_message
+                yield list(intermediate_message)
 
                 logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
                 logging.info(
@@ -339,7 +339,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                         'm': 'Time to exit, we should have a profit!',
                         'res': f'{res}'
                     }
-                    yield message
+                    yield list(message)
                 else:
                     logging.info(
                         f"option_symbol:{option_symbol}, direction:{direction} got this far")

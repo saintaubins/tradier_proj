@@ -126,6 +126,11 @@ let myChart = new Chart(ema, {
   data: dataY,
   options: {
     scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: labelsX.length // Display all ticks
+        }
+      },
       y: {
         beginAtZero: false
       }
@@ -170,6 +175,11 @@ function updateChartWithData(newDataArray, ema1, ema7) {
     data: dataY,
     options: {
       scales: {
+        x: {
+          ticks: {
+            maxTicksLimit: labelsX.length // Display all ticks
+          }
+        },
         y: {
           beginAtZero: false
         }

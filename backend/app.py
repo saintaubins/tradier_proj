@@ -425,8 +425,8 @@ def figure_it_out():
         print('*******************look here**************')
         print('current_trade -> ', current_trade)
 
-        res = asyncio.run(automate.figure_it_out(
-            d=current_trade, loop_the_trend=loop_the_trend, first_call=first_call))
+        res = automate.figure_it_out(
+            d=current_trade, loop_the_trend=loop_the_trend, first_call=first_call)
 
         print('res from figure it out ->', res)
 

@@ -307,6 +307,9 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 # global message
                 update_stat = update_status(suggested_direction, direction,
                                             exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+
+                yield {"m": "Intermediate message", "update_stat": update_stat}
+
                 logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
                 logging.info(
                     f'#########update_stat {update_stat["option_symbol"]}')

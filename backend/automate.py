@@ -329,7 +329,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     exit_the_trade = True
                 if direction == 'Put' and suggested_direction == 'long':
                     exit_the_trade = True
-                elif exit_the_trade == True:
+                if exit_the_trade == True:
                     loop_the_trend = False
                     print('time to exit, we should have a profit')
                     update_status(suggested_direction, direction,

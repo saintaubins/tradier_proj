@@ -200,7 +200,9 @@ def get_market_trend(d: dict) -> dict:
         logging.info(f'Something went wrong in get market trend: {e}')
 
 
-def monitor_the_trade(d: dict) -> bool:
+def monitor_the_trade(d: dict):
+    suggested_direction = ""
+
     try:
         logging.info('*******Inside monitor the trade****')
         # data = get_market_trend(d)
@@ -220,9 +222,13 @@ def monitor_the_trade(d: dict) -> bool:
         print('ema7_values ->', ema7[-1])
         # print('current_price_values ->', data_array)
         # print('time_values ->', data_array)
+        if ema1[-1] > ema7[-1]:
+            suggested_direction = 'long'
+        else:
+            suggested_direction = 'short'
 
         # return ema1, ema7
-        return ema1, ema7,  data_array
+        return ema1, ema7, data_array, suggested_direction
     except Exception as e:
         print(f'Something went wrong in monitor trade: {e}')
         logging.info(f'Something went wrong in monitor trade: {e}')
@@ -279,10 +285,10 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
 
 def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
     message = {}
-    first_call = first_call.replace("'", "")
+    first_call = first_call.replace("'", " ")
     try:
         exit_the_trade = False
-        suggested_direction = ''
+        suggested_direction = 'dunno yet'
         option_symbol = d.get('option_symbol', 'no symbol')
         direction = d.get('option_type', 'no direction')
         qty = d.get('qty', 'no qty')
@@ -304,7 +310,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
         else:
             while loop_the_trend:
                 # for _ in range(2):
-                ema1, ema7, data_array = monitor_the_trade(d)
+                ema1, ema7, data_array, suggested_direction = monitor_the_trade(
+                    d)
 
                 # global message
                 update_stat = update_status(suggested_direction, direction,
@@ -321,8 +328,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 logging.info(f"ema1:{ema1[-1]}, ema7:{ema7[-1]}")
                 logging.info(
                     f'#########update_stat {update_stat["option_symbol"]}')
-                if ema1[-1] > ema7[-1]:
-                    suggested_direction = 'long'
+                # if ema1[-1] > ema7[-1]:
+                #     suggested_direction = 'long'
                 if ema1[-1] < ema7[-1]:
                     suggested_direction = 'short'
                 if direction == 'Call' and suggested_direction == 'short':

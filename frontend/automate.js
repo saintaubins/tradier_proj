@@ -74,11 +74,12 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
               showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
             }
       })
+    })
       .catch((error) => {
         showErrorMessage([`${error}`]);
-        console.error('An error occurred in fetch request, with figure it out:', error);
+        console.error('An error occurred in fetch requests, with figure it out:', error);
       }); 
-    })
+    //})
 });
 
 function pollForTradeCompletion(url) {

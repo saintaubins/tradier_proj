@@ -330,8 +330,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     f'#########update_stat {update_stat["option_symbol"]}')
                 # if ema1[-1] > ema7[-1]:
                 #     suggested_direction = 'long'
-                if ema1[-1] < ema7[-1]:
-                    suggested_direction = 'short'
+                # if ema1[-1] < ema7[-1]:
+                #     suggested_direction = 'short'
                 if direction == 'Call' and suggested_direction == 'short':
                     exit_the_trade = True
                 if direction == 'Put' and suggested_direction == 'long':

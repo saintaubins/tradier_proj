@@ -298,7 +298,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 'res': f'Good job',
                 'first_c': f'{first_c}'
             }
-            return message
+            yield message
         elif first_call == 'False':
             while loop_the_trend:
                 # for _ in range(2):
@@ -339,7 +339,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                         'm': 'Time to exit, we should have a profit!',
                         'res': f'{res}'
                     }
-                    return message
+                    yield message
                 else:
                     logging.info(
                         f"option_symbol:{option_symbol}, direction:{direction} got this far")

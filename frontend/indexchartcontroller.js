@@ -128,7 +128,7 @@ let myChart = new Chart(ema, {
     scales: {
       x: {
         ticks: {
-          maxTicksLimit: labelsX.length // Display all ticks
+          maxTicksLimit: dataY.length // Display all ticks
         }
       },
       y: {

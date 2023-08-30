@@ -184,14 +184,14 @@ def get_market_trend(d: dict) -> dict:
         start = get_today_date()
         end = get_today_date()
 
-        data = None
+        # data = None
 
-        while data is None:
-            # data = await utils.get_time_sales(
-            data = utils.get_time_sales(
-                symbol, interval, start, end, session_filter)
-            # await asyncio.sleep(3)
-            time.sleep(3)
+        # while data is None:
+        # data = await utils.get_time_sales(
+        data = utils.get_time_sales(
+            symbol, interval, start, end, session_filter)
+        # await asyncio.sleep(3)
+        # time.sleep(3)
 
         return data
     except Exception as e:

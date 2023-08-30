@@ -365,5 +365,5 @@ def post_message() -> dict:
             f'👋 from post_message the is status data is being sent! {status["option_symbol"]}😀')
         return status
     except Exception as e:
-        logging.info(f'Exception from post_massage -> {e}')
+        logging.info(f'error from post_massage -> {e}')
         print(f'error from post_message: {e}')

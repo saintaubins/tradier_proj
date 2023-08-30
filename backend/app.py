@@ -429,7 +429,7 @@ def figure_it_out():
             d=current_trade, loop_the_trend=loop_the_trend, first_call=first_call)
 
         # print('res from figure it out res->', res)
-        if first_call == 'True':
+        if first_call == True:
             print('res from figure it out res->', res)
             response_data = {'message': res}
         else:

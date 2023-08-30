@@ -310,7 +310,8 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
 
                 intermediate_message = {
                     'm': 'Intermediate message',
-                    'update_stat': list(update_stat)
+                    'res': 'Running calculations',
+                    'update_stat': f'{update_stat}'
                 }
 
                 yield intermediate_message

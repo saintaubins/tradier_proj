@@ -48,7 +48,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`]);
             setTimeout(hideAfterOrderMessage, 15000);
           } else {
-            showAfterOrderMessage([`${afterTrade1.message}`]);
+            showAfterOrderMessage([`${afterTrade1}`]);
           }
         })
       })
@@ -71,7 +71,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
               showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
             } 
             else {
-              showAfterOrderMessage([`${afterTrade2.message}`, `${afterTrade2.message}`]);
+              showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
             }
       })
       .catch((error) => {

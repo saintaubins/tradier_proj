@@ -430,8 +430,8 @@ def figure_it_out():
 
         # print('res from figure it out res->', res)
 
-        print('res from figure it out res.next()->', next(res))
-        response_data = {'message': next(res)}
+        print('res from figure it out res.next()->', res)
+        response_data = {'message': res}
 
         response = jsonify(response_data)
         # response = json.dumps(response_data)

@@ -178,6 +178,7 @@ def get_today_date():
 # async def get_market_trend(d: dict) -> dict:
 def get_market_trend(d: dict) -> dict:
     try:
+        logging.info('*******Inside get market trend********')
         symbol = d.get('symbol', 'no symbol')
         interval = '15min'
         session_filter = 'all'
@@ -201,6 +202,7 @@ def get_market_trend(d: dict) -> dict:
 
 def monitor_the_trade(d: dict) -> bool:
     try:
+        logging.info('*******Inside monitor the trade****')
         # data = get_market_trend(d)
         data = get_market_trend(d)
 

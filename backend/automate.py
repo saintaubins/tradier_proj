@@ -292,7 +292,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
             f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
         if first_call == 'True':
             first_c = update_status(suggested_direction, direction,
-                                    exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                                    exit_the_trade, loop_the_trend, ['tbd'], ['tbd'], ['tbd'], option_symbol)
             message = {
                 'm': 'just placed the trade',
                 'res': f'Good job',

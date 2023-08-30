@@ -236,20 +236,30 @@
     };
  
     let isLoaded = false;
+
+    document.addEventListener("DOMContentLoaded", function() {
+      // This code will run after the document is fully loaded
+
+      // Call the updateChart function here
+      // updateChart(sharedData);
+      isLoaded = true;
+      console.log('let isLoaded = true;', isLoaded)
+      });
+
     eventSource.onmessage = function(event) {
       
       const eventData = JSON.parse(event.data); // Parse the JSON data received
 
       sharedData = eventData;
       
-      document.addEventListener("DOMContentLoaded", function() {
+      //document.addEventListener("DOMContentLoaded", function() {
       // This code will run after the document is fully loaded
 
       // Call the updateChart function here
-      updateChart(sharedData);
-      isLoaded = true;
-      console.log('let isLoaded = true;', isLoaded)
-      });
+      //updateChart(sharedData);
+      //isLoaded = true;
+      //console.log('let isLoaded = true;', isLoaded)
+      //});
 
       if(isLoaded == true) {
         updateChart(sharedData);
@@ -272,7 +282,7 @@
       document.getElementById('direction').value = eventData.direction;
       document.getElementById('exit_the_trade').value = eventData.exit_the_trade;
       document.getElementById('loop_the_trend').value = eventData.loop_the_trend;
-      if(eventData.data_array.length > 1) {
+      if(eventData.data_array) {
         document.getElementById('ema1').value = eventData.ema1[eventData.ema1.length-1];
         document.getElementById('ema7').value = eventData.ema7[eventData.ema7.length-1];
         document.getElementById('currPrice').value = eventData.data_array[eventData.data_array.length-1].price;

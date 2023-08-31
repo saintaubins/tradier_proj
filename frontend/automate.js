@@ -77,7 +77,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
     })
       .catch((error) => {
         showErrorMessage([`${error}`]);
-        console.error('An error occurred in fetch requests, with figure it out:', error);
+        console.error('An error occurred in fetching requests, with figure it out:', error);
       }); 
     //})
 });

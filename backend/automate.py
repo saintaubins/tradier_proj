@@ -286,7 +286,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
 def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
     message = {}
     first_call = first_call.replace("'", " ")
-    logging.info(f'first_call 289: {first_call}')
+    logging.info(f'<<<<<<<<<<<<<<first_call 289>>>>>>>>>>>>>>>: {first_call}')
     try:
         exit_the_trade = False
         suggested_direction = 'dunno yet'
@@ -318,11 +318,11 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 update_stat = update_status(suggested_direction, direction,
                                             exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
 
-                intermediate_message = {
-                    'm': 'Intermediate message',
-                    'res': 'Running calculations',
-                    'update_stat': f'{update_stat}'
-                }
+                # intermediate_message = {
+                #     'm': 'Intermediate message',
+                #     'res': 'Running calculations',
+                #     'update_stat': f'{update_stat}'
+                # }
 
                 # yield intermediate_message
 

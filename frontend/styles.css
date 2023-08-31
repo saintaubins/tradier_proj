@@ -159,7 +159,9 @@ body {
 #ema1,
 #ema7,
 #currPrice,
-#dateTime  {
+#dateTime,
+#buyPrice,
+#closePrice  {
   width:100%;
   background-color: rgba(255, 140, 0, 0.15);
   border: 1px solid rgb(255, 140, 0);

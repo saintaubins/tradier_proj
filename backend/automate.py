@@ -55,11 +55,12 @@ current_trade = {
     'side': 'sell_to_close',
     'qty': 'tbd',
     'duration': 'gtc',
-    'option_type': 'tbd'
+    'option_type': 'tbd',
+    'buy_price': 'tbd'
 }
 
 
-def set_current_trade(option_symbol: str, qty: str) -> dict:
+def set_current_trade(option_symbol: str, qty: str, buy_price: str) -> dict:
     try:
         option_t = get_option_type(option_symbol)
         option_s = extract_ticker_symbol(option_symbol)
@@ -72,6 +73,7 @@ def set_current_trade(option_symbol: str, qty: str) -> dict:
         current_trade['qty'] = qty
         current_trade['duration'] = 'gtc'
         current_trade['option_type'] = option_t
+        current_trade['buy_price'] = buy_price
 
         print('current_trade -> ', current_trade)
         logging.info(f"current_trade -> {current_trade}")
@@ -145,12 +147,13 @@ def place_algo_order(
         else:
             print('algo response.text -> ', response.text)
             set_loop_the_trend(True)
-            set_current_trade(option_symbol, qty)
+            set_current_trade(option_symbol, qty, price)
             success_dict = {
                 'success': [
                     str(response.text),
                     ('loop_the_trend ', loop_the_trend),
-                    ('current trade', current_trade)
+                    ('current trade', current_trade),
+                    ('buy price', price)
                 ]
             }
             logging.info(f"success_dict -> {success_dict}")
@@ -262,11 +265,12 @@ status = {
     'ema1': ['tbd'],
     'ema7': ['tbd'],
     'data_array': ['tbd'],
-    'option_symbol': 'tbd'
+    'option_symbol': 'tbd',
+    'buy_price': 'tbd'
 }
 
 
-def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol):
+def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol, buy_price):
     global status
     try:
         status['suggested_direction'] = suggested_direction
@@ -277,6 +281,7 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
         status['ema7'] = ema7
         status['data_array'] = data_array
         status['option_symbol'] = option_symbol
+        status['buy_price'] = buy_price
         return status
     except Exception as e:
         print(f'Something went wrong in update status: {e}')
@@ -296,12 +301,13 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
         side = d.get('side', 'no side')
         t_type = d.get('type', 'no type')
         duration = d.get('duration', 'no duration')
+        buy_price = current_trade.get('buy_price')
 
         logging.info(
             f"option_symbol:{option_symbol}, direction:{direction}, first_call:{first_call}")
         if first_call == 'True':
             first_c = update_status(suggested_direction, direction,
-                                    exit_the_trade, loop_the_trend, ['tbd'], ['tbd'], ['tbd'], option_symbol)
+                                    exit_the_trade, loop_the_trend, ['tbd'], ['tbd'], ['tbd'], option_symbol, buy_price)
             message = {
                 'm': 'just placed the trade',
                 'res': f'Good job',
@@ -316,7 +322,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
 
                 # global message
                 update_stat = update_status(suggested_direction, direction,
-                                            exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                                            exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol, buy_price)
 
                 # intermediate_message = {
                 #     'm': 'Intermediate message',
@@ -341,7 +347,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                     loop_the_trend = False
                     print('time to exit, we should have a profit')
                     update_status(suggested_direction, direction,
-                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: trade closed')
+                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: sell order submitted', buy_price)
 
                     # place code to exit the trade
                     res = utils.place_option_order(
@@ -369,7 +375,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
 
                     # global message
                     update_status(suggested_direction, direction,
-                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol)
+                                  exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol, buy_price)
 
                 time.sleep(3)
 

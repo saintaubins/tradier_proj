@@ -61,25 +61,53 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         })
         .then(() => {
           const promise2 = monitorTrade(monitorTradeUrl2);
-
+          console.log('promise2 ->  ', promise2)
+      
           Promise.all([promise2])
           .then((results) => {
-            console.log('results from promise2 -> ', results )
-            const afterTrade2 = results[0];
-            console.log('afterTrade2 -> ', afterTrade2);
-            if (afterTrade2.message == 'fulfilled'){
-              showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
-            } 
-            else {
-              showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
-            }
+              console.log('results from promise2 -> ', results )
+              const afterTrade2 = results[0];
+              console.log('afterTrade2 -> ', afterTrade2);
+              if (afterTrade2.message == 'fulfilled'){
+                  showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+              } 
+              else {
+                  showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
+              }
+          })
+          .catch((error) => {
+              showErrorMessage([`${error}`]);
+              console.error('An error occurred in fetching requests, with figure it out:', error);
+          }); 
       })
-    })
       .catch((error) => {
-        showErrorMessage([`${error}`]);
-        console.error('An error occurred in fetching requests, with figure it out:', error);
-      }); 
-    //})
+          showErrorMessage([`${error}`]);
+          console.error('An error occurred in fetch request, with figure it out:', error);
+      });
+      
+    //     .then(() => {
+          
+    //       const promise2 = monitorTrade(monitorTradeUrl2);
+    //       console.log('promise2 ->  ', promise2)
+
+    //       Promise.all([promise2])
+    //       .then((results) => {
+    //         console.log('results from promise2 -> ', results )
+    //         const afterTrade2 = results[0];
+    //         console.log('afterTrade2 -> ', afterTrade2);
+    //         if (afterTrade2.message == 'fulfilled'){
+    //           showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+    //         } 
+    //         else {
+    //           showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
+    //         }
+    //   })
+    // })
+    //   .catch((error) => {
+    //     showErrorMessage([`${error}`]);
+    //     console.error('An error occurred in fetching requests, with figure it out:', error);
+    //   }); 
+    // //})
 });
 
 function pollForTradeCompletion(url) {

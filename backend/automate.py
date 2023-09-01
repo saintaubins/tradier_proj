@@ -258,30 +258,30 @@ def calculate_EMA(data, period):
 
 
 status = {
-    'suggested_direction': 'tbd',
-    'direction': 'tbd',
-    'exit_the_trade': 'tbd',
-    'loop_the_trend': 'tbd',
-    'ema1': ['tbd'],
-    'ema7': ['tbd'],
-    'data_array': ['tbd'],
-    'option_symbol': 'tbd',
-    'buy_price': 'tbd'
+    "suggested_direction": "tbd",
+    "direction": "tbd",
+    "exit_the_trade": "tbd",
+    "loop_the_trend": "tbd",
+    "ema1": ["tbd"],
+    "ema7": ["tbd"],
+    "data_array": ["tbd"],
+    "option_symbol": "tbd",
+    "buy_price": "tbd"
 }
 
 
 def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend, ema1, ema7, data_array, option_symbol, buy_price):
     global status
     try:
-        status['suggested_direction'] = suggested_direction
-        status['direction'] = direction
-        status['exit_the_trade'] = exit_the_trade
-        status['loop_the_trend'] = loop_the_trend
-        status['ema1'] = ema1
-        status['ema7'] = ema7
-        status['data_array'] = data_array
-        status['option_symbol'] = option_symbol
-        status['buy_price'] = buy_price
+        status["suggested_direction"] = suggested_direction
+        status["direction"] = direction
+        status["exit_the_trade"] = exit_the_trade
+        status["loop_the_trend"] = loop_the_trend
+        status["ema1"] = ema1
+        status["ema7"] = ema7
+        status["data_array"] = data_array
+        status["option_symbol"] = option_symbol
+        status["buy_price"] = buy_price
         return status
     except Exception as e:
         print(f'Something went wrong in update status: {e}')

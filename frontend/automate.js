@@ -19,6 +19,8 @@ let optionSymbol = ''
 let buyPrice = ''
 const pollingUrl = `${backEndUrl}getorders`
 const interval = 5000
+let currOrder = {}
+let orderFilled = false
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -68,8 +70,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         })
       })
         .then(() => {
-          let currOrder = {}
-          let orderFilled = false
+          
         // make api call to get status of current trade placed
         fetch(`${backEndUrl}getorders`, {mode: 'cors'}) // Replace with your actual server endpoint
         .then(response => response.json())
@@ -94,6 +95,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
               console.log('orderFilled?',orderFilled)
             } else if (orderFilled == false) {
               //keep polling until order is filled.
+              showAfterOrderMessage(["Waiting for order to be filled."])
               const pollingInterval = setInterval(() => {
                 poll(pollingUrl);
               }, interval);

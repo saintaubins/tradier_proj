@@ -148,7 +148,10 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 
    // Polling interval in milliseconds
   let isTradeFulfilled = false;
-  
+  let waitingOptionSymbol = ''
+  let waitingBuyPrice = 0
+  let waitingFillPrice = 0
+
 
   const poll = async (url) => {
     try {
@@ -156,10 +159,15 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       const data = await response.json();
       
       console.log('polling data -> ', data)
+      waitingOptionSymbol = data.message.orders.order[data.message.orders.order.lenght-1].option_symbol
+      waitingBuyPrice = data.message.orders.order[data.message.orders.order.lenght-1].price
+      waitingFillPrice = data.message.orders.order[data.message.orders.order.lenght-1].last_fill_price
 
-      if (currOrder.option_symbol == optionSymbol && currOrder.price == buyPrice && currOrder.last_fill_price != 0) {
+
+      if (currOrder.option_symbol == waitingOptionSymbol && currOrder.price == waitingBuyPrice && waitingFillPrice != 0) {
         isTradeFulfilled = true;
         clearInterval(pollingInterval); // Stop polling when trade is fulfilled
+        showAfterOrderMessage(['Order has been filled']);
       } else {
         showAfterOrderMessage(['waiting on filling order']);
       }

@@ -52,7 +52,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             let jsonObject = JSON.parse(jsonString);
             console.log('jsonObject -> ',jsonObject);
 
-            showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${jsonObject.symbol}`,`Buy price :${jsonObject.buy_price}`]);
+            showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${jsonObject.option_symbol}`,`Buy price :${jsonObject.buy_price}`]);
             setTimeout(hideAfterOrderMessage, 15000);
             const sleepTime = 15000;
 

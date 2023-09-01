@@ -64,15 +64,18 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         })
       })
         .then(() => {
+          let currOrder = {}
+          let orderFilled = false
         // make api call to get status of current trade placed
         fetch(`${backEndUrl}getorders`, {mode: 'cors'}) // Replace with your actual server endpoint
         .then(response => response.json())
         .then(data => {
-          console.log('data.message.orders -> ', data.message.orders)
+          console.log('data.message.orders.order[length-1] -> ', data.message.orders.order[data.message.orders.order.length-1])
           if (data.message.orders == 'null') {
             //showSuccessMessage();
             //setTimeout(hideSuccessMessage, 5000);
-          } else {
+          } else if(data.message.orders.order.length > 1) {
+            currOrder = data.message.orders.order[data.message.orders.order.length-1]
           // If data is successfully fetched, populate the table with it
           //populateTable(data.message.orders.order);
           }

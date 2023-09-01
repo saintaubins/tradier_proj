@@ -48,29 +48,39 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           if (afterTrade1.message) {
             let newString = afterTrade1.message.first_c;
             let jsonString = newString.replace(/'/g, '"');
-            console.log('jsonString -> ',jsonString);
+            //console.log('jsonString -> ',jsonString);
             let jsonObject = JSON.parse(jsonString);
-            console.log('jsonObject -> ',jsonObject);
+            //console.log('jsonObject -> ',jsonObject);
             let optionSymbol = jsonObject.option_symbol;
             let buyPrice = jsonObject.buy_price
-            console.log('test -> ',buyPrice, optionSymbol);
+            //console.log('test -> ',buyPrice, optionSymbol);
 
             showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${optionSymbol}`,`Buy price :${buyPrice}`]);
             setTimeout(hideAfterOrderMessage, 15000);
-            // const sleepTime = 15000;
-
-            // // Define the function to be executed after the sleep
-            // function afterSleep() {
-            //   console.log("This code runs after the sleep.");
-            // }
-
-            // // Call setTimeout to schedule the afterSleep function after the sleepTime
-            // setTimeout(afterSleep, sleepTime);
-
+            
           } else {
             showAfterOrderMessage([`${afterTrade1}`]);
           }
         })
+      })
+        .then(() => {
+        // make api call to get status of current trade placed
+        fetch(`${backEndUrl}getorders`, {mode: 'cors'}) // Replace with your actual server endpoint
+        .then(response => response.json())
+        .then(data => {
+          console.log('data.message.orders -> ', data.message.orders)
+          if (data.message.orders == 'null') {
+            //showSuccessMessage();
+            //setTimeout(hideSuccessMessage, 5000);
+          } else {
+          // If data is successfully fetched, populate the table with it
+          //populateTable(data.message.orders.order);
+          }
+        })
+        .catch(error => {
+          console.error('Error occurred while fetching orders:', error);
+        });
+
       })
         .then(() => {
           

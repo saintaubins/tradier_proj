@@ -269,37 +269,11 @@ function clearTableData() {
         <td>${data.status}</td>
         <td>${data.reason_description}</td>
       `;
-      // const symbolCell = document.createElement("td");
-      // symbolCell.textContent = data.symbol;
-      // row.appendChild(symbolCell);
-
-      // const optionSymbolCell = document.createElement("td");
-      // optionSymbolCell.textContent = data.option_symbol;
-      // row.appendChild(optionSymbolCell);
-
-      // const transactionDateCell = document.createElement("td");
-      // transactionDateCell.textContent = data.transaction_date;
-      // row.appendChild(transactionDateCell);
-
-      // const idCell = document.createElement("td");
-      // idCell.textContent = data.id;
-      // row.appendChild(idCell);
-
-      // const sideCell = document.createElement("td");
-      // sideCell.textContent = data.side;
-      // row.appendChild(sideCell);
-
-      // const statusCell = document.createElement("td");
-      // statusCell.textContent = data.status;
-      // row.appendChild(statusCell);
+      
       ordersDataContainer.appendChild(row);
     }
   }
 
-  //method: 'DELETE',
-      // headers: {
-      //   'Content-Type': 'application/json', // Add any other headers if needed
-      // },
   // Function to close a filled order
   function closeOrder(orderId) {
     //fetch(`http://127.0.0.1:5000/cancelorder?order_id=${orderId}`, {

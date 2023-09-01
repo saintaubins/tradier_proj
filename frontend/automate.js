@@ -17,6 +17,8 @@ let monitorTradeUrl = ''
 let monitorTradeUrl2 = ''
 let optionSymbol = ''
 let buyPrice = ''
+const pollingUrl = `${backEndUrl}getorders`
+const interval = 5000
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -90,9 +92,12 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             if (currOrder.option_symbol == optionSymbol && currOrder.price == buyPrice && currOrder.last_fill_price != 0) {
               orderFilled = true;
               console.log('orderFilled?',orderFilled)
-              
-              
-
+            } else if (orderFilled == false) {
+              //keep polling until order is filled.
+              const pollingInterval = setInterval(() => {
+                poll(pollingUrlUrl);
+              }, interval);
+              console.log('pollingInterval: ', pollingInterval)
             }
           }
         })
@@ -137,12 +142,12 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
     
 });
 
-function pollForTradeCompletion(url) {
-  const interval = 5000; // Polling interval in milliseconds
+
+   // Polling interval in milliseconds
   let isTradeFulfilled = false;
   
 
-  const poll = async () => {
+  const poll = async (url) => {
     try {
       const response = await fetch(url, {mode: 'cors'});
       const data = await response.json();
@@ -164,8 +169,7 @@ function pollForTradeCompletion(url) {
   };
 
   //const pollingInterval = setInterval(poll, interval);
-  poll();
-}
+  
 
 function monitorTrade(monitorTrade) {
   return new Promise((resolve, reject) => {

@@ -171,7 +171,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       } if (waitingFillPrice == 0) {
         showAfterOrderMessage(['waiting on filling order']);
       } if (data.message.orders.order[data.message.orders.order.length-1].status == "rejected") {
-        showAfterOrderMessage([data.message.orders.order[data.message.orders.order.length-1].reason_description
+        showAfterOrderMessage(['Rejected reason', data.message.orders.order[data.message.orders.order.length-1].reason_description
         ]);
       }
     } catch (error) {

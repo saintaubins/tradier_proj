@@ -168,9 +168,9 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         isTradeFulfilled = true;
         clearInterval(pollingInterval); // Stop polling when trade is fulfilled
         showAfterOrderMessage(['Order has been filled']);
-      } else if (waitingFillPrice == 0) {
+      } if (waitingFillPrice == 0) {
         showAfterOrderMessage(['waiting on filling order']);
-      } else if (data.message.orders.order[data.message.orders.order.length-1].status == "rejected") {
+      } if (data.message.orders.order[data.message.orders.order.length-1].status == "rejected") {
         showAfterOrderMessage([data.message.orders.order[data.message.orders.order.length-1].reason_description
         ]);
       }

@@ -47,6 +47,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           
           if (afterTrade1.message) {
             let jsonString = afterTrade1.message.first_c;
+            jsonString = jsonString.replace("'", "\"")
             console.log('jsonString -> ',jsonString)
             let jsonObject = JSON.parse(jsonString);
 

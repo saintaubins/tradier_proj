@@ -168,8 +168,11 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         isTradeFulfilled = true;
         clearInterval(pollingInterval); // Stop polling when trade is fulfilled
         showAfterOrderMessage(['Order has been filled']);
-      } else {
+      } else if (waitingFillPrice == 0) {
         showAfterOrderMessage(['waiting on filling order']);
+      } else if (data.message.orders.order[data.message.orders.order.length-1].status == "rejected") {
+        showAfterOrderMessage([data.message.orders.order[data.message.orders.order.length-1].reason_description
+        ]);
       }
     } catch (error) {
       console.error('An error occurred while polling:', error);
@@ -204,7 +207,7 @@ function monitorTrade(monitorTrade) {
               showErrorMessage([data['error from current_trade']]);
               setTimeout(hideErrorMessage, 15000);
             } else if (data.message == null) {
-              showErrorMessage(['monitorTrade data.message is null.']);
+              showErrorMessage(['monitorTrade data.message is null, the order was not filled yet.']);
               setTimeout(hideErrorMessage, 15000);
             } else if (data.message.m == 'just placed the trade') {
               showOrderMessage([data.message.m, data.message.res]);

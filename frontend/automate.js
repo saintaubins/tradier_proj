@@ -21,6 +21,7 @@ const pollingUrl = `${backEndUrl}getorders`
 const interval = 5000
 let currOrder = {}
 let orderFilled = false
+let pollingInterval = ''
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -96,7 +97,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             } else if (orderFilled == false) {
               //keep polling until order is filled.
               showAfterOrderMessage(["Waiting for order to be filled."])
-              const pollingInterval = setInterval(() => {
+              pollingInterval = setInterval(() => {
                 poll(pollingUrl);
               }, interval);
               console.log('pollingInterval: ', pollingInterval)
@@ -156,11 +157,11 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       
       console.log('polling data -> ', data)
 
-      if (data.message === 'fulfilled') {
+      if (currOrder.option_symbol == optionSymbol && currOrder.price == buyPrice && currOrder.last_fill_price != 0) {
         isTradeFulfilled = true;
         clearInterval(pollingInterval); // Stop polling when trade is fulfilled
-      } else if (data.message) {
-        showAfterOrderMessage([data.message.m, data.message.res]);
+      } else {
+        showAfterOrderMessage(['waiting on filling order']);
       }
     } catch (error) {
       console.error('An error occurred while polling:', error);
@@ -168,6 +169,8 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       setTimeout(hideAfterOrderMessage, interval)
       // Handle error gracefully
     }
+    console.log('isTradeFulfilled -> ', isTradeFulfilled)
+    return isTradeFulfilled;
   };
 
   //const pollingInterval = setInterval(poll, interval);

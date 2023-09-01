@@ -39,13 +39,17 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       .then(() => {
         //afterTrade = monitorTrade(monitorTradeUrl);
         const promise1 = monitorTrade(monitorTradeUrl);
-
+        
         Promise.all([promise1])
         .then((res) => {
           console.log('res from promise1 -> ', res);
           const afterTrade1 = res[0];
+          
           if (afterTrade1.message) {
-            showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`]);
+            let jsonString = afterTrade1.message.first_c;
+            let jsonObject = JSON.parse(jsonString);
+
+            showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${jsonObject.symbol}`,`Buy price :${jsonObject.buy_price}`]);
             setTimeout(hideAfterOrderMessage, 15000);
           } else {
             showAfterOrderMessage([`${afterTrade1}`]);
@@ -85,29 +89,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           console.error('An error occurred in fetch request, with figure it out:', error);
       });
       
-    //     .then(() => {
-          
-    //       const promise2 = monitorTrade(monitorTradeUrl2);
-    //       console.log('promise2 ->  ', promise2)
-
-    //       Promise.all([promise2])
-    //       .then((results) => {
-    //         console.log('results from promise2 -> ', results )
-    //         const afterTrade2 = results[0];
-    //         console.log('afterTrade2 -> ', afterTrade2);
-    //         if (afterTrade2.message == 'fulfilled'){
-    //           showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
-    //         } 
-    //         else {
-    //           showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
-    //         }
-    //   })
-    // })
-    //   .catch((error) => {
-    //     showErrorMessage([`${error}`]);
-    //     console.error('An error occurred in fetching requests, with figure it out:', error);
-    //   }); 
-    // //})
+    
 });
 
 function pollForTradeCompletion(url) {

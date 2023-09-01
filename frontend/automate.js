@@ -74,11 +74,11 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
               console.log('results from promise2 -> ', results )
               const afterTrade2 = results[0];
               console.log('afterTrade2 -> ', afterTrade2);
-              if (afterTrade2.message == 'fulfilled'){
+              if (afterTrade2.message){
                   showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
               } 
               else {
-                  showAfterOrderMessage([`${afterTrade2.message.m}`, `${afterTrade2.message.res}`]);
+                  showAfterOrderMessage([`${afterTrade2.message}`, `${afterTrade2.message}`]);
               }
           })
           .catch((error) => {

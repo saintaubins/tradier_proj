@@ -95,7 +95,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             } else if (orderFilled == false) {
               //keep polling until order is filled.
               const pollingInterval = setInterval(() => {
-                poll(pollingUrlUrl);
+                poll(pollingUrl);
               }, interval);
               console.log('pollingInterval: ', pollingInterval)
             }

@@ -159,9 +159,9 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       const data = await response.json();
       
       console.log('polling data -> ', data)
-      waitingOptionSymbol = data.message.orders.order[data.message.orders.order.lenght-1].option_symbol
-      waitingBuyPrice = data.message.orders.order[data.message.orders.order.lenght-1].price
-      waitingFillPrice = data.message.orders.order[data.message.orders.order.lenght-1].last_fill_price
+      waitingOptionSymbol = data.message.orders.order[data.message.orders.order.length-1].option_symbol
+      waitingBuyPrice = data.message.orders.order[data.message.orders.order.length-1].price
+      waitingFillPrice = data.message.orders.order[data.message.orders.order.length-1].last_fill_price
 
 
       if (currOrder.option_symbol == waitingOptionSymbol && currOrder.price == waitingBuyPrice && waitingFillPrice != 0) {

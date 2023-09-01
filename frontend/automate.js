@@ -15,6 +15,8 @@ let currTrade = {}
 let encodedData = {}
 let monitorTradeUrl = ''
 let monitorTradeUrl2 = ''
+let optionSymbol = ''
+let buyPrice = ''
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -51,8 +53,8 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             //console.log('jsonString -> ',jsonString);
             let jsonObject = JSON.parse(jsonString);
             //console.log('jsonObject -> ',jsonObject);
-            let optionSymbol = jsonObject.option_symbol;
-            let buyPrice = jsonObject.buy_price
+            optionSymbol = jsonObject.option_symbol;
+            buyPrice = jsonObject.buy_price
             //console.log('test -> ',buyPrice, optionSymbol);
 
             showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${optionSymbol}`,`Buy price :${buyPrice}`]);

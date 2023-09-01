@@ -173,6 +173,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       } if (data.message.orders.order[data.message.orders.order.length-1].status == "rejected") {
         showAfterOrderMessage(['Rejected reason', data.message.orders.order[data.message.orders.order.length-1].reason_description
         ]);
+        clearInterval(pollingInterval);
       }
     } catch (error) {
       console.error('An error occurred while polling:', error);

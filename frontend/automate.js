@@ -32,7 +32,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         }
       })
       .then(() => {
-        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'True'}`;
+        monitorTradeUrl = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${"True"}`;
         console.log('monitorTradeUrl:', monitorTradeUrl)
         //afterTrade = monitorTrade(monitorTradeUrl);
       })
@@ -60,7 +60,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       })
         .then(() => {
           
-          monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${'False'}`;
+          monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${"False"}`;
           console.log('monitorTradeUrl2:', monitorTradeUrl2)
           //setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
           //afterTrade = monitorTrade(monitorTradeUrl);

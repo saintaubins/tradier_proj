@@ -288,13 +288,13 @@ def update_status(suggested_direction, direction, exit_the_trade, loop_the_trend
         logging.info(f'Something went wrong in update status: {e}')
 
 
-def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
+def figure_it_out(d: dict, loop_the_trend: str, first_call: str):
     message = {}
     first_call = first_call.replace("'", " ")
     logging.info(f'<<<<<<<<<<<<<<first_call 289>>>>>>>>>>>>>>>: {first_call}')
     try:
-        exit_the_trade = False
-        suggested_direction = 'dunno yet'
+        exit_the_trade = "False"
+        suggested_direction = "dunno yet"
         option_symbol = d.get('option_symbol', 'no symbol')
         direction = d.get('option_type', 'no direction')
         qty = d.get('qty', 'no qty')
@@ -315,7 +315,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
             }
             return message
         else:
-            while loop_the_trend:
+            while loop_the_trend == "True":
                 # for _ in range(2):
                 ema1, ema7, data_array, suggested_direction = monitor_the_trade(
                     d)
@@ -340,11 +340,11 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 # if ema1[-1] < ema7[-1]:
                 #     suggested_direction = 'short'
                 if direction == 'Call' and suggested_direction == 'short':
-                    exit_the_trade = True
+                    exit_the_trade = "True"
                 if direction == 'Put' and suggested_direction == 'long':
-                    exit_the_trade = True
-                if exit_the_trade == True:
-                    loop_the_trend = False
+                    exit_the_trade = "True"
+                if exit_the_trade == "True":
+                    loop_the_trend = "False"
                     print('time to exit, we should have a profit')
                     update_status(suggested_direction, direction,
                                   exit_the_trade, loop_the_trend, ema1, ema7, data_array, f'{option_symbol}: sell order submitted', buy_price)
@@ -360,7 +360,7 @@ def figure_it_out(d: dict, loop_the_trend: bool, first_call: str):
                 else:
                     logging.info(
                         f"option_symbol:{option_symbol}, direction:{direction} got this far")
-                    loop_the_trend = True
+                    loop_the_trend = "True"
                     print('good time to be in a trade')
                     print('suggested_direction', suggested_direction)
                     print('direction -> ', direction)

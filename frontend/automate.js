@@ -204,7 +204,7 @@ function monitorTrade(monitorTrade) {
               showErrorMessage([data['error from current_trade']]);
               setTimeout(hideErrorMessage, 15000);
             } else if (data.message == null) {
-              showErrorMessage(['Did not set monitoring for the trade.']);
+              showErrorMessage(['monitorTrade data.message is null.']);
               setTimeout(hideErrorMessage, 15000);
             } else if (data.message.m == 'just placed the trade') {
               showOrderMessage([data.message.m, data.message.res]);

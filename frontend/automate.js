@@ -47,7 +47,8 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           
           if (afterTrade1.message) {
             let jsonString = afterTrade1.message.first_c;
-            let jsonObject = JSON.parse(jsonString);
+            console.log('jsonString -> ',jsonString)
+            //let jsonObject = JSON.parse(jsonString);
 
             showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${jsonObject.symbol}`,`Buy price :${jsonObject.buy_price}`]);
             setTimeout(hideAfterOrderMessage, 15000);

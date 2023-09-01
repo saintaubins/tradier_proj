@@ -48,11 +48,21 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
           if (afterTrade1.message) {
             let newString = afterTrade1.message.first_c;
             let jsonString = newString.replace(/'/g, '"');
-            console.log('jsonString -> ',jsonString);
+            //console.log('jsonString -> ',jsonString);
             let jsonObject = JSON.parse(jsonString);
 
             showAfterOrderMessage([`${afterTrade1.message.m}`, `${afterTrade1.message.res}`,`Symbol :${jsonObject.symbol}`,`Buy price :${jsonObject.buy_price}`]);
             setTimeout(hideAfterOrderMessage, 15000);
+            const sleepTime = 15000;
+
+            // Define the function to be executed after the sleep
+            function afterSleep() {
+              console.log("This code runs after the sleep.");
+            }
+
+            // Call setTimeout to schedule the afterSleep function after the sleepTime
+            setTimeout(afterSleep, sleepTime);
+            
           } else {
             showAfterOrderMessage([`${afterTrade1}`]);
           }

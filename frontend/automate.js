@@ -72,12 +72,26 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         .then(data => {
           console.log('data.message.orders.order[length-1] -> ', data.message.orders.order[data.message.orders.order.length-1])
           if (data.message.orders == 'null') {
-            //showSuccessMessage();
+            showAfterOrderMessage(["Order was not made."])
             //setTimeout(hideSuccessMessage, 5000);
           } else if(data.message.orders.order.length > 1) {
             currOrder = data.message.orders.order[data.message.orders.order.length-1]
-          // If data is successfully fetched, populate the table with it
-          //populateTable(data.message.orders.order);
+
+            console.log('currOrder.option_symbol',currOrder.option_symbol)
+            console.log('optionSymbol',optionSymbol)
+            console.log('currOrder.price',currOrder.price)
+            console.log('buyPrice',buyPrice)
+            console.log('currOrder.last_fill_price',currOrder.last_fill_price)
+            console.log('orderFilled?',orderFilled)
+
+            showAfterOrderMessage(["Order was made, waiting for it to be filled."])
+            if (currOrder.option_symbol == optionSymbol && currOrder.price == buyPrice && currOrder.last_fill_price != 0) {
+              orderFilled = true;
+              console.log('orderFilled?',orderFilled)
+              
+              
+
+            }
           }
         })
         .catch(error => {

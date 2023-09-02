@@ -21,7 +21,7 @@ const pollingUrl = `${backEndUrl}getorders`
 const interval = 10000
 let currOrder = {}
 let orderFilled = false
-let pollingInterval = ''
+let pollingCurrTrade = ''
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -97,10 +97,45 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
             } else if (orderFilled == false) {
               //keep polling until order is filled.
               showAfterOrderMessage(["Waiting for order to be filled."])
-              pollingInterval = setInterval(() => {
-                poll(pollingUrl);
+              pollingCurrTrade = setInterval(() => {
+                poll(pollingUrl)
+
+                .then((result) => {
+                  console.log('Polling completed successfully:', result);
+                  
+                  monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${"False"}`;
+                  console.log('monitorTradeUrl2:', monitorTradeUrl2)
+                  //setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
+                  //afterTrade = monitorTrade(monitorTradeUrl);
+                })
+                .then(() => {
+                  const promise2 = monitorTrade(monitorTradeUrl2);
+                  console.log('promise2 ->  ', promise2)
+              
+                  Promise.all([promise2])
+                  .then((results) => {
+                      console.log('results from promise2 -> ', results )
+                      const afterTrade2 = results[0];
+                      console.log('afterTrade2 -> ', afterTrade2);
+                      if (afterTrade2.message){
+                          showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+                      } 
+                      else {
+                          showAfterOrderMessage([`${afterTrade2.message}`, `${afterTrade2.message}`]);
+                      }
+                  })
+                  .catch((error) => {
+                      showErrorMessage([`${error}`]);
+                      console.error('An error occurred in fetching requests, with figure it out:', error);
+                  }); 
+              })
+              .catch((error) => {
+                  showErrorMessage([`${error}`]);
+                  console.error('An error occurred in fetch request, with figure it out:', error);
+              });
               }, interval);
-              console.log('pollingInterval: ', pollingInterval)
+
+              console.log('pollingCurrTrade: ', pollingCurrTrade)
             }
           }
         })
@@ -109,40 +144,37 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
         });
 
       })
-        .then(() => {
-          
-          monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${"False"}`;
-          console.log('monitorTradeUrl2:', monitorTradeUrl2)
-          //setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
-          //afterTrade = monitorTrade(monitorTradeUrl);
-        })
-        .then(() => {
-          const promise2 = monitorTrade(monitorTradeUrl2);
-          console.log('promise2 ->  ', promise2)
+      //   .then(() => {
+      //     monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${"False"}`;
+      //     console.log('monitorTradeUrl2:', monitorTradeUrl2)
+      //     //setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
+      //     //afterTrade = monitorTrade(monitorTradeUrl);
+      //   })
+      //   .then(() => {
+      //     const promise2 = monitorTrade(monitorTradeUrl2);
+      //     console.log('promise2 ->  ', promise2)
       
-          Promise.all([promise2])
-          .then((results) => {
-              console.log('results from promise2 -> ', results )
-              const afterTrade2 = results[0];
-              console.log('afterTrade2 -> ', afterTrade2);
-              if (afterTrade2.message){
-                  showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
-              } 
-              else {
-                  showAfterOrderMessage([`${afterTrade2.message}`, `${afterTrade2.message}`]);
-              }
-          })
-          .catch((error) => {
-              showErrorMessage([`${error}`]);
-              console.error('An error occurred in fetching requests, with figure it out:', error);
-          }); 
-      })
-      .catch((error) => {
-          showErrorMessage([`${error}`]);
-          console.error('An error occurred in fetch request, with figure it out:', error);
-      });
-      
-    
+      //     Promise.all([promise2])
+      //     .then((results) => {
+      //         console.log('results from promise2 -> ', results )
+      //         const afterTrade2 = results[0];
+      //         console.log('afterTrade2 -> ', afterTrade2);
+      //         if (afterTrade2.message){
+      //             showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+      //         } 
+      //         else {
+      //             showAfterOrderMessage([`${afterTrade2.message}`, `${afterTrade2.message}`]);
+      //         }
+      //     })
+      //     .catch((error) => {
+      //         showErrorMessage([`${error}`]);
+      //         console.error('An error occurred in fetching requests, with figure it out:', error);
+      //     }); 
+      // })
+      // .catch((error) => {
+      //     showErrorMessage([`${error}`]);
+      //     console.error('An error occurred in fetch request, with figure it out:', error);
+      // });
 });
 
 
@@ -166,14 +198,15 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 
       if (currOrder.option_symbol == waitingOptionSymbol && currOrder.price == waitingBuyPrice && waitingFillPrice != 0) {
         isTradeFulfilled = true;
-        clearInterval(pollingInterval); // Stop polling when trade is fulfilled
+        clearInterval(pollingCurrTrade); // Stop polling when trade is fulfilled
         showAfterOrderMessage(['Order has been filled']);
       } if (waitingFillPrice == 0) {
         showAfterOrderMessage(['waiting on filling order']);
       } if (data.message.orders.order[data.message.orders.order.length-1].status == "rejected") {
         showAfterOrderMessage(['Rejected reason', data.message.orders.order[data.message.orders.order.length-1].reason_description
         ]);
-        clearInterval(pollingInterval);
+        // put modal to cancel this order or keep trying untill it's filled.
+        clearInterval(pollingCurrTrade);
       }
     } catch (error) {
       console.error('An error occurred while polling:', error);
@@ -185,7 +218,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
     return isTradeFulfilled;
   };
 
-  //const pollingInterval = setInterval(poll, interval);
+
   
 
 function monitorTrade(monitorTrade) {

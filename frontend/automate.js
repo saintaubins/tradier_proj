@@ -102,7 +102,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 
                 .then((result) => {
                   console.log('Polling completed successfully:', result);
-                  
+
                   monitorTradeUrl2 = `${backEndUrl}figure_it_out?loopTheTrend=${loopTheTrend}&currentTrade=${encodedData}&firstCall=${"False"}`;
                   console.log('monitorTradeUrl2:', monitorTradeUrl2)
                   //setInterval(pollForTradeCompletion(monitorTradeUrl2), 5000)
@@ -499,7 +499,10 @@ function updateChart(newInfo) {
     }]
   };
 
+  var pos = $(document).scrollTop();
+  if (monitorChart != undefined)
   monitorChart.destroy();
+
   monitorChart = new Chart(algo, {
     type: 'line',
     data: dataY,
@@ -518,5 +521,6 @@ function updateChart(newInfo) {
   });
   monitorChart.update();
   //algo.update()
+  $(document).scrollTop(pos);
 }
 

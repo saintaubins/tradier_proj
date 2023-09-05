@@ -110,7 +110,7 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
     getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
     //console.log('isValidTimeSalesRes-> ', isValidTimeSalesRes)
     if(tickerSymbol && intervalSelect && startDate){
-      setInterval((event) => {
+      setInterval(() => {
         event.preventDefault();
         getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
       }, 10000); // 10000 milliseconds = 10 seconds

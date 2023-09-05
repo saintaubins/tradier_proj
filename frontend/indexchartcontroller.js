@@ -97,8 +97,9 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
 
 let tickerSymbol = ''
 document.getElementById("searchLoad").addEventListener("click", function(event) {
-
-  event.preventDefault();
+  // Store the current scroll position
+  const scrollY = window.scrollY;
+  //event.preventDefault();
 
   tickerSymbol = document.getElementById("tickerSymbol").value;
   const intervalSelect = document.getElementById("intervalSelect").value;
@@ -106,12 +107,14 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
     showErrorMessage(['This needs a ticker symbol please.'])
     setTimeout(hideErrorMessage, 15000);
   } else {
-    event.preventDefault();
+    //event.preventDefault();
     getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
     //console.log('isValidTimeSalesRes-> ', isValidTimeSalesRes)
     if(tickerSymbol && intervalSelect && startDate){
       setInterval(() => {
-        event.preventDefault();
+        //event.preventDefault();
+        // Restore the scroll position
+        window.scrollTo(0, scrollY);
         getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
       }, 10000); // 10000 milliseconds = 10 seconds
     }

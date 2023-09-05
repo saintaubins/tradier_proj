@@ -177,7 +177,7 @@ function updateChartWithData(newDataArray, ema1, ema7) {
   };
 
   var pos = $(document).scrollTop();
-  if (chart != undefined)
+  if (myChart != undefined)
   myChart.destroy();
 
   myChart = new Chart(ema, {

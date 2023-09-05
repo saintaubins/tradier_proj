@@ -98,7 +98,7 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
 let tickerSymbol = ''
 document.getElementById("searchLoad").addEventListener("click", function(event) {
 
-  //event.preventDefault();
+  event.preventDefault();
 
   tickerSymbol = document.getElementById("tickerSymbol").value;
   const intervalSelect = document.getElementById("intervalSelect").value;

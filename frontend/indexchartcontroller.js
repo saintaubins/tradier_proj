@@ -109,14 +109,12 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
   } else {
     //event.preventDefault();
     getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
-    //console.log('isValidTimeSalesRes-> ', isValidTimeSalesRes)
+    
     if(tickerSymbol && intervalSelect && startDate){
       setInterval(() => {
-        //event.preventDefault();
         event.stopPropagation();
-        // Restore the scroll position
-        //window.scrollTo(0, scrollY);
         getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
+        event.preventDefault();
       }, 10000); // 10000 milliseconds = 10 seconds
     }
   }
@@ -178,7 +176,10 @@ function updateChartWithData(newDataArray, ema1, ema7) {
     }]
   };
 
-  myChart.destroy()
+  var pos = $(document).scrollTop();
+  if (chart != undefined)
+  myChart.destroy();
+
   myChart = new Chart(ema, {
     type: 'line',
     data: dataY,
@@ -199,6 +200,7 @@ function updateChartWithData(newDataArray, ema1, ema7) {
       }
     }
   });
+  $(document).scrollTop(pos);
 
   // Update labels in the chart data
   myChart.data.labels = labelsX;

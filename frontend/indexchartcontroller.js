@@ -125,6 +125,10 @@ let myChart = new Chart(ema, {
   type: 'line',
   data: dataY,
   options: {
+    animation: {
+      easing: 'linear', // Use your preferred easing function
+      duration: 200, // Set an appropriate duration
+    },
     scales: {
       x: {
         ticks: {
@@ -174,6 +178,10 @@ function updateChartWithData(newDataArray, ema1, ema7) {
     type: 'line',
     data: dataY,
     options: {
+      animation: {
+        easing: 'linear', // Use your preferred easing function
+        duration: 200, // Set an appropriate duration
+      },
       scales: {
         x: {
           ticks: {

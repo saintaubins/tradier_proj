@@ -98,7 +98,7 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
 let tickerSymbol = ''
 document.getElementById("searchLoad").addEventListener("click", function(event) {
   // Store the current scroll position
-  const scrollY = window.scrollY;
+  //const scrollY = window.scrollY;
   //event.preventDefault();
 
   tickerSymbol = document.getElementById("tickerSymbol").value;
@@ -113,8 +113,9 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
     if(tickerSymbol && intervalSelect && startDate){
       setInterval(() => {
         //event.preventDefault();
+        event.stopPropagation();
         // Restore the scroll position
-        window.scrollTo(0, scrollY);
+        //window.scrollTo(0, scrollY);
         getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
       }, 10000); // 10000 milliseconds = 10 seconds
     }

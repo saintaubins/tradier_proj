@@ -121,7 +121,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
                           showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
                       } 
                       else {
-                          showAfterOrderMessage([`${afterTrade2.message}`, `${afterTrade2.message}`]);
+                          showAfterOrderMessage([`${promise2.status}`, `${afterTrade2.message}`]);
                       }
                   })
                   .catch((error) => {

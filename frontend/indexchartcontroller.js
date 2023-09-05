@@ -106,11 +106,12 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
     showErrorMessage(['This needs a ticker symbol please.'])
     setTimeout(hideErrorMessage, 15000);
   } else {
-    //event.preventDefault();
+    event.preventDefault();
     getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
     //console.log('isValidTimeSalesRes-> ', isValidTimeSalesRes)
     if(tickerSymbol && intervalSelect && startDate){
-      setInterval(() => {
+      setInterval((event) => {
+        event.preventDefault();
         getTimeSales(tickerSymbol, intervalSelect, startDate, todayDate);
       }, 10000); // 10000 milliseconds = 10 seconds
     }

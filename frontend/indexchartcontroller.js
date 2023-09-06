@@ -256,7 +256,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
   });
   $(document).scrollTop(pos);
 
-  myChart1 = new Chart(ema, {
+  myChart1 = new Chart(ema1, {
     type: 'line',
     data: dataY,
     options: {
@@ -278,7 +278,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
   });
   $(document).scrollTop(pos1);
 
-  myChart2 = new Chart(ema, {
+  myChart2 = new Chart(ema2, {
     type: 'line',
     data: dataY,
     options: {

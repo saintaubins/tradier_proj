@@ -2,6 +2,8 @@
 const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 const ema = document.getElementById('homeChart').getContext('2d');
+const ema1 = document.getElementById('homeChart1').getContext('2d');
+const ema3 = document.getElementById('homeChart2').getContext('2d');
 
 function getTodayDate() {
   const today = new Date();
@@ -147,7 +149,7 @@ let myChart = new Chart(ema, {
   }
 });
 
-let myChart1 = new Chart(ema, {
+let myChart1 = new Chart(ema1, {
   type: 'line',
   data: dataY,
   options: {
@@ -168,7 +170,7 @@ let myChart1 = new Chart(ema, {
   }
 });
 
-let myChart2 = new Chart(ema, {
+let myChart2 = new Chart(ema2, {
   type: 'line',
   data: dataY,
   options: {

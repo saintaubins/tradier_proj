@@ -78,7 +78,7 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         }
 
         //***************/ Calculate EMA 1 and EMA 7 for close prices*******************
-        const ema1 = calculateEMA(closePrices, 3);
+        const ema1 = calculateEMA(closePrices, 2);
         const ema7 = calculateEMA(closePrices, 7);
 
 

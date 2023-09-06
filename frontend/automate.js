@@ -103,12 +103,6 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
               showAfterOrderMessage(["Waiting for order to be filled."])
               pollingCurrTrade = setInterval(() => {
                 poll(pollingUrl)
-                // if(isTradeFulfilled) {
-                //   clearInterval(pollingCurrTrade); // Stop the interval
-                //   console.log('Polling completed successfully.');
-                // }
-
-                
 
                 .then((result) => {
                   console.log('Polling completed successfully:', result);

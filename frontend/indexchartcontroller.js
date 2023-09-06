@@ -243,13 +243,13 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
   if (myChart != undefined)
   myChart.destroy();
 
-  var pos1 = $(document).scrollTop();
-  if (myChart1 != undefined)
-  myChart1.destroy();
+  // var pos1 = $(document).scrollTop();
+  // if (myChart1 != undefined)
+  // myChart1.destroy();
 
-  var pos2 = $(document).scrollTop();
-  if (myChart2 != undefined)
-  myChart2.destroy();
+  // var pos2 = $(document).scrollTop();
+  // if (myChart2 != undefined)
+  // myChart2.destroy();
 
   myChart = new Chart(ema, {
     type: 'line',
@@ -273,6 +273,10 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
   });
   $(document).scrollTop(pos);
 
+  var pos1 = $(document).scrollTop();
+  if (myChart1 != undefined)
+  myChart1.destroy();
+
   myChart1 = new Chart(ema1, {
     type: 'line',
     data: dataY,
@@ -294,6 +298,10 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
     }
   });
   $(document).scrollTop(pos1);
+
+  var pos2 = $(document).scrollTop();
+  if (myChart2 != undefined)
+  myChart2.destroy();
 
   myChart2 = new Chart(ema2, {
     type: 'line',

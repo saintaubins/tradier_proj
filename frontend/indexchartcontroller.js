@@ -78,11 +78,13 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         }
 
         //***************/ Calculate EMA 1 and EMA 7 for close prices*******************
-        const ema1 = calculateEMA(closePrices, 2);
+        const ema1 = calculateEMA(closePrices, 1);
+        const ema2 = calculateEMA(closePrices, 2);
+        const ema3 = calculateEMA(closePrices, 3);
         const ema7 = calculateEMA(closePrices, 7);
 
 
-        updateChartWithData(newDataArray, ema1, ema7);
+        updateChartWithData(newDataArray, ema1, ema2, ema3, ema7);
         newData = newDataArray
         return newData
       }
@@ -128,10 +130,10 @@ let myChart = new Chart(ema, {
   type: 'line',
   data: dataY,
   options: {
-    animation: {
-      easing: 'linear', // Use your preferred easing function
-      duration: 200, // Set an appropriate duration
-    },
+    // animation: {
+    //   easing: 'linear', // Use your preferred easing function
+    //   duration: 200, // Set an appropriate duration
+    // },
     scales: {
       x: {
         ticks: {
@@ -145,7 +147,49 @@ let myChart = new Chart(ema, {
   }
 });
 
-function updateChartWithData(newDataArray, ema1, ema7) {
+let myChart1 = new Chart(ema, {
+  type: 'line',
+  data: dataY,
+  options: {
+    // animation: {
+    //   easing: 'linear', // Use your preferred easing function
+    //   duration: 200, // Set an appropriate duration
+    // },
+    scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: dataY.length // Display all ticks
+        }
+      },
+      y: {
+        beginAtZero: false
+      }
+    }
+  }
+});
+
+let myChart2 = new Chart(ema, {
+  type: 'line',
+  data: dataY,
+  options: {
+    // animation: {
+    //   easing: 'linear', // Use your preferred easing function
+    //   duration: 200, // Set an appropriate duration
+    // },
+    scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: dataY.length // Display all ticks
+        }
+      },
+      y: {
+        beginAtZero: false
+      }
+    }
+  }
+});
+
+function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
 
   const labelsX = newDataArray.map((dataObj) => dataObj.time); // Use 'time' field from newDataArray as labels
 
@@ -180,14 +224,22 @@ function updateChartWithData(newDataArray, ema1, ema7) {
   if (myChart != undefined)
   myChart.destroy();
 
+  var pos1 = $(document).scrollTop();
+  if (myChart1 != undefined)
+  myChart1.destroy();
+
+  var pos2 = $(document).scrollTop();
+  if (myChart2 != undefined)
+  myChart2.destroy();
+
   myChart = new Chart(ema, {
     type: 'line',
     data: dataY,
     options: {
-      animation: {
-        easing: 'linear', // Use your preferred easing function
-        duration: 200, // Set an appropriate duration
-      },
+      // animation: {
+      //   easing: 'linear', // Use your preferred easing function
+      //   duration: 200, // Set an appropriate duration
+      // },
       scales: {
         x: {
           ticks: {
@@ -202,31 +254,94 @@ function updateChartWithData(newDataArray, ema1, ema7) {
   });
   $(document).scrollTop(pos);
 
+  myChart1 = new Chart(ema, {
+    type: 'line',
+    data: dataY,
+    options: {
+      // animation: {
+      //   easing: 'linear', // Use your preferred easing function
+      //   duration: 200, // Set an appropriate duration
+      // },
+      scales: {
+        x: {
+          ticks: {
+            maxTicksLimit: labelsX.length // Display all ticks
+          }
+        },
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+  $(document).scrollTop(pos1);
+
+  myChart2 = new Chart(ema, {
+    type: 'line',
+    data: dataY,
+    options: {
+      // animation: {
+      //   easing: 'linear', // Use your preferred easing function
+      //   duration: 200, // Set an appropriate duration
+      // },
+      scales: {
+        x: {
+          ticks: {
+            maxTicksLimit: labelsX.length // Display all ticks
+          }
+        },
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+  $(document).scrollTop(pos2);
+
+
   // Update labels in the chart data
   myChart.data.labels = labelsX;
+  myChart1.data.labels = labelsX;
+  myChart2.data.labels = labelsX;
 
   // Update 'Current price' dataset data
   const currentPriceData = newDataArray.map((dataObj) => dataObj.price);
   myChart.data.datasets[0].data = currentPriceData;
+  myChart1.data.datasets[0].data = currentPriceData;
+  myChart2.data.datasets[0].data = currentPriceData;
 
   // Update 'EMA Short' dataset data
   myChart.data.datasets[1].data = ema1;
+  myChart1.data.datasets[1].data = ema2;
+  myChart2.data.datasets[1].data = ema3;
 
   const ema1Dataset = myChart.data.datasets[1];
+  const ema2Dataset = myChart1.data.datasets[1];
+  const ema3Dataset = myChart2.data.datasets[1];
   let mostRecentPrice = 0
   let mostRecentEma1 = 0
+  let mostRecentEma2 = 0
+  let mostRecentEma3 = 0
   let mostRecentEma7 = 0
   if (ema1Dataset.data.length > 0) {
     mostRecentEma1 = ema1Dataset.data[ema1Dataset.data.length - 1];
     //console.log('Most recent EMA1 value:', mostRecentEma1);
+  } if (ema2Dataset.data.length > 0) {
+    mostRecentEma2 = ema2Dataset.data[ema2Dataset.data.length - 1];
+    //console.log('Most recent EMA1 value:', mostRecentEma1);
+  } if (ema3Dataset.data.length > 0) {
+    mostRecentEma3 = ema3Dataset.data[ema3Dataset.data.length - 1];
+    //console.log('Most recent EMA1 value:', mostRecentEma1);
   } else {
-    console.log('EMA1 dataset is empty.');
-    showErrorMessage(['EMA1 dataset is empty.'])
+    console.log('EMA"s dataset"s are empty.');
+    showErrorMessage(['EMA"s dataset"s are empty.'])
     setTimeout(hideErrorMessage, 15000);
   }
 
   // Update 'EMA Long' dataset data
   myChart.data.datasets[2].data = ema7;
+  myChart1.data.datasets[2].data = ema7;
+  myChart2.data.datasets[2].data = ema7;
   
   const ema7Dataset = myChart.data.datasets[2];
 
@@ -251,9 +366,11 @@ function updateChartWithData(newDataArray, ema1, ema7) {
     setTimeout(hideErrorMessage, 15000);
   }
 
-  checkEMAValues(mostRecentEma1, mostRecentEma7, mostRecentPrice);
+  checkEMAValues(mostRecentEma1, mostRecentEma2, mostRecentEma3, mostRecentEma7, mostRecentPrice);
 
   myChart.update();
+  myChart1.update();
+  myChart2.update();
 }
 
 // Function to show the error message box
@@ -292,7 +409,7 @@ function clearAlerts() {
   errorMessageDiv.style.display = 'none';
 }
 
-function checkEMAValues(ema1, ema7, currPrice) {
+function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
   clearAlerts();
 
   const rawNumber = currPrice;
@@ -303,6 +420,12 @@ function checkEMAValues(ema1, ema7, currPrice) {
   });
 
   if (ema1 > ema7) {
+    // Go long
+    showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+  } if (ema2 > ema7) {
+    // Go long
+    showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+  } if (ema3 > ema7) {
     // Go long
     showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } else {

@@ -208,7 +208,7 @@ let myChart2 = new Chart(ema2, {
   }
 });
 
-function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
+function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
 
   const labelsX = newDataArray.map((dataObj) => dataObj.time); // Use 'time' field from newDataArray as labels
 

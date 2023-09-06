@@ -22,6 +22,10 @@ const interval = 10000
 let currOrder = {}
 let orderFilled = false
 let pollingCurrTrade = ''
+let isTradeFulfilled = false;
+let waitingOptionSymbol = ''
+let waitingBuyPrice = 0
+let waitingFillPrice = 0
 document.getElementById("modalYesButton").addEventListener("click", function() {
       const getAlgoUrl = placeAlgoOrder();
 
@@ -99,6 +103,12 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
               showAfterOrderMessage(["Waiting for order to be filled."])
               pollingCurrTrade = setInterval(() => {
                 poll(pollingUrl)
+                // if(isTradeFulfilled) {
+                //   clearInterval(pollingCurrTrade); // Stop the interval
+                //   console.log('Polling completed successfully.');
+                // }
+
+                
 
                 .then((result) => {
                   console.log('Polling completed successfully:', result);
@@ -118,7 +128,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
                       const afterTrade2 = results[0];
                       console.log('afterTrade2 -> ', afterTrade2);
                       if (afterTrade2.message){
-                          showAfterOrderMessage([`trade is fulfilled, still waiting for confirmation`]);
+                          showAfterOrderMessage([`trade is fulfilled`]);
                       } 
                       else {
                           showAfterOrderMessage([`${afterTrade2}`, `${afterTrade2}`]);
@@ -179,10 +189,10 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
 
 
    // Polling interval in milliseconds
-  let isTradeFulfilled = false;
-  let waitingOptionSymbol = ''
-  let waitingBuyPrice = 0
-  let waitingFillPrice = 0
+  // let isTradeFulfilled = false;
+  // let waitingOptionSymbol = ''
+  // let waitingBuyPrice = 0
+  // let waitingFillPrice = 0
 
 
   const poll = async (url) => {
@@ -215,7 +225,7 @@ document.getElementById("modalYesButton").addEventListener("click", function() {
       // Handle error gracefully
     }
     console.log('isTradeFulfilled -> ', isTradeFulfilled)
-    return isTradeFulfilled;
+    //return isTradeFulfilled;
   };
 
 

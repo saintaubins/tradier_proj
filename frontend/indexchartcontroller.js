@@ -80,13 +80,13 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
 // }
 
       //***************/ Calculate EMA 1 and EMA 7 for close prices*******************
-      const ema1 = calculateEMA(closePrices, 1);
-      const ema2 = calculateEMA(closePrices, 2);
-      const ema3 = calculateEMA(closePrices, 3);
-      const ema7 = calculateEMA(closePrices, 7);
+      const calcEma1 = calculateEMA(closePrices, 1);
+      const calcEma2 = calculateEMA(closePrices, 2);
+      const calcEma3 = calculateEMA(closePrices, 3);
+      const calcEma7 = calculateEMA(closePrices, 7);
 
 
-      updateChartWithData(newDataArray, ema1, ema2, ema3, ema7);
+      updateChartWithData(newDataArray, calcEma1, calcEma2, calcEma3, calcEma7);
       newData = newDataArray
       return newData
     }

@@ -338,9 +338,9 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   myChart2.data.datasets[0].data = currentPriceData;
 
   // Update 'EMA Short' dataset data
-  myChart.data.datasets[1].data = ema1;
-  myChart1.data.datasets[1].data = ema2;
-  myChart2.data.datasets[1].data = ema3;
+  myChart.data.datasets[1].data = ema;
+  myChart1.data.datasets[1].data = ema1;
+  myChart2.data.datasets[1].data = ema2;
 
   const ema1Dataset = myChart.data.datasets[1];
   const ema2Dataset = myChart1.data.datasets[1];

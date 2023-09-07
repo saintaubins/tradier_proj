@@ -223,7 +223,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       pointRadius: 0,
       tension: 0.25
     },{
-      label: 'EMA1 Short',
+      label: 'EMA1 (fastest) Short',
       data: [],
       fill: false,
       borderColor: 'rgb(54, 162, 235)',
@@ -249,7 +249,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       pointRadius: 0,
       tension: 0.25
     },{
-      label: 'EMA2 Short',
+      label: 'EMA2 (medium) Short',
       data: [],
       fill: false,
       borderColor: 'rgb(54, 162, 235)',
@@ -275,7 +275,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       pointRadius: 0,
       tension: 0.25
     },{
-      label: 'EMA3 Short',
+      label: 'EMA3 (slowest) Short',
       data: [],
       fill: false,
       borderColor: 'rgb(54, 162, 235)',
@@ -576,22 +576,22 @@ function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
 
   if  (ema1 > ema7) {
     // Go long
-    showSuccessMessage1(` 😃 EMA1 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    showSuccessMessage1(` 😃 EMA1 (fastest) says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema2 > ema7) {
     // Go long
-    showSuccessMessage2(` 😃 Ema2 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    showSuccessMessage2(` 😃 Ema2 (medium) says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema3 > ema7) {
     // Go long
-    showSuccessMessage3(` 😃 Ema3 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    showSuccessMessage3(` 😃 Ema3 (slowest) says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema1 < ema7) {
     // Go short
-    showErrorMessage1([` 😃 EMA1 says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage1([` 😃 EMA1 (fastest) says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   } if (ema2 < ema7) {
     // Go short
-    showErrorMessage2([` 😃 EMA2 says,Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage2([` 😃 EMA2 (medium) says,Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   } if (ema3 < ema7) {
     // Go short
-    showErrorMessage3([` 😃 EMA3 says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage3([` 😃 EMA3 (slowest) says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }
 }
 let startDate = ''

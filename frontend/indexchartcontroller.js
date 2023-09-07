@@ -2,8 +2,8 @@
 const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 const emaChart = document.getElementById('emaChart').getContext('2d');
-const ema1 = document.getElementById('homeChart1').getContext('2d');
-const ema2 = document.getElementById('homeChart2').getContext('2d');
+const emaChart2 = document.getElementById('emaChart2').getContext('2d');
+const emaChart3 = document.getElementById('emaChart3').getContext('2d');
 
 function getTodayDate() {
   const today = new Date();
@@ -166,7 +166,7 @@ let myChart = new Chart(emaChart, {
   }
 });
 
-let myChart1 = new Chart(ema1, {
+let myChart2 = new Chart(emaChart2, {
   type: 'line',
   data: dataY,
   options: {
@@ -187,7 +187,7 @@ let myChart1 = new Chart(ema1, {
   }
 });
 
-let myChart2 = new Chart(ema2, {
+let myChart3 = new Chart(emaChart3, {
   type: 'line',
   data: dataY,
   options: {
@@ -251,7 +251,7 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   // if (myChart2 != undefined)
   // myChart2.destroy();
 
-  myChart = new Chart(ema, {
+  myChart = new Chart(emaChart, {
     type: 'line',
     data: dataY,
     options: {
@@ -273,11 +273,11 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   });
   $(document).scrollTop(pos);
 
-  var pos1 = $(document).scrollTop();
-  if (myChart1 != undefined)
-  myChart1.destroy();
+  var pos2 = $(document).scrollTop();
+  if (myChart2 != undefined)
+  myChart2.destroy();
 
-  myChart1 = new Chart(ema1, {
+  myChart2 = new Chart(emaChart2, {
     type: 'line',
     data: dataY,
     options: {
@@ -300,10 +300,10 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   $(document).scrollTop(pos1);
 
   var pos2 = $(document).scrollTop();
-  if (myChart2 != undefined)
-  myChart2.destroy();
+  if (myChart3 != undefined)
+  myChart3.destroy();
 
-  myChart2 = new Chart(ema2, {
+  myChart3 = new Chart(emaChart3, {
     type: 'line',
     data: dataY,
     options: {
@@ -328,23 +328,23 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
 
   // Update labels in the chart data
   myChart.data.labels = labelsX;
-  myChart1.data.labels = labelsX;
   myChart2.data.labels = labelsX;
+  myChart3.data.labels = labelsX;
 
   // Update 'Current price' dataset data
   const currentPriceData = newDataArray.map((dataObj) => dataObj.price);
   myChart.data.datasets[0].data = currentPriceData;
-  myChart1.data.datasets[0].data = currentPriceData;
   myChart2.data.datasets[0].data = currentPriceData;
+  myChart3.data.datasets[0].data = currentPriceData;
 
   // Update 'EMA Short' dataset data
   myChart.data.datasets[1].data = ema;
-  myChart1.data.datasets[1].data = ema1;
-  myChart2.data.datasets[1].data = ema2;
+  myChart2.data.datasets[1].data = ema1;
+  myChart3.data.datasets[1].data = ema2;
 
   const ema1Dataset = myChart.data.datasets[1];
-  const ema2Dataset = myChart1.data.datasets[1];
-  const ema3Dataset = myChart2.data.datasets[1];
+  const ema2Dataset = myChart2.data.datasets[1];
+  const ema3Dataset = myChart3.data.datasets[1];
   let mostRecentPrice = 0
   let mostRecentEma1 = 0
   let mostRecentEma2 = 0
@@ -367,8 +367,8 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
 
   // Update 'EMA Long' dataset data
   myChart.data.datasets[2].data = ema7;
-  myChart1.data.datasets[2].data = ema7;
   myChart2.data.datasets[2].data = ema7;
+  myChart3.data.datasets[2].data = ema7;
   
   const ema7Dataset = myChart.data.datasets[2];
 

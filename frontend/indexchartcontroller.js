@@ -579,13 +579,13 @@ function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
     showSuccessMessage3(` 😃 Ema3 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema1 < ema7) {
     // Go short
-    showErrorMessage1([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage1([` 😃 EMA1 says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   } if (ema2 < ema7) {
     // Go short
-    showErrorMessage2([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage2([` 😃 EMA2 says,Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   } if (ema3 < ema7) {
     // Go short
-    showErrorMessage3([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage3([` 😃 EMA3 says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }
 }
 let startDate = ''

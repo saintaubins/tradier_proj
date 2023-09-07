@@ -1,7 +1,7 @@
 //const backEndUrl = 'http://127.0.0.1:5001/';
 const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
-const ema = document.getElementById('homeChart').getContext('2d');
+const emaChart = document.getElementById('emaChart').getContext('2d');
 const ema1 = document.getElementById('homeChart1').getContext('2d');
 const ema2 = document.getElementById('homeChart2').getContext('2d');
 
@@ -396,8 +396,8 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   checkEMAValues(mostRecentEma1, mostRecentEma2, mostRecentEma3, mostRecentEma7, mostRecentPrice);
 
   myChart.update();
-  myChart1.update();
-  myChart2.update();
+  //myChart1.update();
+  //myChart2.update();
 }
 
 // Function to show the error message box

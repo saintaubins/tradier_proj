@@ -297,9 +297,9 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
       }
     }
   });
-  $(document).scrollTop(pos1);
+  $(document).scrollTop(pos2);
 
-  var pos2 = $(document).scrollTop();
+  var pos3 = $(document).scrollTop();
   if (myChart3 != undefined)
   myChart3.destroy();
 
@@ -323,7 +323,7 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
       }
     }
   });
-  $(document).scrollTop(pos2);
+  $(document).scrollTop(pos3);
 
 
   // Update labels in the chart data

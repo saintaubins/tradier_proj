@@ -415,9 +415,72 @@ function showErrorMessage(errorMessages) {
   errorMessageDiv.style.display = 'block';
 }
 
+function showErrorMessage1(errorMessages) {
+  const errorMessageDiv = document.getElementById('errorMessage1');
+  const errorText = document.getElementById('errorText1');
+  errorText.innerHTML = ''; // Clear any previous error messages
+
+  errorMessages.forEach((errorMessage) => {
+    const errorItem = document.createElement('div');
+    errorItem.textContent = errorMessage;
+    errorText.appendChild(errorItem);
+  });
+
+  errorMessageDiv.style.display = 'block';
+}
+
+function showErrorMessage2(errorMessages) {
+  const errorMessageDiv = document.getElementById('errorMessage2');
+  const errorText = document.getElementById('errorText2');
+  errorText.innerHTML = ''; // Clear any previous error messages
+
+  errorMessages.forEach((errorMessage) => {
+    const errorItem = document.createElement('div');
+    errorItem.textContent = errorMessage;
+    errorText.appendChild(errorItem);
+  });
+
+  errorMessageDiv.style.display = 'block';
+}
+
+function showErrorMessage3(errorMessages) {
+  const errorMessageDiv = document.getElementById('errorMessage3');
+  const errorText = document.getElementById('errorText3');
+  errorText.innerHTML = ''; // Clear any previous error messages
+
+  errorMessages.forEach((errorMessage) => {
+    const errorItem = document.createElement('div');
+    errorItem.textContent = errorMessage;
+    errorText.appendChild(errorItem);
+  });
+
+  errorMessageDiv.style.display = 'block';
+}
+
 function showSuccessMessage(message) {
   const successMessageDiv = document.getElementById('successMessage');
   const successText = document.getElementById('successText');
+  successText.textContent = message;
+  successMessageDiv.style.display = 'block';
+}
+
+function showSuccessMessage1(message) {
+  const successMessageDiv = document.getElementById('successMessage1');
+  const successText = document.getElementById('successText1');
+  successText.textContent = message;
+  successMessageDiv.style.display = 'block';
+}
+
+function showSuccessMessage2(message) {
+  const successMessageDiv = document.getElementById('successMessage2');
+  const successText = document.getElementById('successText2');
+  successText.textContent = message;
+  successMessageDiv.style.display = 'block';
+}
+
+function showSuccessMessage3(message) {
+  const successMessageDiv = document.getElementById('successMessage3');
+  const successText = document.getElementById('successText3');
   successText.textContent = message;
   successMessageDiv.style.display = 'block';
 }
@@ -431,8 +494,14 @@ function hideErrorMessage() {
 // Function to clear the alert divs
 function clearAlerts() {
   const successMessageDiv = document.getElementById('successMessage');
+  const successMessageDiv1 = document.getElementById('successMessage1');
+  const successMessageDiv2 = document.getElementById('successMessage2');
+  const successMessageDiv3 = document.getElementById('successMessage3');
   const errorMessageDiv = document.getElementById('errorMessage');
   successMessageDiv.style.display = 'none';
+  successMessageDiv1.style.display = 'none';
+  successMessageDiv2.style.display = 'none';
+  successMessageDiv3.style.display = 'none';
   errorMessageDiv.style.display = 'none';
 }
 
@@ -446,18 +515,24 @@ function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
     currency: "USD"
   });
 
-  if (ema1 > ema7) {
+  if  (ema1 > ema7) {
     // Go long
-    showSuccessMessage(` 😃 EMA1 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
-  } if (ema2 > ema7) {
+    showSuccessMessage1(` 😃 EMA1 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+  } else if (ema2 > ema7) {
     // Go long
-    showSuccessMessage(` 😃 Ema2 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
-  } if (ema3 > ema7) {
+    showSuccessMessage2(` 😃 Ema2 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+  } else if (ema3 > ema7) {
     // Go long
-    showSuccessMessage(` 😃 Ema3 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
-  } else {
+    showSuccessMessage3(` 😃 Ema3 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+  } else if (ema1 < ema7) {
     // Go short
-    showErrorMessage([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    showErrorMessage1([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+  } else if (ema2 < ema7) {
+    // Go short
+    showErrorMessage2([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+  } else if (ema3 < ema7) {
+    // Go short
+    showErrorMessage3([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }
 }
 let startDate = ''

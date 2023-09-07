@@ -50,7 +50,8 @@ body {
 }
 
 .chart-container,
-#message {
+#message,
+#myChartContainer {
   width: 95%;
   min-width: 95%;
   overflow-x: auto;

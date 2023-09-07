@@ -396,8 +396,8 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   checkEMAValues(mostRecentEma1, mostRecentEma2, mostRecentEma3, mostRecentEma7, mostRecentPrice);
 
   myChart.update();
-  //myChart1.update();
-  //myChart2.update();
+  myChart2.update();
+  myChart3.update();
 }
 
 // Function to show the error message box
@@ -448,13 +448,13 @@ function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
 
   if (ema1 > ema7) {
     // Go long
-    showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    showSuccessMessage(` 😃 EMA1 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema2 > ema7) {
     // Go long
-    showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    showSuccessMessage(` 😃 Ema2 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema3 > ema7) {
     // Go long
-    showSuccessMessage(` 😃 Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    showSuccessMessage(` 😃 Ema3 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } else {
     // Go short
     showErrorMessage([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);

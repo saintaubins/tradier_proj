@@ -220,6 +220,9 @@ body {
 
 
 #successMessage,
+#successMessage1,
+#successMessage2,
+#successMessage3,
 #positionsSuccessMessage,
 #modifyOrderMessage,
 #orderMessage {
@@ -230,6 +233,9 @@ body {
 }
 
 #errorMessage,
+#errorMessage1,
+#errorMessage2,
+#errorMessage3,
 #modifyErrorMessage {
   border: 1px solid red;
   margin: 10px auto;

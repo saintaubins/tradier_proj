@@ -518,19 +518,19 @@ function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
   if  (ema1 > ema7) {
     // Go long
     showSuccessMessage1(` 😃 EMA1 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
-  } else if (ema2 > ema7) {
+  } if (ema2 > ema7) {
     // Go long
     showSuccessMessage2(` 😃 Ema2 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
-  } else if (ema3 > ema7) {
+  } if (ema3 > ema7) {
     // Go long
     showSuccessMessage3(` 😃 Ema3 says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
-  } else if (ema1 < ema7) {
+  } if (ema1 < ema7) {
     // Go short
     showErrorMessage1([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
-  } else if (ema2 < ema7) {
+  } if (ema2 < ema7) {
     // Go short
     showErrorMessage2([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
-  } else if (ema3 < ema7) {
+  } if (ema3 < ema7) {
     // Go short
     showErrorMessage3([` 😃 Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }

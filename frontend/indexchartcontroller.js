@@ -551,11 +551,17 @@ function clearAlerts() {
   const successMessageDiv2 = document.getElementById('successMessage2');
   const successMessageDiv3 = document.getElementById('successMessage3');
   const errorMessageDiv = document.getElementById('errorMessage');
+  const errorMessageDiv1 = document.getElementById('errorMessage1');
+  const errorMessageDiv2 = document.getElementById('errorMessage2');
+  const errorMessageDiv3 = document.getElementById('errorMessage3');
   successMessageDiv.style.display = 'none';
   successMessageDiv1.style.display = 'none';
   successMessageDiv2.style.display = 'none';
   successMessageDiv3.style.display = 'none';
   errorMessageDiv.style.display = 'none';
+  errorMessageDiv1.style.display = 'none';
+  errorMessageDiv2.style.display = 'none';
+  errorMessageDiv3.style.display = 'none';
 }
 
 function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {

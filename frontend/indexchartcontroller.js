@@ -145,7 +145,7 @@ document.getElementById("searchLoad").addEventListener("click", function(event) 
 //getTimeSales();
 let dataY = []
 
-let myChart = new Chart(ema, {
+let myChart = new Chart(emaChart, {
   type: 'line',
   data: dataY,
   options: {

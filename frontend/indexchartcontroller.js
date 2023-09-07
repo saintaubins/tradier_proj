@@ -219,7 +219,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       label: 'Current price',
       data: [],
       fill: false,
-      borderColor: 'rgb(240, 240, 240)',
+      borderColor: 'rgb(140, 140, 140)',
       pointRadius: 0,
       tension: 0.25
     },{
@@ -245,7 +245,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       label: 'Current price',
       data: [],
       fill: false,
-      borderColor: 'rgb(250, 250, 250)',
+      borderColor: 'rgb(150, 150, 150)',
       pointRadius: 0,
       tension: 0.25
     },{
@@ -271,7 +271,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       label: 'Current price',
       data: [],
       fill: false,
-      borderColor: 'rgb(255, 255, 255)',
+      borderColor: 'rgb(155, 155, 155)',
       pointRadius: 0,
       tension: 0.25
     },{

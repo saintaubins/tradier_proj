@@ -575,23 +575,23 @@ function checkEMAValues(ema1, ema2, ema3, ema7, currPrice) {
   });
 
   if  (ema1 > ema7) {
-    // Go long
-    showSuccessMessage1(` 😃 EMA1 (fastest) says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    // Go ema1 long
+    showSuccessMessage1(` 😃 EMA1 (fastest) says, "Go Long", Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema2 > ema7) {
-    // Go long
-    showSuccessMessage2(` 😃 Ema2 (medium) says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    // Go ema2 long
+    showSuccessMessage2(` 😃 Ema2 (medium) says, "Go Long", Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema3 > ema7) {
-    // Go long
-    showSuccessMessage3(` 😃 Ema3 (slowest) says, Go Long, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
+    // Go ema3 long
+    showSuccessMessage3(` 😃 Ema3 (slowest) says, "Go Long", Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`);
   } if (ema1 < ema7) {
-    // Go short
-    showErrorMessage1([` 😃 EMA1 (fastest) says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    // Go ema1 short
+    showErrorMessage1([` 😃 EMA1 (fastest) says, "Go short", Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   } if (ema2 < ema7) {
-    // Go short
-    showErrorMessage2([` 😃 EMA2 (medium) says,Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    // Go ema2 short
+    showErrorMessage2([` 😃 EMA2 (medium) says, "Go short", Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   } if (ema3 < ema7) {
-    // Go short
-    showErrorMessage3([` 😃 EMA3 (slowest) says, Go short, Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
+    // Go ema3 short
+    showErrorMessage3([` 😃 EMA3 (slowest) says, "Go short", Underlying: ${tickerSymbol.toUpperCase()}, Current Price: ${formattedNumber}`]);
   }
 }
 let startDate = ''

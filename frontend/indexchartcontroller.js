@@ -617,9 +617,14 @@ function formatDate(date) {
   return `${year}-${month}-${day}`;
 }
 
-// let inputDate = new Date('Mon Aug 14 2023 00:00:00 GMT-0400');
-// const formattedDate = formatDate(startDate);
-// console.log(formattedDate); // Output: "2023-08-14"
-  
+// Get a reference to the refresh button
+const refreshButton = document.getElementById('refreshButton');
+
+// Add a click event listener to the button
+refreshButton.addEventListener('click', function () {
+    // Reload the current page
+    location.reload();
+});
+
 
 

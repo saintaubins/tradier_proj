@@ -226,7 +226,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       label: 'EMA1 (fastest) Short',
       data: [],
       fill: false,
-      borderColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(255, 99, 71)',
       pointRadius: 0,
       tension: 0.25
     },{
@@ -252,7 +252,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       label: 'EMA2 (medium) Short',
       data: [],
       fill: false,
-      borderColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(255, 50, 40)',
       pointRadius: 0,
       tension: 0.25
     },{
@@ -278,7 +278,7 @@ function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
       label: 'EMA3 (slowest) Short',
       data: [],
       fill: false,
-      borderColor: 'rgb(54, 162, 235)',
+      borderColor: 'rgb(255, 5, 4)',
       pointRadius: 0,
       tension: 0.25
     },{

@@ -208,7 +208,7 @@ let myChart3 = new Chart(emaChart3, {
   }
 });
 
-function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
+function updateChartWithData(newDataArray, ema1, ema2, ema3, ema7) {
 
   const labelsX = newDataArray.map((dataObj) => dataObj.time); // Use 'time' field from newDataArray as labels
 
@@ -223,7 +223,7 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
       pointRadius: 0,
       tension: 0.25
     },{
-      label: 'EMA Short',
+      label: 'EMA1 Short',
       data: [],
       fill: false,
       borderColor: 'rgb(54, 162, 235)',
@@ -238,6 +238,59 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
       tension: 0.25
     }]
   };
+
+  dataY2 = {
+    labels: labelsX,
+    datasets: [{
+      label: 'Current price',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(255, 141, 0)',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'EMA2 Short',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(54, 162, 235)',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'EMA Long',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(23, 192, 2)',
+      pointRadius: 0,
+      tension: 0.25
+    }]
+  };
+
+  dataY3 = {
+    labels: labelsX,
+    datasets: [{
+      label: 'Current price',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(255, 141, 0)',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'EMA3 Short',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(54, 162, 235)',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'EMA Long',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(23, 192, 2)',
+      pointRadius: 0,
+      tension: 0.25
+    }]
+  };
+
 
   var pos = $(document).scrollTop();
   if (myChart != undefined)
@@ -279,7 +332,7 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
 
   myChart2 = new Chart(emaChart2, {
     type: 'line',
-    data: dataY,
+    data: dataY2,
     options: {
       // animation: {
       //   easing: 'linear', // Use your preferred easing function
@@ -305,7 +358,7 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
 
   myChart3 = new Chart(emaChart3, {
     type: 'line',
-    data: dataY,
+    data: dataY3,
     options: {
       // animation: {
       //   easing: 'linear', // Use your preferred easing function
@@ -338,9 +391,9 @@ function updateChartWithData(newDataArray, ema, ema1, ema2, ema7) {
   myChart3.data.datasets[0].data = currentPriceData;
 
   // Update 'EMA Short' dataset data
-  myChart.data.datasets[1].data = ema;
-  myChart2.data.datasets[1].data = ema1;
-  myChart3.data.datasets[1].data = ema2;
+  myChart.data.datasets[1].data = ema1;
+  myChart2.data.datasets[1].data = ema2;
+  myChart3.data.datasets[1].data = ema3;
 
   const ema1Dataset = myChart.data.datasets[1];
   const ema2Dataset = myChart2.data.datasets[1];

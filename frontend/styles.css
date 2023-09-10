@@ -105,6 +105,8 @@ body {
   border: 1px solid rgb(139,69,19);
   color: rgb(139,69,19);
   border-radius: 6px;
+  -webkit-border-radius: 6px; /* Safari/Chrome */
+  -moz-border-radius: 6px; 
   box-shadow: 3px 3px #D3D3D3;
   margin-bottom: 10px;
   text-align: center;

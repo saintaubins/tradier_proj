@@ -27,12 +27,12 @@ body {
 .navbar-item {
   display: inline-block;
   margin-right: 20px;
+  text-align: center;
 }
 
 .navbar-item a {
   text-decoration: none;
   color: #fff;
-  text-align: center;
 }
   
 .container {

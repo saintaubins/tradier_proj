@@ -28,6 +28,7 @@ body {
   display: inline-block;
   margin-right: 20px;
   text-align: center;
+  border: 1px solid white;
 }
 
 .navbar-item a {

@@ -4,13 +4,13 @@ body {
 }
 
 .day {
-  /* background-color: white;
-  color: black; */
+  background-color: white;
+  color: black;
 }
 
 .night {
-  /* background-color: black;
-  color: white; */
+  background-color: black;
+  color: white;
 }
   
 .navbar {
@@ -92,7 +92,7 @@ body {
 
 /* brown */
 #tickerSymbol,
-#intervalSelect,
+/* #intervalSelect, */
 #symbolInput,
 #expDateInput,
 #optionTypeSelect,
@@ -104,6 +104,17 @@ body {
   background-color: rgba(139,69,19, 0.15);
   border: 1px solid rgb(139,69,19);
   color: rgb(139,69,19);
+  border-radius: 6px;
+  box-shadow: 3px 3px #D3D3D3;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.custom-select {
+  width: 100%;
+  background-color: rgba(139, 69, 19, 0.15);
+  border: 1px solid rgb(139, 69, 19);
+  color: rgb(139, 69, 19);
   border-radius: 6px;
   box-shadow: 3px 3px #D3D3D3;
   margin-bottom: 10px;

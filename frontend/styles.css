@@ -110,6 +110,12 @@ body {
   box-shadow: 3px 3px #D3D3D3;
   margin-bottom: 10px;
   text-align: center;
+
+  /* Reset default styles for Safari */
+  -webkit-appearance: none;
+
+  /* Reset default styles for Firefox */
+  -moz-appearance: none;
 }
 
 /* .custom-select {

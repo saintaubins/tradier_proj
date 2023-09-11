@@ -49,63 +49,7 @@ function fetchPositions() {
       });
 }
 
-//const ema = document.getElementById('emaChart');
 
-// const labelsX = [
-//   'January',
-//   'February',
-//   'March',
-//   'April',
-//   'May',
-//   'June',
-//   'July',
-//   'August',
-//   'September',
-//   'October',
-//   'November',
-//   'December'
-// ];
-
-// const dataY = {
-//   labels: labelsX,
-//   datasets: [{
-//     label: 'Current price',
-//     data: [65, 59, 80, 81, 56, 55, 40, 11, 80, 34, 34, 76],
-//     fill: false,
-//     borderColor: 'rgb(123,104,238)',
-//     borderJoinStyle: 'round',
-//     pointRadius: 0,
-//     tension: 0.25
-//   },{
-//     label: 'EMA Short',
-//     data: [15, 40, 78, 30, 67, 95, 54, 45, 87, 21, 34, 56],
-//     fill: false,
-//     borderColor: 'rgb(255, 255, 0)',
-//     borderJoinStyle: 'round',
-//     pointRadius: 0,
-//     tension: 0.25
-//   },{
-//     label: 'EMA Long',
-//     data: [78, 56, 34, 45, 23, 87, 90, 34, 44, 22, 67, 23],
-//     fill: false,
-//     borderColor: 'rgb(23, 192, 2)',
-//     borderJoinStyle: 'round',
-//     pointRadius: 0,
-//     tension: 0.25
-//   }]
-// };
-
-// new Chart(ema, {
-//   type: 'line',
-//   data: dataY,
-//   options: {
-//     scales: {
-//       y: {
-//         beginAtZero: true
-//       }
-//     }
-//   }
-// });
 
 // Function to get the date of the next Friday from today
 function getNextFriday() {
@@ -202,6 +146,15 @@ function populateTable(data) {
   // Call the function to clear the table before populating it with new data
   clearTableData();
 
+  // Example usage
+const currentPrice = 100; // Current stock price
+const strikePrice = 105; // Option strike price
+const impliedVolatility = 0.2; // Implied volatility (as a decimal)
+const daysToExpiration = 30; // Days until option expiration
+
+const pop = calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration);
+console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
+
   // Loop through the option objects and create table rows
   data.forEach((option) => {
     const row = document.createElement("tr");
@@ -215,6 +168,25 @@ function populateTable(data) {
     optionsDataContainer.appendChild(row);
   });
 
+}
+
+// Function to calculate Probability of Profit (POP) for a call option
+function calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration) {
+  // Constants
+  const annualTradingDays = 252; // Typical number of trading days in a year
+
+  // Calculate d1 and d2
+  const d1 = (Math.log(currentPrice / strikePrice) + ((annualTradingDays / 2) * Math.pow(impliedVolatility, 2)) * (daysToExpiration / annualTradingDays)) / (impliedVolatility * Math.sqrt(daysToExpiration / annualTradingDays));
+  const d2 = d1 - (impliedVolatility * Math.sqrt(daysToExpiration / annualTradingDays));
+
+  // Calculate the cumulative distribution function (CDF) using a standard normal distribution table or library
+  // Here, we'll use the cumulativeProbability function as a placeholder; you should replace this with a proper implementation.
+  const cdf = cumulativeProbability(d1);
+
+  // Calculate and return POP
+  const pop = 1 - cdf;
+
+  return pop;
 }
 
 // Function to populate the table with options data
@@ -291,68 +263,6 @@ function hidePositionsMessage() {
   orderMessage.style.display = "none";
 }
 
-// document.addEventListener('DOMContentLoaded', function () {
-//   const table = document.getElementById('data-table');
-
-//   table.addEventListener('click', function (event) {
-//     const clickedRow = event.target.closest('tr');
-//     if (clickedRow) {
-//       const cells = clickedRow.getElementsByTagName('td');
-      
-//       // Create an object to store captured data
-//       const rowData = {
-//         ask: cells[0].textContent,
-//         bid: cells[1].textContent,
-//         strike: cells[2].textContent,
-//         description: cells[3].textContent,
-//         symbol: cells[4].textContent,
-//         mark: (((parseFloat(cells[0].textContent) + parseFloat(cells[1].textContent)) / 2).toFixed(2)).toString()
-//       };
-//       console.log('rowData -> ', rowData)
-//       // Convert the object to a JSON string for passing as a query parameter
-//       const rowDataJson = encodeURIComponent(JSON.stringify(rowData));
-
-//       // Redirect to another page with the captured data as a query parameter
-//       window.location.href = `Opentrades.html?data=${rowDataJson}`;
-//     }
-//   });
-// });
-
-// document.addEventListener('DOMContentLoaded', function () {
-//   const table = document.getElementById('data-table');
-//   let lastClickTime = 0;
-
-//   table.addEventListener('click', function (event) {
-//     const currentTime = new Date().getTime();
-//     if (currentTime - lastClickTime < 400) {
-//       // Double click detected
-//       const clickedRow = event.target.closest('tr');
-//       if (clickedRow) {
-//         const cells = clickedRow.getElementsByTagName('td');
-        
-//         // Create an object to store captured data
-//         const rowData = {
-//           ask: cells[0].textContent,
-//           bid: cells[1].textContent,
-//           strike: cells[2].textContent,
-//           description: cells[3].textContent,
-//           symbol: cells[4].textContent,
-//           mark: (((parseFloat(cells[0].textContent) + parseFloat(cells[1].textContent)) / 2).toFixed(2)).toString()
-//         };
-
-//         // Convert the object to a JSON string for passing as a query parameter
-//         const rowDataJson = encodeURIComponent(JSON.stringify(rowData));
-
-//         // Redirect to manual trade page with the captured data as a query parameter
-//         window.location.href = `Opentrades.html?data=${rowDataJson}`;
-
-//         // Redirect to algo trade page with the captured data as a query parameter
-//         window.location.href = `Automate.html?data=${rowDataJson}`;
-//       }
-//     }
-//     lastClickTime = currentTime;
-//   });
-// });
 
 document.addEventListener('DOMContentLoaded', function () {
   const table = document.getElementById('data-table');

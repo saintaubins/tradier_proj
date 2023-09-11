@@ -152,7 +152,7 @@ const strikePrice = 105; // Option strike price
 const impliedVolatility = 0.2; // Implied volatility (as a decimal)
 const daysToExpiration = 30; // Days until option expiration
 
-const pop = calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration);
+let pop = calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration);
 console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
 
   // Loop through the option objects and create table rows
@@ -164,6 +164,7 @@ console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
       <td>${option.strike}</td>
       <td>${option.description}</td>
       <td>${option.symbol}</td>
+      <td>${pop * 100}</td>
     `;
     optionsDataContainer.appendChild(row);
   });

@@ -164,6 +164,7 @@ console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
       <td>${option.strike}</td>
       <td>${option.description}</td>
       <td>${option.symbol}</td>
+      <td>${option.expiration_date}</td>
       <td>${pop * 100}</td>
     `;
     optionsDataContainer.appendChild(row);

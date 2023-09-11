@@ -1,6 +1,5 @@
 import numpy as np
 import math
-import scipy
 from scipy.stats import norm
 from scipy.optimize import brentq
 from scipy.stats import norm

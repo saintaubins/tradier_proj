@@ -159,13 +159,13 @@ console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
   data.forEach((option) => {
     const row = document.createElement("tr");
     row.innerHTML = `
-      <td>${option.ask}</td>
       <td>${option.bid}</td>
+      <td>${option.ask}</td>
       <td>${option.strike}</td>
+      <td>${pop * 100}</td>
       <td>${option.description}</td>
       <td>${option.symbol}</td>
       <td>${option.expiration_date}</td>
-      <td>${pop * 100}</td>
     `;
     optionsDataContainer.appendChild(row);
   });

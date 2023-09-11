@@ -189,6 +189,25 @@ function calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToEx
   return pop;
 }
 
+function cumulativeProbability(z) {
+  const t = 1 / (1 + 0.2316419 * Math.abs(z));
+  const d1 = 0.319381530 * Math.exp(-z * z / 2);
+  const d2 = -0.356563782 * Math.exp(-z * z / 2);
+  const d3 = 1.781477937 + 0.356563782 * Math.exp(-z * z / 2);
+  const d4 = 1.821255978 + 0.319381530 * Math.exp(-z * z / 2);
+
+  const N = 1 - (1 / Math.sqrt(2 * Math.PI)) * d1 * t -
+    (1 / (Math.sqrt(2 * Math.PI))) * d2 * t * t * t -
+    (1 / (Math.sqrt(2 * Math.PI))) * d3 * t * t * t * t * t +
+    (1 / (Math.sqrt(2 * Math.PI))) * d4 * t * t * t * t * t * t;
+
+  if (z < 0) {
+    return 1 - N;
+  }
+  
+  return N;
+}
+
 // Function to populate the table with options data
 function populatePositionsTable(data) {
   const positionsDataContainer = document.getElementById("positionsData");

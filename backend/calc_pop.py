@@ -31,18 +31,6 @@ def calculate_pop(stock_price, strike_price, days_to_expiration, implied_volatil
     return pop
 
 
-# Example usage:
-stock_price = 100  # Current stock price
-strike_price = 105  # Option's strike price
-days_to_expiration = 30  # Days to option expiration
-implied_volatility = 0.2  # Implied volatility as a decimal (20%)
-option_type = 'call'  # 'call' or 'put'
-
-pop = calculate_pop(stock_price, strike_price,
-                    days_to_expiration, implied_volatility, option_type)
-print(f"Probability of Profit (POP): {pop:.2%}")
-
-
 def calculate_option_price(stock_price, strike_price, days_to_expiration, implied_volatility, option_type, market_price):
     # Implement your option pricing model (e.g., Black-Scholes) here
     # Calculate and return the option price
@@ -83,12 +71,18 @@ def implied_volatility(option_type, stock_price, strike_price, days_to_expiratio
 
 
 # Example usage:
+stock_price = 100  # Current stock price
+strike_price = 105  # Option's strike price
+days_to_expiration = 30  # Days to option expiration
+# implied_volatility = 0.2  # Implied volatility as a decimal (20%)
 option_type = 'call'  # 'call' or 'put'
-stock_price = 100
-strike_price = 105
-days_to_expiration = 30
 market_price = 5.0  # The market price of the option
 
 iv = implied_volatility(option_type, stock_price,
                         strike_price, days_to_expiration, market_price)
+
+pop = calculate_pop(stock_price, strike_price,
+                    days_to_expiration, iv, option_type)
+
+print(f"Probability of Profit (POP): {pop:.2%}")
 print(f"Implied Volatility: {iv:.4f}")

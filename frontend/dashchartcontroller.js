@@ -52,15 +52,31 @@ function fetchPositions() {
 
 
 // Function to get the date of the next Friday from today
-function getNextFriday() {
+// function getNextFriday() {
+//   let today = new Date();
+//   let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
+//   let daysUntilFriday = 5 - dayOfWeek; // Number of days until Friday (Friday is the 6th day of the week)
+
+//   let nextFriday = new Date(today);
+//   nextFriday.setDate(today.getDate() + daysUntilFriday);
+//   console.log('nextFriday -> ', nextFriday)
+//   return nextFriday;
+// }
+
+function getNextFridays(count) {
   let today = new Date();
   let dayOfWeek = today.getDay(); // 0 (Sunday) to 6 (Saturday)
   let daysUntilFriday = 5 - dayOfWeek; // Number of days until Friday (Friday is the 6th day of the week)
 
-  let nextFriday = new Date(today);
-  nextFriday.setDate(today.getDate() + daysUntilFriday);
-  console.log('nextFriday -> ', nextFriday)
-  return nextFriday;
+  let fridays = [];
+  
+  for (let i = 0; i < count; i++) {
+    let nextFriday = new Date(today);
+    nextFriday.setDate(today.getDate() + daysUntilFriday + i * 7); // Add a week for each iteration
+    fridays.push(nextFriday);
+  }
+
+  return fridays;
 }
 
 // Function to format the date as 'YYYY-MM-DD'
@@ -69,10 +85,13 @@ function formatDate(date) {
 }
 
 // Get the next Friday date
-let nextFriday = getNextFriday();
+//let nextFriday = getNextFriday();
+
+let upcomingFridays = getNextFridays(2);
+console.log('upcomingFridays -> ', upcomingFridays);
 
 // Format the date as 'YYYY-MM-DD'
-let formattedDate = formatDate(nextFriday);
+//let formattedDate = formatDate(nextFriday);
 
 
 // Add an event listener to the button when the DOM is loaded

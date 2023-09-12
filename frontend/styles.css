@@ -91,7 +91,7 @@ body {
   border-radius: 3.5px;
 }
 
-.sticky-header {
+#sticky-header {
   position: sticky;
   top: 0;
   /* background-color: white; Change the background color as needed */

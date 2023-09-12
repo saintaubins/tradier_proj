@@ -91,7 +91,7 @@ function updateFridaysSelect() {
   // Loop through the array of dates and create <option> elements for each date
   upcomingFridays.forEach(function (friday) {
       let option = document.createElement("option");
-      option.textContent = friday.toDateString();
+      option.textContent = formatDateToYYYYMMDD(friday);
       fridaysSelect.appendChild(option);
   });
 }
@@ -108,6 +108,14 @@ function formatDate(date) {
   return date.toISOString().slice(0, 10);
 }
 
+function formatDateToYYYYMMDD(inputDate) {
+  const date = new Date(inputDate);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Month is zero-based
+  const day = String(date.getDate()).padStart(2, '0');
+
+  return `${year}-${month}-${day}`;
+}
 // Get the next Friday date
 //let nextFriday = getNextFriday();
 

@@ -94,7 +94,7 @@ body {
 .sticky-header {
   position: sticky;
   top: 0;
-  background-color: white; /* Change the background color as needed */
+  /* background-color: white; Change the background color as needed */
   z-index: 1; /* Ensure the header stays above the table content */
 }
 

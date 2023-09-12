@@ -97,8 +97,8 @@ function updateFridaysSelect() {
 }
 
 // Add an event listener to the date input field to update the <select> element when the user interacts with it
-let fridaysSelected = document.getElementById("fridaysSelect");
-fridaysSelected.addEventListener("input", updateFridaysSelect);
+//let fridaysSelected = document.getElementById("fridaysSelect");
+//fridaysSelected.addEventListener("input", updateFridaysSelect);
 
 // Initial update of the <select> element
 updateFridaysSelect();
@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function() {
   if (symbol === '') {
     symbol = 'TSLA';
   }
-  let expDate = document.getElementById('expDateInput').value;
+  let expDate = document.getElementById('fridaysSelect').value;
   if (expDate === '') {
     expDate = formattedDate;
   }

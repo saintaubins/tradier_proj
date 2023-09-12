@@ -93,11 +93,11 @@ body {
 
 .sticky-header {
   /* position: sticky; */
-  top: 0;
+  /* top: 0; */
   /* background-color: white; Change the background color as needed */
   position: -webkit-sticky; /* Safari */
   position: sticky;
-  /* top: 0; */
+  top: 0;
   /* background-color: green; */
   border: 2px solid #4CAF50;
   /* z-index: 1; Ensure the header stays above the table content */

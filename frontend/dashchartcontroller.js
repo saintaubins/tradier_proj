@@ -351,8 +351,8 @@ document.addEventListener('DOMContentLoaded', function () {
         
         // Create an object to store captured data
         const rowData = {
-          ask: cells[0].textContent,
-          bid: cells[1].textContent,
+          bid: cells[0].textContent,
+          ask: cells[1].textContent,
           strike: cells[2].textContent,
           description: cells[3].textContent,
           symbol: cells[4].textContent,

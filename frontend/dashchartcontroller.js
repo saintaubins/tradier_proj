@@ -140,9 +140,9 @@ document.addEventListener('DOMContentLoaded', function() {
     symbol = 'TSLA';
   }
   let expDate = document.getElementById('fridaysSelect').value;
-  if (expDate === '') {
-    expDate = formattedDate;
-  }
+  // if (expDate === '') {
+  //   expDate = formattedDate;
+  // }
 
   const url = `${backEndUrl}optionschain?symbol=${symbol}&exp_dt=${expDate}&optionType=${selectedOption}`;
 

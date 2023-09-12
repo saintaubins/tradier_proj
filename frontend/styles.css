@@ -100,7 +100,7 @@ body {
   top: 0;
   /* background-color: green; */
   border: 2px solid #4CAF50;
-  /* z-index: 1; Ensure the header stays above the table content */
+  z-index: 1; 
 }
 
 /* brown */

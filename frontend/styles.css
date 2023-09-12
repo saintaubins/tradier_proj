@@ -95,7 +95,8 @@ body {
 #tickerSymbol,
 #intervalSelect,
 #symbolInput,
-#expDateInput,
+/* #expDateInput, */
+#fridaysSelect,
 #optionTypeSelect,
 #searchLoad,
 #refreshButton,

@@ -81,7 +81,7 @@ function getNextFridays(count) {
 
 // Function to update the <select> element with upcoming Fridays
 function updateFridaysSelect() {
-  let count = 4; // Number of upcoming Fridays to display
+  let count = 3; // Number of upcoming Fridays to display
   let upcomingFridays = getNextFridays(count);
   let fridaysSelect = document.getElementById("fridaysSelect");
 

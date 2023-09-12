@@ -128,10 +128,10 @@ body {
   -moz-text-align: center; /* Firefox */
 
   /* Reset default styles for Safari */
-  -webkit-appearance: none;
+  /* -webkit-appearance: none; */
 
   /* Reset default styles for Firefox */
-  -moz-appearance: none;
+  /* -moz-appearance: none; */
 }
 
 /* .custom-select {

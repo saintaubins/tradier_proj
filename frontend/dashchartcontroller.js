@@ -79,6 +79,30 @@ function getNextFridays(count) {
   return fridays;
 }
 
+// Function to update the <select> element with upcoming Fridays
+function updateFridaysSelect() {
+  let count = 2; // Number of upcoming Fridays to display
+  let upcomingFridays = getNextFridays(count);
+  let fridaysSelect = document.getElementById("fridaysSelect");
+
+  // Clear previous options
+  fridaysSelect.innerHTML = "";
+
+  // Loop through the array of dates and create <option> elements for each date
+  upcomingFridays.forEach(function (friday) {
+      let option = document.createElement("option");
+      option.textContent = friday.toDateString();
+      fridaysSelect.appendChild(option);
+  });
+}
+
+// Add an event listener to the date input field to update the <select> element when the user interacts with it
+let expDateInput = document.getElementById("expDateInput");
+expDateInput.addEventListener("input", updateFridaysSelect);
+
+// Initial update of the <select> element
+updateFridaysSelect();
+
 // Function to format the date as 'YYYY-MM-DD'
 function formatDate(date) {
   return date.toISOString().slice(0, 10);

@@ -84,7 +84,7 @@ function updateFridaysSelect() {
   let count = 3; // Number of upcoming Fridays to display
   let upcomingFridays = getNextFridays(count);
   let fridaysSelect = document.getElementById("fridaysSelect");
-
+  console.log('upcomingFridays ', upcomingFridays)
   // Clear previous options
   fridaysSelect.innerHTML = "";
 
@@ -111,8 +111,8 @@ function formatDate(date) {
 // Get the next Friday date
 //let nextFriday = getNextFriday();
 
-let upcomingFridays = getNextFridays(2);
-console.log('upcomingFridays -> ', upcomingFridays);
+// let upcomingFridays = getNextFridays(2);
+// console.log('upcomingFridays -> ', upcomingFridays);
 
 // Format the date as 'YYYY-MM-DD'
 //let formattedDate = formatDate(nextFriday);

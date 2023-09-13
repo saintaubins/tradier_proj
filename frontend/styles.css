@@ -105,7 +105,8 @@ body {
 
 .tableFixHead { 
   overflow: auto; 
-  height: 50vh; 
+  height: 50vh;
+  box-shadow: inset 1px -1px #000; 
 }
 .tableFixHead thead th { 
   position: sticky; 
@@ -122,6 +123,7 @@ th, td {
 }
 th { 
   background:#eee; 
+  box-shadow: inset 1px 1px #000, 0 1px #000;
 }
 
 /* brown */

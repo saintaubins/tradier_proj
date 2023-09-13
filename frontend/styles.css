@@ -124,16 +124,20 @@ th, td {
 th { 
   background:#eee; 
   box-shadow: inset 1px 1px #000, 0 1px #000;
+  border-radius: 2px;
 }
 td {  
   box-shadow: inset 1px -1px #000;
+  border-radius: 2px;
 }
 .tableFixHead,
 .tableFixHead td {
   box-shadow: inset 1px -1px #000;
+  border-radius: 2px;
 }
 .tableFixHead th {
   box-shadow: inset 1px 1px #000, 0 1px #000;
+  border-radius: 2px;
 }
 /* brown */
 #tickerSymbol,

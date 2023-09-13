@@ -109,6 +109,7 @@ body {
   /* box-shadow: inset 1px -1px #000;  */
 }
 .tableFixHead thead th { 
+  position: -webkit-sticky; /* Safari */
   position: sticky; 
   top: 0; 
   z-index: 1; 
@@ -124,20 +125,20 @@ th, td {
 th { 
   background:#eee; 
   box-shadow: inset 1px 1px #000, 0 1px #000;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 td {  
   box-shadow: inset 1px -1px #000;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 .tableFixHead,
 .tableFixHead td {
   box-shadow: inset 1px -1px #000;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 .tableFixHead th {
   box-shadow: inset 1px 1px #000, 0 1px #000;
-  border-radius: 2px;
+  border-radius: 3px;
 }
 /* brown */
 #tickerSymbol,

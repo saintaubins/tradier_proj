@@ -105,7 +105,7 @@ body {
 
 .tableFixHead { 
   overflow: auto; 
-  height: 60vh;
+  height: 40vh;
   /* box-shadow: inset 1px -1px #000;  */
 }
 .tableFixHead thead th { 

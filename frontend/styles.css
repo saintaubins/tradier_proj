@@ -105,7 +105,7 @@ body {
 
 .tableFixHead { 
   overflow: auto; 
-  height: 50vh;
+  height: 60vh;
   /* box-shadow: inset 1px -1px #000;  */
 }
 .tableFixHead thead th { 
@@ -122,25 +122,25 @@ table {
 th, td { 
   padding: 8px 16px; 
   box-shadow: inset 1px -1px #000;
-  border-radius: 4px
+  border-radius: 5px
 }
 th { 
   background:#eee; 
   box-shadow: inset 1px 1px #000, 0 1px #000;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 td {  
   box-shadow: inset 1px -1px #000;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 .tableFixHead,
 .tableFixHead td {
   box-shadow: inset 1px -1px #000;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 .tableFixHead th {
   box-shadow: inset 1px 1px #000, 0 1px #000;
-  border-radius: 4px;
+  border-radius: 5px;
 }
 /* brown */
 #tickerSymbol,

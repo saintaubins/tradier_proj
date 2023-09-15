@@ -36,7 +36,7 @@ def calculate_pop(stock_price, strike_price, days_to_expiration, implied_volatil
 
             return pop
         else:
-            return f'type iv is not a valid numeric value'
+            return f'calc error: type iv is not a valid numeric value'
 
 
 # def calculate_option_price(stock_price, strike_price, days_to_expiration, implied_volatility, option_type, market_price):
@@ -139,7 +139,7 @@ def implied_volatility(option_type, stock_price, strike_price, days_to_expiratio
         implied_volatility = brentq(f, 0.001, 2.0)
         return implied_volatility
     except ValueError as e:
-        return str(e)  # Return the error message as a string
+        return 'calc error: '+str(e)  # Return the error message as a string
 
 
 # Example usage:

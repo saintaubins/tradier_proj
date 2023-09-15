@@ -260,31 +260,24 @@ let myChart = new Chart(popIvChart, {
 function updateChartWithData(newDataArray) {
 
   console.log('newDataArray -> ', newDataArray)
-  
-  const labelsX = newDataArray.map((dataObj) => dataObj.time); // Use 'time' field from newDataArray as labels
+
+  const labelsX = newDataArray.map((dataObj) => dataObj.strike); // Use 'time' field from newDataArray as labels
 
   //const dataY = {
   dataY = {
     labels: labelsX,
     datasets: [{
-      label: 'Current price',
+      label: 'POP',
       data: [],
       fill: false,
       borderColor: 'rgb(140, 140, 140)',
       pointRadius: 0,
       tension: 0.25
     },{
-      label: 'EMA1 (fastest) Short',
+      label: 'IV',
       data: [],
       fill: false,
       borderColor: 'rgb(255, 99, 71)',
-      pointRadius: 0,
-      tension: 0.25
-    },{
-      label: 'EMA Long',
-      data: [],
-      fill: false,
-      borderColor: 'rgb(23, 192, 2)',
       pointRadius: 0,
       tension: 0.25
     }]

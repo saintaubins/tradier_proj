@@ -311,14 +311,14 @@ function updateChartWithData(newDataArray) {
       label: 'Bid $',
       data: [],
       fill: false,
-      borderColor: 'rgb(0, 100, 0)',
+      borderColor: 'rgb(240, 248, 255)',
       pointRadius: 0,
       tension: 0.25
     },{
       label: 'Ask $',
       data: [],
       fill: false,
-      borderColor: 'rgb(255, 99, 71)',
+      borderColor: 'rgb(8, 8, 8)',
       pointRadius: 0,
       tension: 0.25
     }]

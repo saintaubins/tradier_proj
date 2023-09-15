@@ -3,6 +3,8 @@ import requests
 import json
 import os
 import logging
+import calc_pop
+from datetime import datetime
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - {%(pathname)s:%(lineno)d} - %(levelname)s - %(message)s')
@@ -61,13 +63,38 @@ def get_quotes(symbols='TSLA') -> dict:
 # print(get_quotes())
 
 
-def get_options_chain(symbol='TSLA', exp_dt='2023-07-28', option_type=None):
+def com_days_to_exp(s: str) -> str:
+    # Expiration date in 'YYYY-MM-DD' format
+    expiration_date_str = s
+
+    # Convert the expiration date string to a datetime object
+    expiration_date = datetime.strptime(expiration_date_str, '%Y-%m-%d')
+
+    # Get the current date as a datetime object
+    current_date = datetime.now()
+
+    # Calculate the difference (timedelta) between expiration date and current date
+    time_difference = expiration_date - current_date
+
+    # Extract the number of days from the timedelta
+    days_to_expiration = time_difference.days
+
+    print(f'Days to Expiration: {days_to_expiration+1} days')
+    return days_to_expiration + 1
+
+
+def get_options_chain(symbol='TSLA', exp_dt='2023-09-15', option_type=None):
     options_url = '{}markets/options/chains'.format(api_base_url)
 
     response = requests.get(options_url,
                             params={'symbol': symbol, 'expiration': exp_dt},
                             headers=headers
                             )
+
+    stock_prc = get_quotes(symbol)  # Current stock price
+    stock_price = stock_prc['quotes']['quote']['last']
+    days_to_expiration = com_days_to_exp(exp_dt)
+    # option_type = option_type
 
     # Check if the response was successful before converting to DataFrame
     if response.status_code == 200:
@@ -78,12 +105,49 @@ def get_options_chain(symbol='TSLA', exp_dt='2023-07-28', option_type=None):
                             ['option'] if option['option_type'] == option_type]
         data_dict['options']['option'] = filtered_options
 
+        # print('data_dict: ', data_dict)
+        # stock_price = 1
+        # Option's strike price
+        # bid = data_dict['options']['option'][0]['bid']
+        # ask = data_dict['options']['option'][0]['ask']
+        # strike_price = data_dict['options']['option'][0]['strike']
+        # market_price = (bid + ask)/2  # The market price of the option
+        # print('strike_price: ', strike_price)
+        # days_to_expiration = calc_pop.com_days_to_exp()  # Days to option expiration
+        # # implied_volatility = 0.2  # Implied volatility as a decimal (20%)
+        # option_type = option_type  # 'call' or 'put'
+
+        for i in range(len(data_dict['options']['option'])):
+            bid = data_dict['options']['option'][i]['bid']
+            ask = data_dict['options']['option'][i]['ask']
+            strike_price = data_dict['options']['option'][i]['strike']
+            market_price = (bid + ask)/2
+
+            iv = calc_pop.implied_volatility(option_type, stock_price,
+                                             strike_price, days_to_expiration, market_price)
+            pop = calc_pop.calculate_pop(stock_price, strike_price,
+                                         days_to_expiration, iv, option_type)
+
+            data_dict['options']['option'][i]['iv'] = iv
+            data_dict['options']['option'][i]['pop'] = pop
+
+            # print('bid', bid, 'ask', ask, 'strike_price',
+            #       strike_price, 'iv', iv, 'pop', pop)
+        # print(data_dict)
+        # if type(pop) != str:
+        #     print(f"Probability of Profit (POP): {pop:.2%}")
+        #     print(f"Implied Volatility: {iv:.4f}")
+        # else:
+        #     print(f"Probability of Profit (POP): {pop}")
+        #     print(f"Implied Volatility: {iv}")
+
         return data_dict
     else:
         print('Failed to retrieve data. Status code:', response.status_code)
         return {'message': f'Failed to retrieve data status code: {response.status_code}'}
 
-# print(get_options_chain())
+
+print(get_options_chain('spy', '2023-09-18', 'call'))
 
 
 def get_option_strike_price(symbol='TSLA', exp_dt='2023-07-28') -> dict:

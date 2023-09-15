@@ -92,9 +92,6 @@ body {
 }
 
 .sticky-header {
-  /* position: sticky; */
-  /* top: 0; */
-  /* background-color: white; Change the background color as needed */
   position: -webkit-sticky; /* Safari */
   position: sticky;
   top: 0;
@@ -165,24 +162,7 @@ td {
   text-align: center;
   -webkit-text-align: center; /* Safari */
   -moz-text-align: center; /* Firefox */
-
-  /* Reset default styles for Safari */
-  /* -webkit-appearance: none; */
-
-  /* Reset default styles for Firefox */
-  /* -moz-appearance: none; */
 }
-
-/* .custom-select {
-  width: 100%;
-  background-color: rgba(139, 69, 19, 0.15);
-  border: 1px solid rgb(139, 69, 19);
-  color: rgb(139, 69, 19);
-  border-radius: 6px;
-  box-shadow: 3px 3px #D3D3D3;
-  margin-bottom: 10px;
-  text-align: center;
-} */
 
 /* blue */
 #viewPositionsButton,

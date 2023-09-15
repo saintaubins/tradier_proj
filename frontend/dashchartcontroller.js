@@ -313,12 +313,16 @@ function updateChartWithData(newDataArray) {
   myChart.data.labels = labelsX;
 
   // Update 'pop' dataset data
-  const currentPopData = newDataArray.map((dataObj) => dataObj.pop);
-  myChart.data.datasets[0].data = currentPopData;
+  const currentPopData = newDataArray
+  .map((dataObj) => dataObj.pop)
+  .filter((value) => typeof value === 'number');
+  myChart.data.datasets[0].data = currentPopData * 100;
 
-  // Update 'pop' dataset data
-  const currentIvData = newDataArray.map((dataObj) => dataObj.iv);
-  myChart.data.datasets[1].data = currentIvData;
+  // Update 'iv' dataset data
+  const currentIvData = newDataArray
+  .map((dataObj) => dataObj.iv)
+  .filter((value) => typeof value === 'number');
+  myChart.data.datasets[1].data = currentIvData * 100;
 
   myChart.update();
 }

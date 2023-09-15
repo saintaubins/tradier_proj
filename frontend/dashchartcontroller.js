@@ -312,9 +312,13 @@ function updateChartWithData(newDataArray) {
   // Update labels in the chart data
   myChart.data.labels = labelsX;
 
-  // Update 'Current price' dataset data
-  // const currentPriceData = newDataArray.map((dataObj) => dataObj.price);
-  // myChart.data.datasets[0].data = currentPriceData;
+  // Update 'pop' dataset data
+  const currentPopData = newDataArray.map((dataObj) => dataObj.pop);
+  myChart.data.datasets[0].data = currentPopData;
+
+  // Update 'pop' dataset data
+  const currentIvData = newDataArray.map((dataObj) => dataObj.iv);
+  myChart.data.datasets[0].data = currentIvData;
 
   myChart.update();
 }

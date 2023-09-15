@@ -318,7 +318,7 @@ function updateChartWithData(newDataArray) {
 
   // Update 'pop' dataset data
   const currentIvData = newDataArray.map((dataObj) => dataObj.iv);
-  myChart.data.datasets[0].data = currentIvData;
+  myChart.data.datasets[1].data = currentIvData;
 
   myChart.update();
 }

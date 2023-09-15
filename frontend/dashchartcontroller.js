@@ -216,6 +216,9 @@ console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
       <td>
       ${typeof option.pop === 'number' ? option.pop * 100 : option.pop}
       </td>
+      <td>
+      ${typeof option.iv === 'number' ? option.iv * 100 : option.iv}
+      </td>
       <td>${option.symbol}</td>
       <td>${option.description}</td>
       <td>${option.expiration_date}</td>

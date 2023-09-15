@@ -147,7 +147,7 @@ def get_options_chain(symbol='TSLA', exp_dt='2023-09-15', option_type=None):
         return {'message': f'Failed to retrieve data status code: {response.status_code}'}
 
 
-print(get_options_chain('spy', '2023-09-18', 'call'))
+# print(get_options_chain('spy', '2023-09-18', 'call'))
 
 
 def get_option_strike_price(symbol='TSLA', exp_dt='2023-07-28') -> dict:

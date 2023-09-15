@@ -62,22 +62,6 @@ function getTimeSales(symbol, intervalSelect,startDate, endDate) {
         // Extracting close prices from the data
         const closePrices = data.message.series.data.map(item => item.close);
 
-// // Function to calculate EMA
-// function calculateEMA(data, period) {
-//   const emaArray = [];
-//   const smoothingFactor = 2 / (period + 1);
-
-//   // Calculate the EMA 1 (no need for looping)
-//   emaArray.push(data[0]);
-
-//   // Calculate the EMA 7
-//   for (let i = 1; i < data.length; i++) {
-//     const ema = (data[i] * smoothingFactor) + (emaArray[i - 1] * (1 - smoothingFactor));
-//     emaArray.push(ema);
-//   }
-
-//   return emaArray;
-// }
 
       //***************/ Calculate EMA 1 and EMA 7 for close prices*******************
       const calcEma1 = calculateEMA(closePrices, 1);

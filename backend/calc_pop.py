@@ -19,7 +19,7 @@ def calculate_pop(stock_price, strike_price, days_to_expiration, implied_volatil
         return f'expiration date: {days_to_expiration} days'
     else:
         # print('type(iv) -> ', type(implied_volatility))
-        if type(implied_volatility) != str:
+        if isinstance(implied_volatility, (float, int)):
             d1 = (np.log(stock_price / strike_price) + ((0.5 * implied_volatility**2)
                                                         * days_to_expiration)) / (implied_volatility * np.sqrt(days_to_expiration))
             d2 = d1 - implied_volatility * np.sqrt(days_to_expiration)
@@ -36,7 +36,7 @@ def calculate_pop(stock_price, strike_price, days_to_expiration, implied_volatil
 
             return pop
         else:
-            return f'type iv is string'
+            return f'type iv is not a valid numeric value'
 
 
 # def calculate_option_price(stock_price, strike_price, days_to_expiration, implied_volatility, option_type, market_price):

@@ -198,13 +198,13 @@ function populateTable(data) {
   clearTableData();
 
   // Example usage
-const currentPrice = 100; // Current stock price
-const strikePrice = 105; // Option strike price
-const impliedVolatility = 0.2; // Implied volatility (as a decimal)
-const daysToExpiration = 30; // Days until option expiration
+// const currentPrice = 100; // Current stock price
+// const strikePrice = 105; // Option strike price
+// const impliedVolatility = 0.2; // Implied volatility (as a decimal)
+// const daysToExpiration = 30; // Days until option expiration
 
-let pop = calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration);
-console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
+// let pop = calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration);
+//console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
 
   // Loop through the option objects and create table rows
   data.forEach((option) => {
@@ -229,42 +229,42 @@ console.log(`Probability of Profit (POP) for the call option: ${pop * 100}%`);
 }
 
 // Function to calculate Probability of Profit (POP) for a call option
-function calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration) {
-  // Constants
-  const annualTradingDays = 252; // Typical number of trading days in a year
+// function calculatePOPCall(currentPrice, strikePrice, impliedVolatility, daysToExpiration) {
+//   // Constants
+//   const annualTradingDays = 252; // Typical number of trading days in a year
 
-  // Calculate d1 and d2
-  const d1 = (Math.log(currentPrice / strikePrice) + ((annualTradingDays / 2) * Math.pow(impliedVolatility, 2)) * (daysToExpiration / annualTradingDays)) / (impliedVolatility * Math.sqrt(daysToExpiration / annualTradingDays));
-  const d2 = d1 - (impliedVolatility * Math.sqrt(daysToExpiration / annualTradingDays));
+//   // Calculate d1 and d2
+//   const d1 = (Math.log(currentPrice / strikePrice) + ((annualTradingDays / 2) * Math.pow(impliedVolatility, 2)) * (daysToExpiration / annualTradingDays)) / (impliedVolatility * Math.sqrt(daysToExpiration / annualTradingDays));
+//   const d2 = d1 - (impliedVolatility * Math.sqrt(daysToExpiration / annualTradingDays));
 
-  // Calculate the cumulative distribution function (CDF) using a standard normal distribution table or library
-  // Here, we'll use the cumulativeProbability function as a placeholder; you should replace this with a proper implementation.
-  const cdf = cumulativeProbability(d1);
+//   // Calculate the cumulative distribution function (CDF) using a standard normal distribution table or library
+//   // Here, we'll use the cumulativeProbability function as a placeholder; you should replace this with a proper implementation.
+//   const cdf = cumulativeProbability(d1);
 
-  // Calculate and return POP
-  const pop = 1 - cdf;
+//   // Calculate and return POP
+//   const pop = 1 - cdf;
 
-  return pop;
-}
+//   return pop;
+// }
 
-function cumulativeProbability(z) {
-  const t = 1 / (1 + 0.2316419 * Math.abs(z));
-  const d1 = 0.319381530 * Math.exp(-z * z / 2);
-  const d2 = -0.356563782 * Math.exp(-z * z / 2);
-  const d3 = 1.781477937 + 0.356563782 * Math.exp(-z * z / 2);
-  const d4 = 1.821255978 + 0.319381530 * Math.exp(-z * z / 2);
+// function cumulativeProbability(z) {
+//   const t = 1 / (1 + 0.2316419 * Math.abs(z));
+//   const d1 = 0.319381530 * Math.exp(-z * z / 2);
+//   const d2 = -0.356563782 * Math.exp(-z * z / 2);
+//   const d3 = 1.781477937 + 0.356563782 * Math.exp(-z * z / 2);
+//   const d4 = 1.821255978 + 0.319381530 * Math.exp(-z * z / 2);
 
-  const N = 1 - (1 / Math.sqrt(2 * Math.PI)) * d1 * t -
-    (1 / (Math.sqrt(2 * Math.PI))) * d2 * t * t * t -
-    (1 / (Math.sqrt(2 * Math.PI))) * d3 * t * t * t * t * t +
-    (1 / (Math.sqrt(2 * Math.PI))) * d4 * t * t * t * t * t * t;
+//   const N = 1 - (1 / Math.sqrt(2 * Math.PI)) * d1 * t -
+//     (1 / (Math.sqrt(2 * Math.PI))) * d2 * t * t * t -
+//     (1 / (Math.sqrt(2 * Math.PI))) * d3 * t * t * t * t * t +
+//     (1 / (Math.sqrt(2 * Math.PI))) * d4 * t * t * t * t * t * t;
 
-  if (z < 0) {
-    return 1 - N;
-  }
+//   if (z < 0) {
+//     return 1 - N;
+//   }
   
-  return N;
-}
+//   return N;
+// }
 
 // Function to populate the table with options data
 function populatePositionsTable(data) {

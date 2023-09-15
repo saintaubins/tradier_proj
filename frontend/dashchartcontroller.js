@@ -417,9 +417,9 @@ function updateChartWithData(newDataArray) {
   });
   $(document).scrollTop(pos2);
 
-  var pos2 = $(document).scrollTop();
-  if (myChart2 != undefined)
-  myChart2.destroy();
+  var pos3 = $(document).scrollTop();
+  if (myChart3 != undefined)
+  myChart3.destroy();
 
   myChart3 = new Chart(highLowChart, {
     type: 'line',

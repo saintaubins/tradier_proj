@@ -399,7 +399,7 @@ function updateChartWithData(newDataArray) {
   myChart2.data.datasets[0].data = currentBidData;
 
   const currentAskData = newDataArray.map((dataObj) => dataObj.ask);
-  //myChart2.data.datasets[1].data = currentAskData;
+  myChart2.data.datasets[1].data = currentAskData;
 
   myChart.update();
   myChart2.update();

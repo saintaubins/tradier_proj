@@ -394,8 +394,9 @@ function updateChartWithData(newDataArray) {
     .map((value) => value * 100); // Multiply each value by 100
   myChart.data.datasets[1].data = currentIvData;
 
+  // Update Chart 2 Y values
   const currentBidData = newDataArray.map((dataObj) => dataObj.bid);
-  myChart2.data.datasets[0].data = currentBidData;
+  //myChart2.data.datasets[0].data = currentBidData;
 
   const currentAskData = newDataArray.map((dataObj) => dataObj.ask);
   myChart2.data.datasets[1].data = currentAskData;

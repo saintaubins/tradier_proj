@@ -270,7 +270,7 @@ function updateChartWithData(newDataArray) {
       label: 'Probability of profit (POP) %',
       data: [],
       fill: false,
-      borderColor: 'rgb(140, 140, 140)',
+      borderColor: 'rgb(1, 50, 32)',
       pointRadius: 0,
       tension: 0.25
     },{

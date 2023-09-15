@@ -2,6 +2,7 @@
 const backEndUrl = 'https://tradier-app-b7ceb132d0e1.herokuapp.com/';
 
 const popIvChart = document.getElementById('popIvChart').getContext('2d');
+const bidAskChart = document.getElementById('bidAskChart').getContext('2d');
 
 document.getElementById("viewPositionsButton").addEventListener("click", function() {
   //console.log('Button clicked')
@@ -257,13 +258,34 @@ let myChart = new Chart(popIvChart, {
   }
 });
 
+let myChart2 = new Chart(bidAskChart, {
+  type: 'line',
+  data: dataY,
+  options: {
+    // animation: {
+    //   easing: 'linear', // Use your preferred easing function
+    //   duration: 200, // Set an appropriate duration
+    // },
+    scales: {
+      x: {
+        ticks: {
+          maxTicksLimit: dataY.length // Display all ticks
+        }
+      },
+      y: {
+        beginAtZero: false
+      }
+    }
+  }
+});
+
 function updateChartWithData(newDataArray) {
 
   console.log('newDataArray -> ', newDataArray)
 
   const labelsX = newDataArray.map((dataObj) => dataObj.strike); // Use 'time' field from newDataArray as labels
 
-  //const dataY = {
+  
   dataY = {
     labels: labelsX,
     datasets: [{
@@ -275,6 +297,25 @@ function updateChartWithData(newDataArray) {
       tension: 0.25
     },{
       label: 'Implied volitility (IV) %',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(255, 99, 71)',
+      pointRadius: 0,
+      tension: 0.25
+    }]
+  };
+
+  dataY2 = {
+    labels: labelsX,
+    datasets: [{
+      label: 'Bid $',
+      data: [],
+      fill: false,
+      borderColor: 'rgb(0, 100, 0)',
+      pointRadius: 0,
+      tension: 0.25
+    },{
+      label: 'Ask $',
       data: [],
       fill: false,
       borderColor: 'rgb(255, 99, 71)',
@@ -309,8 +350,35 @@ function updateChartWithData(newDataArray) {
   });
   $(document).scrollTop(pos);
 
+  var pos2 = $(document).scrollTop();
+  if (myChart2 != undefined)
+  myChart2.destroy();
+
+  myChart2 = new Chart(bidAskChart, {
+    type: 'line',
+    data: dataY2,
+    options: {
+      // animation: {
+      //   easing: 'linear', // Use your preferred easing function
+      //   duration: 200, // Set an appropriate duration
+      // },
+      scales: {
+        x: {
+          ticks: {
+            maxTicksLimit: labelsX.length // Display all ticks
+          }
+        },
+        y: {
+          beginAtZero: false
+        }
+      }
+    }
+  });
+  $(document).scrollTop(pos2);
+
   // Update labels in the chart data
   myChart.data.labels = labelsX;
+  myChart2.data.labels = labelsX;
 
   // Update 'pop' dataset data
   const currentPopData = newDataArray
@@ -326,7 +394,14 @@ function updateChartWithData(newDataArray) {
     .map((value) => value * 100); // Multiply each value by 100
   myChart.data.datasets[1].data = currentIvData;
 
+  const currentBidData = newDataArray.map((dataObj) => dataObj.bid);
+  myChart2.data.datasets[0].data = currentBidData;
+
+  const currentAskData = newDataArray.map((dataObj) => dataObj.bid);
+  myChart2.data.datasets[1].data = currentAskData;
+
   myChart.update();
+  myChart2.update();
 }
 
 // Function to display the success message box

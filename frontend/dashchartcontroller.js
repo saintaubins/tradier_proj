@@ -267,14 +267,14 @@ function updateChartWithData(newDataArray) {
   dataY = {
     labels: labelsX,
     datasets: [{
-      label: 'POP',
+      label: 'Probability of profit (POP) %',
       data: [],
       fill: false,
       borderColor: 'rgb(140, 140, 140)',
       pointRadius: 0,
       tension: 0.25
     },{
-      label: 'IV',
+      label: 'Implied volitility (IV) %',
       data: [],
       fill: false,
       borderColor: 'rgb(255, 99, 71)',

@@ -314,15 +314,17 @@ function updateChartWithData(newDataArray) {
 
   // Update 'pop' dataset data
   const currentPopData = newDataArray
-  .map((dataObj) => dataObj.pop)
-  .filter((value) => typeof value === 'number');
-  myChart.data.datasets[0].data = currentPopData * 100;
+    .map((dataObj) => dataObj.pop)
+    .filter((value) => typeof value === 'number')
+    .map((value) => value * 100); // Multiply each value by 100
+  myChart.data.datasets[0].data = currentPopData;
 
   // Update 'iv' dataset data
   const currentIvData = newDataArray
-  .map((dataObj) => dataObj.iv)
-  .filter((value) => typeof value === 'number');
-  myChart.data.datasets[1].data = currentIvData * 100;
+    .map((dataObj) => dataObj.iv)
+    .filter((value) => typeof value === 'number')
+    .map((value) => value * 100); // Multiply each value by 100
+  myChart.data.datasets[1].data = currentIvData;
 
   myChart.update();
 }

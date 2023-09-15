@@ -72,7 +72,7 @@ function updateFridaysSelect() {
   let count = 4; // Number of upcoming Fridays to display
   let upcomingFridays = getNextFridays(count);
   let fridaysSelect = document.getElementById("fridaysSelect");
-  console.log('upcomingFridays ', upcomingFridays)
+  //console.log('upcomingFridays ', upcomingFridays)
   // Clear previous options
   fridaysSelect.innerHTML = "";
 
@@ -231,7 +231,7 @@ function populatePositionsTable(data) {
         <td>${data.symbol}</td>
       `;
       positionsDataContainer.appendChild(row);
-}
+  }
 }
 
 let dataY = []

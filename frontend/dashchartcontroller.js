@@ -371,7 +371,7 @@ function updateChartWithData(newDataArray) {
       data: [],
       backgroundColor: 'blue',
     },{
-      label: 'Volume $',
+      label: 'Volume',
       data: [],
       backgroundColor: 'brown',
     }]
@@ -495,7 +495,7 @@ function updateChartWithData(newDataArray) {
   myChart3.data.datasets[3].data = currentCloseData;
 
   const currentVolumeData = newDataArray.map((dataObj) => dataObj.volume);
-  myChart3.data.datasets[3].data = currentVolumeData;
+  myChart3.data.datasets[4].data = currentVolumeData;
 
   myChart.update();
   myChart2.update();

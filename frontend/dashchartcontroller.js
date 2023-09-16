@@ -360,7 +360,7 @@ function updateChartWithData(newDataArray) {
       label: 'Low $',
       data: [],
       fill: false,
-      backgroundColor: 'rgba(255, 99, 132, 0.2)',
+      backgroundColor: 'rgba(255, 0, 132, 0.2)',
       borderColor: 'rgb(8, 8, 8)',
       pointRadius: 0,
       tension: 0.25

@@ -314,14 +314,14 @@ function updateChartWithData(newDataArray) {
       label: 'Probability of profit (POP) %',
       data: [],
       fill: false,
-      borderColor: 'red',
+      borderColor: 'green',
       pointRadius: 0,
       tension: 0.25
     },{
       label: 'Implied volitility (IV) %',
       data: [],
       fill: false,
-      borderColor: 'green',
+      borderColor: 'red',
       pointRadius: 0,
       tension: 0.25
     }]
@@ -333,8 +333,8 @@ function updateChartWithData(newDataArray) {
       label: 'Bid $',
       data: [],
       // fill: false,
-      backgroundColor: 'red',
-      borderColor: 'green',
+      backgroundColor: 'green',
+      borderColor: 'red',
       // borderColor: 'rgb(237,168,57)',
       // pointRadius: 0,
       // tension: 0.25
@@ -342,8 +342,8 @@ function updateChartWithData(newDataArray) {
       label: 'Ask $',
       data: [],
       // fill: false,
-      backgroundColor: 'green',
-      borderColor: 'red',
+      backgroundColor: 'red',
+      borderColor: 'green',
       // borderColor: 'rgb(254,211,211)',
       // pointRadius: 0,
       // tension: 0.25
@@ -356,18 +356,18 @@ function updateChartWithData(newDataArray) {
       label: 'High $',
       data: [],
       // fill: false,
-      backgroundColor: 'red',
-      //borderColor: 'rgb(237,168,57)',
-      // borderWidth: 1,
+      backgroundColor: 'green',
+      borderColor: 'red',
+      borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25
     },{
       label: 'Low $',
       data: [],
       // fill: false,
-      backgroundColor: 'green',
-      //borderColor: 'rgb(254,211,211)',
-      // borderWidth: 1,
+      backgroundColor: 'red',
+      borderColor: 'green',
+      borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25
     }]

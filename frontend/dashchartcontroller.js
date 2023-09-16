@@ -353,7 +353,7 @@ function updateChartWithData(newDataArray) {
       data: [],
       // fill: false,
       backgroundColor: 'red',
-      borderColor: 'rgb(240, 248, 255)',
+      borderColor: 'white',
       borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25
@@ -362,7 +362,7 @@ function updateChartWithData(newDataArray) {
       data: [],
       // fill: false,
       backgroundColor: 'green',
-      borderColor: 'rgb(8, 8, 8)',
+      borderColor: 'black',
       borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25

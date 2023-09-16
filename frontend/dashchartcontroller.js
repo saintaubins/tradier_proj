@@ -485,10 +485,10 @@ function updateChartWithData(newDataArray) {
   myChart3.data.datasets[1].data = currentHighData;
 
   const currentLowData = newDataArray.map((dataObj) => dataObj.low);
-  myChart3.data.datasets[1].data = currentLowData;
+  myChart3.data.datasets[2].data = currentLowData;
 
   const currentCloseData = newDataArray.map((dataObj) => dataObj.close);
-  myChart3.data.datasets[1].data = currentCloseData;
+  myChart3.data.datasets[3].data = currentCloseData;
 
   myChart.update();
   myChart2.update();

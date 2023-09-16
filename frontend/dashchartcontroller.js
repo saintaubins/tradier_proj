@@ -351,21 +351,21 @@ function updateChartWithData(newDataArray) {
     datasets: [{
       label: 'High $',
       data: [],
-      fill: false,
+      // fill: false,
       backgroundColor: 'rgba(255, 99, 132, 0.2)',
       borderColor: 'rgb(240, 248, 255)',
       borderWidth: 1,
-      pointRadius: 0,
-      tension: 0.25
+      // pointRadius: 0,
+      // tension: 0.25
     },{
       label: 'Low $',
       data: [],
-      fill: false,
+      // fill: false,
       backgroundColor: 'rgba(255, 0, 132, 0.2)',
       borderColor: 'rgb(8, 8, 8)',
       borderWidth: 1,
-      pointRadius: 0,
-      tension: 0.25
+      // pointRadius: 0,
+      // tension: 0.25
     }]
   };
 

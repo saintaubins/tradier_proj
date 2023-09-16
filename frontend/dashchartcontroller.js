@@ -357,19 +357,19 @@ function updateChartWithData(newDataArray) {
     datasets: [{
       label: 'Open $',
       data: [],
-      backgroundColor: 'black',
+      backgroundColor: 'red',
     },{
       label: 'High $',
       data: [],
-      backgroundColor: 'green',
+      backgroundColor: 'black',
     },{
       label: 'Low $',
       data: [],
-      backgroundColor: 'red',
+      backgroundColor: 'green',
     },{
       label: 'Close $',
       data: [],
-      backgroundColor: 'white',
+      backgroundColor: 'blue',
     }]
   };
 

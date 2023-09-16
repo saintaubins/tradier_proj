@@ -422,7 +422,7 @@ function updateChartWithData(newDataArray) {
   myChart3.destroy();
 
   myChart3 = new Chart(highLowChart, {
-    type: 'line',
+    type: 'bar',
     data: dataY3,
     options: {
       // animation: {

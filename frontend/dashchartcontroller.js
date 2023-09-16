@@ -260,7 +260,7 @@ let myChart = new Chart(popIvChart, {
 });
 
 let myChart2 = new Chart(bidAskChart, {
-  type: 'line',
+  type: 'bar',
   data: dataY,
   options: {
     // animation: {
@@ -281,7 +281,7 @@ let myChart2 = new Chart(bidAskChart, {
 });
 
 let myChart3 = new Chart(highLowChart, {
-  type: 'line',
+  type: 'bar',
   data: dataY,
   options: {
     // animation: {
@@ -332,17 +332,19 @@ function updateChartWithData(newDataArray) {
     datasets: [{
       label: 'Bid $',
       data: [],
-      fill: false,
-      borderColor: 'rgb(240, 248, 255)',
-      pointRadius: 0,
-      tension: 0.25
+      // fill: false,
+      backgroundColor: 'black',
+      // borderColor: 'rgb(240, 248, 255)',
+      // pointRadius: 0,
+      // tension: 0.25
     },{
       label: 'Ask $',
       data: [],
-      fill: false,
-      borderColor: 'rgb(8, 8, 8)',
-      pointRadius: 0,
-      tension: 0.25
+      // fill: false,
+      backgroundColor: 'white',
+      // borderColor: 'rgb(8, 8, 8)',
+      // pointRadius: 0,
+      // tension: 0.25
     }]
   };
 
@@ -400,7 +402,7 @@ function updateChartWithData(newDataArray) {
   myChart2.destroy();
 
   myChart2 = new Chart(bidAskChart, {
-    type: 'line',
+    type: 'bar',
     data: dataY2,
     options: {
       // animation: {

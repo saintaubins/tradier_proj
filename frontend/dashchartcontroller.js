@@ -333,7 +333,7 @@ function updateChartWithData(newDataArray) {
       label: 'Bid $',
       data: [],
       // fill: false,
-      // backgroundColor: 'red',
+      backgroundColor: 'red',
       borderColor: 'rgb(237,168,57)',
       // pointRadius: 0,
       // tension: 0.25
@@ -341,7 +341,7 @@ function updateChartWithData(newDataArray) {
       label: 'Ask $',
       data: [],
       // fill: false,
-      // backgroundColor: 'green',
+      backgroundColor: 'green',
       borderColor: 'rgb(254,211,211)',
       // pointRadius: 0,
       // tension: 0.25
@@ -355,7 +355,7 @@ function updateChartWithData(newDataArray) {
       data: [],
       // fill: false,
       backgroundColor: 'red',
-      borderColor: 'rgb(237,168,57)',
+      //borderColor: 'rgb(237,168,57)',
       // borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25
@@ -364,7 +364,7 @@ function updateChartWithData(newDataArray) {
       data: [],
       // fill: false,
       backgroundColor: 'green',
-      borderColor: 'rgb(254,211,211)',
+      //borderColor: 'rgb(254,211,211)',
       // borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25

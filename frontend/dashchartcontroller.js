@@ -333,16 +333,16 @@ function updateChartWithData(newDataArray) {
       label: 'Bid $',
       data: [],
       // fill: false,
-      // backgroundColor: 'red',
-      borderColor: 'red',
+      backgroundColor: 'red',
+      borderColor: 'lightred',
       // pointRadius: 0,
       // tension: 0.25
     },{
       label: 'Ask $',
       data: [],
       // fill: false,
-      // backgroundColor: 'green',
-      borderColor: 'green',
+      backgroundColor: 'green',
+      borderColor: 'lightgreen',
       // pointRadius: 0,
       // tension: 0.25
     }]

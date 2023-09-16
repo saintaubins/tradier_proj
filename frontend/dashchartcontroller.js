@@ -354,8 +354,8 @@ function updateChartWithData(newDataArray) {
       label: 'High $',
       data: [],
       // fill: false,
-      // backgroundColor: 'red',
-      borderColor: 'red',
+      backgroundColor: 'red',
+      borderColor: 'rgb(237,168,57)',
       // borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25
@@ -363,8 +363,8 @@ function updateChartWithData(newDataArray) {
       label: 'Low $',
       data: [],
       // fill: false,
-      // backgroundColor: 'green',
-      borderColor: 'green',
+      backgroundColor: 'green',
+      borderColor: 'rgb(254,211,211)',
       // borderWidth: 1,
       // pointRadius: 0,
       // tension: 0.25

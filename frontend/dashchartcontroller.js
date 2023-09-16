@@ -355,23 +355,21 @@ function updateChartWithData(newDataArray) {
   dataY3 = {
     labels: labelsX,
     datasets: [{
+      label: 'Open $',
+      data: [],
+      backgroundColor: 'green',
+    },{
       label: 'High $',
       data: [],
-      // fill: false,
       backgroundColor: 'green',
-      //borderColor: 'green',
-      //borderWidth: 1,
-      // pointRadius: 0,
-      // tension: 0.25
     },{
       label: 'Low $',
       data: [],
-      // fill: false,
-      backgroundColor: 'red',
-      //borderColor: 'red',
-      //borderWidth: 1,
-      // pointRadius: 0,
-      // tension: 0.25
+      backgroundColor: 'black',
+    },{
+      label: 'Close $',
+      data: [],
+      backgroundColor: 'white',
     }]
   };
 
@@ -480,11 +478,17 @@ function updateChartWithData(newDataArray) {
   myChart2.data.datasets[1].data = currentAskData;
 
   // Update Chart 3 Y values
+  const currentOpenData = newDataArray.map((dataObj) => dataObj.open);
+  myChart3.data.datasets[0].data = currentOpenData;
+
   const currentHighData = newDataArray.map((dataObj) => dataObj.high);
-  myChart3.data.datasets[0].data = currentHighData;
+  myChart3.data.datasets[1].data = currentHighData;
 
   const currentLowData = newDataArray.map((dataObj) => dataObj.low);
   myChart3.data.datasets[1].data = currentLowData;
+
+  const currentCloseData = newDataArray.map((dataObj) => dataObj.close);
+  myChart3.data.datasets[1].data = currentCloseData;
 
   myChart.update();
   myChart2.update();

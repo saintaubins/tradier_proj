@@ -357,7 +357,7 @@ function updateChartWithData(newDataArray) {
     datasets: [{
       label: 'Open $',
       data: [],
-      backgroundColor: 'green',
+      backgroundColor: 'black',
     },{
       label: 'High $',
       data: [],
@@ -365,7 +365,7 @@ function updateChartWithData(newDataArray) {
     },{
       label: 'Low $',
       data: [],
-      backgroundColor: 'black',
+      backgroundColor: 'red',
     },{
       label: 'Close $',
       data: [],
